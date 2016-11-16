@@ -54,7 +54,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 main > section {
-    padding: 70px 0;
+    padding: 40px 0;
 }
 
 .btn {
@@ -359,6 +359,22 @@ h1.navbar-brand {
     display: table-cell;
 }
 
+.slide-caption .caption-content .content-box-1{
+	/*margin: 0px 250px 10px;*/
+	margin-bottom: 10px;
+	padding: 20px 0;
+	background-color: rgba(0,158,227, 0.65);
+    color: #fff;
+}
+
+.slide-caption .caption-content .content-box-2{
+	/*margin: 0px 250px 10px;*/
+	margin-bottom: 10px;
+	padding: 20px 0;
+	background-color: rgba(98,98,98, 0.65);
+    color: #fff;
+}
+
 .caption-content h2 {
     color: #fff;
     font-size: 52px;
@@ -534,7 +550,7 @@ h1.navbar-brand {
 }
 
 #about .message-body {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 20px;
     margin-bottom: 70px;
 }
@@ -571,7 +587,43 @@ h1.navbar-brand {
 	Services
 ==================================================================*/
 
-.service-icon {
+/*=================================================================
+	Map
+==================================================================*/
+#show-law-map, #show-based-map{
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5px;
+}
+
+.map-legend-item {
+    margin: 0 1% 1% 0;
+    overflow: hidden;
+    position: relative;
+    width: 32%;
+}
+
+.map-item {
+    margin: 0 0 0 0;
+    overflow: hidden;
+    position: relative;
+    width: 64%;
+}
+
+.legend-item {
+    cursor: pointer;
+    margin: 0 1% 1% 0;
+    overflow: hidden;
+    position: relative;
+    width: 32%;
+	border: 1px solid #009EE3;
+}
+
+/*=================================================================
+	Land use acts
+==================================================================*/
+
+.lu-acts-icon {
     border: 3px solid transparent;
     display: inline-block;
     height: 85px;
@@ -591,13 +643,14 @@ h1.navbar-brand {
             transition: all 0.3s ease 0s;
 }
 
-.service-item:hover .service-icon {
+.lu-acts-icon:hover  {
     border: 3px solid #009ee3;
     margin-bottom: 20px;
     color: #009ee3;
+	cursor: pointer;
 }
 
-.service-icon i {
+.lu-acts-icon i {
     -webkit-transform: rotate(-48deg);
        -moz-transform: rotate(-48deg);
         -ms-transform: rotate(-48deg);
@@ -605,10 +658,15 @@ h1.navbar-brand {
             transform: rotate(-48deg);
 }
 
-.service-item h3 {
+.lu-acts-item h3 {
     font-size: 20px;
     text-transform: uppercase;
 }
+
+.lu-acts-item a:link {
+	color:inherit
+}
+
 
 /*=================================================================
 	Portfolio
@@ -631,13 +689,22 @@ h1.navbar-brand {
     overflow: hidden;
     position: relative;
     width: 32%;
+	border: 1px solid #009EE3;
+}
+
+.portfolio-item  h3{
+	font-size : 20px
+}
+
+.portfolio-item  p{
+	font-size : 14px
 }
 
 figcaption.mask {
     background-color: rgba(54, 55, 50, 0.79);
     bottom: -126px;
     color: #fff;
-    padding: 25px;
+    padding: 10px 20px;
     position: absolute;
     width: 100%;
     text-align: left;
@@ -678,7 +745,7 @@ ul.external li {
 }
 
 ul.external li a {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(200, 200, 200, 0.9);
     color: #818181;
     display: block;
     padding: 10px 18px 13px;
@@ -803,6 +870,11 @@ ul.external li a:hover {
     color: #fff;
 }
 
+/*=================================================================
+	Price
+==================================================================*/
+/*
+
 .price-table {
     border: 1px solid #e3e3e3;
 }
@@ -892,9 +964,6 @@ ul.external li a:hover {
 }
 
 
-/*=================================================================
-	Price
-==================================================================*/
 
 #social {
     background-image: url(../img/slider/banner.jpg);
@@ -942,10 +1011,22 @@ ul.external li a:hover {
     border: 2px solid #008ECC;
 }
 
+*/
 
 /*=================================================================
 	Contact
 ==================================================================*/
+
+
+#contact {
+    background-image: url(../img/slider/banner_1.jpg);
+    padding: 0;
+}
+
+#contact .overlay {
+    background: url("../img/slide_bg.png") repeat scroll 0 0 transparent;
+    padding: 60px 0 50px;
+}
 
 .input-field {
     margin-bottom: 10px;
@@ -978,24 +1059,66 @@ textarea.form-control {
 }
 
 .contact-details h3 {
+	color : #fff;
     border-bottom: 1px solid #008ecc;
-    font-weight: 700;
+    font-weight: 600;
+	margin-top:0px;
     margin-bottom: 15px;
     padding-bottom: 15px;
     text-transform: uppercase;
 }
 
 .contact-details p {
+	color : #fff;
     line-height: 30px;
 }
 
 .contact-details p i {
+	color : #fff;
     margin-right: 10px;
 }
 
 .contact-details span {
     display: block;
     margin-left: 24px;
+}
+
+.msg-submit-icon {
+    border: 0 none;
+    border-radius: 0;
+    color: #fff;
+    padding: 13px 20px;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+}
+
+.msg-submit-icon .fa-paper-plane {
+    position: relative;
+    top: 0;
+    
+    -webkit-transform: translateX(0);
+       -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+         -o-transform: translateX(0);
+            transform: translateX(0);
+
+    -webkit-transition: all 0.3s ease 0.2s;
+       -moz-transition: all 0.3s ease 0.2s;
+        -ms-transition: all 0.3s ease 0.2s;
+         -o-transition: all 0.3s ease 0.2s;
+            transition: all 0.3s ease 0.2s;
+}
+
+.msg-submit-icon:hover .fa-paper-plane {
+    position: relative;
+    top: -37px;
+    
+    -webkit-transform: translateX(30px);
+       -moz-transform: translateX(30px);
+        -ms-transform: translateX(30px);
+         -o-transform: translateX(30px);
+            transform: translateX(30px);
 }
 
 
@@ -1019,7 +1142,7 @@ textarea.form-control {
 
 #footer {
     background-color: #2E2E2E;
-    padding: 70px 0;
+    padding: 0 0 10px 0;
     color: #fff;
 }
 
@@ -1093,7 +1216,7 @@ textarea.form-control {
 }
 
 .footer-content .footer-social {
-    margin: 40px 0 35px;
+    margin: 20px 0 20px;
 }
 
 .footer-social ul {
@@ -1183,7 +1306,15 @@ textarea.form-control {
     .service-item {
         margin-bottom: 50px;
     }
-
+	
+/* service */
+    .map-item {
+        width: 100%;
+    }
+	.legend-item {
+		width: 100%;
+	}
+	
 /* portfolio */
     .portfolio-item {
         width: 48%;
@@ -1288,9 +1419,12 @@ textarea.form-control {
     }
 
 /* service */
-    .service-item {
+    .map-item {
         width: 100%;
     }
+	.legend-item {
+		width: 100%;
+	}
 
 /*portfolio*/
     .portfolio-item {
@@ -1390,11 +1524,13 @@ textarea.form-control {
     }
 
 /* service */
-
-    .service-item {
-        margin: 0 auto 50px;
-        width: 55%;
+    .map-item {
+        margin: 0 auto;
+        width: 100%;
     }
+	.legend-item {
+		width: 100%;
+	}
 
 /* portfolio */
     .portfolio-item {

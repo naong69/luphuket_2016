@@ -150,11 +150,14 @@ $(document).ready(function(){
 		closeEffect : 'elastic',
 		closeSpeed  : 550,
 
-		closeClick : true,
+		closeClick : false,
 			
 		beforeShow: function () {
+			var key = "'"+$(this.element).attr('title')+"'";
 			this.title = $(this.element).attr('title');
-			this.title = '<h3>' + this.title + '</h3>' + '<p>' + $(this.element).parents('.portfolio-item').find('img').attr('alt') + '</p>';
+			this.title = '<h4>' + this.title + '</h4>' + '<p><span sytle="float:right; width: 70%; font-size:20px; display:block">' + 
+			$(this.element).parents('.lu-acts-item').find('p').text() + 
+			'</span><span style="float:right; display:block"><a href="javascript:loadLawDoc('+ key +' ) ">โหลดเอกสารกฏหมาย</a></span></p>';
 		},
 		
 		helpers : {
@@ -167,10 +170,35 @@ $(document).ready(function(){
 				}
 			}
 		}
+		
 	});
-	
+
 });
 
+function loadLawDoc(law){
+	
+	if(law == 'กฏหมายควบคุมอาคาร (๒๕๒๙)'){
+		window.open('acts/pdf/ควบคุมอาคารฉบับที่_15_(2529).pdf', '_blank');
+	}
+	
+	if(law == 'กฏหมายควบคุมอาคาร (๒๕๓๒) '){
+		window.open('acts/pdf/ควบคุมอาคารฉบับที่_20_(2532).pdf', '_blank');
+	}
+	
+	if(law == 'กฏหมายสิ่งแวดล้อม'){
+		window.open('acts/pdf/ประกาศกระทรวงทรัพย์ฯ_(2553).pdf', '_blank');
+	}
+	
+	if(law == 'กฏหมายผังเมืองรวม'){
+		window.open('acts/pdf/ผังเมืองรวมภูเก็ต_(2554).pdf', '_blank');
+		window.open('acts/pdf/ผังเมืองรวมภูเก็ต_(2558).pdf', '_blank');
+	}
+	
+	if(law == 'เทศบัญญัติเทศบาลเมืองป่าตอง'){
+		window.open('acts/pdf/เทศบัญญัติเทศบาลเมืองป่าตอง_(2548).pdf', '_blank');
+	}
+
+}
 
 /* ==========  START GOOGLE MAP ========== */
 
@@ -181,7 +209,7 @@ function init() {
     // Basic options for a simple Google Map
     // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
 
-	    var myLatLng = new google.maps.LatLng(22.402789, 91.822156);
+	    var myLatLng = new google.maps.LatLng(7.894724, 98.352156);
 
 	    var mapOptions = {
 	        zoom: 15,
@@ -253,7 +281,7 @@ function init() {
 
     // Let's also add a marker while we're at it
     var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(22.402789, 91.822156),
+        position: new google.maps.LatLng(7.894724, 98.352156),
         map: map,
 		icon: 'img/icons/map-marker.png',
     });
