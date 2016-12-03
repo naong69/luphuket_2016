@@ -79,7 +79,9 @@ $(function() {
 
 });
 
-
+// index array 
+var index_array;
+var index_json_obj;
 
 $(document).ready(function(){
 
@@ -135,13 +137,20 @@ $(document).ready(function(){
 		singleItem:true,
 		navigationText: ["<i class='fa fa-angle-left fa-lg'></i>","<i class='fa fa-angle-right fa-lg'></i>"]
 	});
+
+	/* ========================================================================= */
+	/*	Legend box
+	/* ========================================================================= */	
 	
+	$("#legend-phuket").show();
+	//$("#legend-validate").show();
+	//$("#legend-act-cp").show()
 	
 	/* ========================================================================= */
 	/*	Featured Project Lightbox
 	/* ========================================================================= */
 
-	$(".fancybox").fancybox({
+	$(".acts-fancybox").fancybox({
 		padding: 0,
 
 		openEffect : 'elastic',
@@ -172,8 +181,157 @@ $(document).ready(function(){
 		}
 		
 	});
+	/*
+	$("#validate-btn").on('click',function(){
+		$(".result-fancybox").fancybox({
+			href : 'php/lu_act_validate.php?data='+mapZone+'&index='+$('#oper-prod-index').val(),
+			width         : '75%',
+			height        : '700',
+			autoScale     : false,
+			transitionIn  : 'elastic',
+			transitionOut : 'elastic',
+			type          : 'iframe',
+			
+			helpers : {
+				overlay : {
+					css : {
+						'background' : 'rgba(0,0,0,0.8)'
+					}
+				}
+			}
+			
+		});
+		
+	});
+	*/
+	
+	$('#validate-btn').click(function(){
+		 if(twoZone) {
+			if(vectorLayer.getVisible())
+				vectorLayer.setVisible(false)
+			$('#zoom-alert').fadeIn().delay(2500).fadeOut();
+			return false;
+		 } else if($('#oper-prod-index').val()=="-") {
+			$('#oper-prod-index').parent().addClass('form-control-error')
+			if($('#category-index').val()=="-")
+				$('#category-index').parent().addClass('form-control-error')
+			if($('#group-index').val()=="-")
+				$('#group-index').parent().addClass('form-control-error')
+			 //$("#validate-msg").show();
+			return false;
+		 } else {
+			 //alert(mapZone);
+			 //alert($('#oper-prod-index').val());
+			$(".result-fancybox").fancybox({
+				href : 'php/lu_act_validate.php?data='+mapZone+'&index='+$('#oper-prod-index').val(),
+				width         : '75%',
+				height        : '700',
+				autoScale     : false,
+				transitionIn  : 'elastic',
+				transitionOut : 'elastic',
+				type          : 'iframe',
+				
+				helpers : {
+					overlay : {
+						css : {
+							'background' : 'rgba(0,0,0,0.8)'
+						}
+					}
+				}
+				
+			}); 
+			 
+		 }
+	});
+
+	$('#category-index').change(function(){
+		// remove error 
+		$('#category-index').parent().removeClass('form-control-error')
+		
+		if($('#category-index').val()!="-"){
+			//fill options based on category-index
+			$('#group-index').find('option').not(':first').remove();
+				// get indexs
+				$.post( "php/get_indexs.php",{ cat: $('#category-index').val() }, function (j){
+					index_json_obj = $.parseJSON(j);
+					$.each(index_json_obj, function() {
+						$('#group-index').append($('<option>', {
+							value: this['group_index'],
+							text: this['group_name']
+						}));
+					});
+				});
+				
+			// enable group-index select
+			$('#group-index').prop('disabled', false);
+		} else {
+			$('#group-index').prop('disabled', true);
+			$('#group-index').val("-");
+			$('#oper-prod-index').prop('disabled', true);
+			$('#oper-prod-index').val("-");
+			$('#category-index').parent().addClass('form-control-error')
+		}
+		
+	});
+
+	$('#group-index').change(function(){
+		// remove error 
+		$('#group-index').parent().removeClass('form-control-error')
+		
+		if($('#group-index').val()!="-"){
+			//fill options based on category-index
+			$('#oper-prod-index').find('option').not(':first').remove();
+			$.post( "php/get_indexs.php",{ group: $('#group-index').val() }, function (j){
+					index_json_obj = $.parseJSON(j);
+					$.each(index_json_obj, function() {
+						$('#oper-prod-index').append($('<option>', {
+							value: this['indexID'],
+							text: this['oper_prod_name']
+						}));
+					});
+				});
+			// enable group-index select
+			$('#oper-prod-index').prop('disabled', false);
+		} else {
+			$('#group-index').parent().addClass('form-control-error');
+			$('#oper-prod-index').prop('disabled', true);
+			$('#oper-prod-index').val("-");
+		}
+		
+	});
+
+	$('#oper-prod-index').change(function(){
+		// remove error 
+		$('#oper-prod-index').parent().removeClass('form-control-error');
+		
+		if($('#oper-prod-index').val()=="-")
+			$('#oper-prod-index').parent().addClass('form-control-error');
+	});
+
+		
 
 });
+
+
+function validateInit(){
+	
+	$('#category-index').parent().removeClass('form-control-error');
+	$('#category-index').val("-");
+	if(vectorLayer.getVisible() == true){
+		$('#category-index').prop('disabled', false);
+	} else {
+		$('#category-index').prop('disabled', true);
+	}
+
+	$('#group-index').parent().removeClass('form-control-error');
+	$('#group-index').val("-");
+	$('#group-index').prop('disabled', true);
+	
+	$('#oper-prod-index').parent().removeClass('form-control-error');
+	$('#oper-prod-index').val("-");
+	$('#oper-prod-index').prop('disabled', true);
+}
+
 
 function loadLawDoc(law){
 	

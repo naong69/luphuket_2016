@@ -309,14 +309,15 @@
         var source = untiled.get('visible') ? untiled.getSource() : tiled.getSource();
         var url_ = source.getGetFeatureInfoUrl(
           evt.coordinate, viewResolution, view.getProjection(),
-          {'INFO_FORMAT': 'text/javascript', 'FEATURE_COUNT': 50});
+          {'INFO_FORMAT': 'text/html', 'FEATURE_COUNT': 50});
+
         if (url_) {
+			
+            //$.ajax( url_ ,{dataType: "xml"}).done(function ( data ) {
+    		//		console.log('done will never be called, unfortunately...');
+			//});
 
-            $.ajax( url_ , { dataType: "jsonp" }).done(function ( data ) {
-    				console.log('done will never be called, unfortunately...');
-			});
-
-         	//getZone(url_)
+         	getZone(url_)
           
         }
       });
@@ -438,9 +439,10 @@
 
 		//method 1 (proxy)
 		function getZone(url_) {
-			$.post( "geoserver_mid/get_zone.php", { url: url_ }, function (data){
-				obj = $.parseJSON(data);
-				return obj.features[0].properties.zone
+
+			$.post( "geoserver_mid/test.xml", { url: url_ }, function (xml){
+				var count_feature = $(xml).find('feature').length 
+				alert(a)
 			} );
 		};
 		

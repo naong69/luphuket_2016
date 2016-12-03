@@ -85,7 +85,74 @@
 			.fancybox-nav {
 			  display:none;
 			}
-				
+			 
+			.table > tbody > tr > td {
+				padding: 4px;
+			}
+			
+			.table {
+				margin-bottom: 0px;
+			}
+			
+			.legend-table td {
+				font-size:15px; 
+			}
+			
+			/* custom panel from bootstarp */
+			.panel-primary {
+				border-color: #009ee3;
+			}
+			
+			.panel-primary > .panel-heading {
+				background-color: #009ee3;
+				border-color: #009ee3;
+				color: #fff;
+			}
+			
+			/* DivTable */
+			.divTable{
+				display: table;
+				width: 100%;
+			}
+			.divTableRow {
+				display: table-row;
+			}
+			.divTableHeading {
+				background-color: #EEE;
+				display: table-header-group;
+			}
+			.divTableCell, .divTableHead {
+				border: 0px;
+				display: table-cell;
+				padding: 5px 10px;
+			}
+			.divTableHeading {
+				background-color: #EEE;
+				display: table-header-group;
+				font-weight: bold;
+			}
+			.divTableFoot {
+				background-color: #EEE;
+				display: table-footer-group;
+				font-weight: bold;
+			}
+			.divTableBody {
+				display: table-row-group;
+			}
+			
+			.form-group {
+				margin-bottom: 5px;
+			}
+
+			.form-control {
+				height: 35px;
+			}
+			
+			.form-control-error {
+			  border-color: #FF0000;
+			  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+			}
+			
 		</style>
 		<link rel="stylesheet" href="https://openlayers.org/en/v3.19.1/css/ol.css" type="text/css">
 		<!--<link rel="stylesheet" href="openlayer_3/v3.19.1/css/ol.css" type="text/css">
@@ -291,7 +358,7 @@
 					
 						<div class="sec-title text-center">
 							<h2 class="wow animated bounceInLeft">บริการ</h2>
-							<p class="wow animated bounceInRight"><h3>ตรวจสอบกฎหมายการใช้ประโยชน์ที่ดินบนพื้นที่ของท่าน</h3></p>
+							<p class="wow animated bounceInRight"><h3>ตรวจสอบพื้นที่ของท่านตามกฎหมายการใช้ประโยชน์ที่ดิน</h3></p>
 						</div>
 						
 						<!-- map -->
@@ -300,25 +367,24 @@
 							<li class="map-item">
 							
 								<div id="show-law-map" class="btn-group" role="group">
-									<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+									<button type="button" class="btn btn-success dropdown-toggle" style="font-size: 15px;" data-toggle="dropdown" aria-expanded="false">
 									  แสดงแผนที่กฏหมาย <span class="caret"></span>
 									</button>
-									<ul class="dropdown-menu" role="menu">
+									<ul class="dropdown-menu" role="menu" style="font-size: 15px;">
 									  <li><a href="javascript:changeLawMap('boundary');">เขตการปกครอง - พื้นที่สาธราณะ</a></li>
-									  <li class="divider"></li>
 									  <li><a href="javascript:changeLawMap('envi');">กฏหมายสิ่งแวดล้อม (พ.ศ. ๒๕๕๓)</a></li>
 									  <li><a href="javascript:changeLawMap('bc15');">กฏหมายควบคุมอาคาร ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙)</a></li>
 									  <li><a href="javascript:changeLawMap('bc20');">กฏหมายควบคุมอาคาร ฉบับที่ ๒๐ (พ.ศ. ๒๕๓๒)</a></li>
-									  <li><a href="javascript:changeLawMap('cp');">กฏหมายผังเมือง ฉบับที่ ๔ (พ.ศ. ๒๕๒๘)</a></li>
+									  <li><a href="javascript:changeLawMap('cp');">กฏหมายผังเมือง ฉบับที่ ๔ (พ.ศ. ๒๕๕๘)</a></li>
 									  <li><a href="javascript:changeLawMap('patong');">เทศบัญญัติ เทศบาลเมืองป่าตอง</a></li>
 									</ul>
 								</div>
 							
 								<div id="show-based-map" class="btn-group" role="group">
-									<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+									<button type="button" class="btn btn-info dropdown-toggle" style="font-size: 15px;" data-toggle="dropdown" aria-expanded="false">
 									  แสดงแผนที่ฐาน <span class="caret"></span>
 									</button>
-									<ul class="dropdown-menu" role="menu">
+									<ul class="dropdown-menu" role="menu" style="font-size: 15px;">
 									  <li><a href="javascript:changeBasedMap('hybrid');">ภาพถ่ายทางอากาศ</a></li>
 									  <li><a href="javascript:changeBasedMap('road');">แผนที่ถนน</a></li>
 									</ul>
@@ -340,16 +406,167 @@
 							</li>
 							
 							
-							<li class="legend-item" style="margin: 0 0 0 0;">
-								<img src="img/portfolio/item2.jpg" class="img-responsive" alt="Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. ">
-								<figcaption class="mask">
-									<h3>Wall street</h3>
-									<p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p>
-								</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Wall street" href="img/slider/banner.jpg" data-fancybox-group="works" ><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
+							<li class="legend-item">
+								<div id="legend-phuket" class="legend-box">
+									<div class="panel panel-primary">
+										<div class="panel-heading">จังหวัดภูเก็ต</div>
+										<div class="panel-body table-responsive">
+											<table class="table table-hover legend-table">
+												<tr><td><img src="map/img/public/boundary.png" height="15px" width="30px"></td><td class="text-left">เส่นขอบเขตการปกครอง</td></tr>
+												<tr><td><img src="map/img/public/water.png" height="15px" width="30px"></td><td class="text-left">แหล่งน้ำสาธารณะ</td></tr>
+												<tr><td><img src="map/img/public/power_line.png" height="15px" width="30px"></td><td class="text-left">แนวสายส่งไฟฟ้าแรงสูง การไฟฟ้าฝ่ายผลิต</td></tr>
+												<tr><td><img src="map/img/public/road.png" height="15px" width="30px"></td><td class="text-left">ถนนสาธารณะ</td></tr>
+											</table>
+										</div>
+										<div class="panel-footer" style="font-size: 14px">
+											<p class="text-left"><b>จังหวัดภูเก็ต</b> มีลักษณะเป็นเกาะซึ่งมีขนาดใหญ่ที่สุดของประเทศไทยมีพื้นที่ทั้งหมดประมาณ 570.034 ตารางกิโลเมตร ที่เหลือนั้นเป็นพื้นที่ของเกาะภูเก็ตอยู่ห่างจากกรุงเทพฯ 867 กิโลเมตร</p>
+											<br>
+											<p class="text-left"><b>จังหวัดภูเก็ต</b> แบ่งการบริหารราชการส่วนภูมิภาค ออกเป็น 3 อำเภอ คือ <b>อำเภอเมืองภูเก็ต อำเภอกะทู้ อำเภอถลาง </b> ประกอบด้วย13 ตำบล และ 96 หมู่บ้าน  <br>
+											การบริหารราชการส่วนท้องถิ่น ประกอบด้วย องค์การบริหารส่วนจังหวัด 1 แห่ง เทศบาล 12 แห่ง และองค์การบริหารส่วนตำบลอีก 6 แห่ง</p>
+										</div>
+									</div>
+								</div>
+								<div id="legend-act-envi" class="legend-box">
+									<div class="panel panel-primary">
+										<div class="panel-heading">กฏหมายสิ่งแวดล้อม (พ.ศ. ๒๕๕๓)</div>
+										<div class="panel-body table-responsive">
+											<table class="table table-hover legend-table">
+												<tr><td><img src="map/img/envi/zone_1.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่วัดจากแนวชายฝั่งทะเลรอบเกาะภูเก็ตเข้าไปในแผ่นดินเป็นระยะ ๕๐ เมตร</td></tr>
+												<tr><td><img src="map/img/envi/zone_2.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่วัดจากแนวเขตบริเวณที่ ๑เข้าไปในแผ่นดินเป็นระยะ ๑๕๐ เมตร</td></tr>
+												<tr><td><img src="map/img/envi/zone_3.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่วัดจากแนวเขตบริเวณที่ ๒ เข้าไปในแผ่นดินเป็นระยะ ๑๕๐ เมตร</td></tr>
+												<tr><td><img src="map/img/envi/zone_4.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ในเขตเทศบาลนครภูเก็ต</td></tr>
+												<tr><td><img src="map/img/envi/zone_5.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ดินประเภทชนบทและเกษตรกรรม</td></tr>
+												<tr><td><img src="map/img/envi/zone_6.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่มีความสูงจากระดับน้ำทะเลปานกลางตั้งแต่ ๔๐ - ๘๐ เมตร</td></tr>
+												<tr><td><img src="map/img/envi/zone_7.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่มีความสูงจากระดับน้ำทะเลปานกลางเกินกว่า ๘๐ เมตร ขึ้นไป</td></tr>
+												<tr><td><img src="map/img/envi/zone_8.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ในเกาะภูเก็ตและเกาะต่าง ๆ นอกจากบริเวณที่ ๑ถึง บริเวณที่ ๗</td></tr>
+												<tr><td><img src="map/img/envi/zone_9.png" height="15px" width="30px"></td><td class="text-left">พื้นที่น่านน้ำทะเลภายในเขตจังหวัดภูเก็ต</td></tr>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div id="legend-act-bc15" class="legend-box">
+									<div class="panel panel-primary">
+										<div class="panel-heading">กฏหมายควบคุมอาคาร ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙)</div>
+										<div class="panel-body table-responsive">
+											<table class="table table-hover legend-table">
+												<tr><td><img src="map/img/building/zone_1.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ในเขตตำบลป่าตองที่วัดจากแนวชายฝั่งลงไปในทะเล ๑๐๐ เมตร และวัดจากแนวชายฝั่งเข้าไปในแผ่นดินเป็นระยะ ๕๐ เมตร</td></tr>
+												<tr><td><img src="map/img/building/zone_2.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่วัดจากแนวเขตบริเวณที่ ๑ เข้าไปในแผ่นดิน เป็นระยะ ๑๕๐ เมตร</td></tr>
+												<tr><td><img src="map/img/building/zone_3.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่วัดจากแนวเขตบริเวณที่ ๒เข้าไปในแผ่นดินเป็นระยะ ๓๐๐ เมตร</td></tr>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div id="legend-act-bc20" class="legend-box">
+									<div class="panel panel-primary">
+										<div class="panel-heading">กฏหมายควบคุมอาคาร ฉบับที่ ๒๐ (พ.ศ. ๒๕๓๒)</div>
+										<div class="panel-body table-responsive">
+											<table class="table table-hover legend-table">
+												<tr><td><img src="map/img/building/zone_1.png" height="15px" width="30px"></td><td class="text-left">พื้นที่วัดจากแนวชายฝั่งตะวันตกของเกาะภูเก็ตลงไปในทะเล ๑๐๐ เมตร และวัดจากแนวชายฝั่งเข้าไปในแผ่นดินเป็นระยะ ๕๐ เมตร ยกเว้นพื้นที่ตามกฏหมายควบคุมอาคาร ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙)</td></tr>
+												<tr><td><img src="map/img/building/zone_2.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่วัดจากแนวเขตบริเวณที่ ๑ เข้าไปในแผ่นดิน เป็นระยะ ๑๕๐ เมตร</td></tr>
+												<tr><td><img src="map/img/building/zone_3.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่วัดจากแนวเขตบริเวณที่ ๒เข้าไปในแผ่นดินเป็นระยะ ๓๐๐ เมตร</td></tr>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div id="legend-act-cp" class="legend-box">
+									<div class="panel panel-primary">
+										<div class="panel-heading">กฏหมายผังเมือง ฉบับที่ ๔ (พ.ศ. ๒๕๕๘)</div>
+										<div class="panel-body ">
+										<div class="table-responsive">
+											<table class="table table-hover legend-table">
+												<tr><td><img src="map/img/city_plan/zone_1.png" height="15px" width="30px"></td><td class="text-left"> ที่ดินประเภทที่อยู่อาศัยหนาแน่นน้อย</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_2.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทที่อยู่อาศัยหนาแน่นปานกลาง</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_3.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทพาณิชยกรรมและที่อยู่อาศัยหนาแน่นมาก</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_4.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทอุตสาหกรรมเฉพาะกิจ</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_5.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทอุตสาหกรรมและคลังสินค้า </td></tr>
+												<tr><td><img src="map/img/city_plan/zone_6.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทชนบทและเกษตรกรรม</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_7.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทที่โล่งเพื่อการรักษาคุณภาพสิ่งแวดล้อม</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_8.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทอนุรักษ์ป่าไม้</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_9.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทสถาบันการศึกษา</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_10.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทที่โล่งเพื่อการรักษาคุณภาพการท่องเที่ยวและการประมง</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_11.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทที่โล่งเพื่อนันทนาการและการรักษาคุณภาพสิ่งแวดล้อมชายฝั่งทะเล</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_12.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทอนุรักษ์ทรัพยากรธรรมชาติและการรักษาคุณภาพสิ่งแวดล้อมชายฝั่งทะเล</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_13.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทอนุรักษ์เพื่อส่งเสริมเอกลักษณ์ศิลปวัฒนธรรมไทย</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_14.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทสถาบันศาสนา</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_15.png" height="15px" width="30px"></td><td class="text-left">ที่ดินประเภทสถาบันราชการ</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_16.png" height="15px" width="30px"></td><td class="text-left"> ที่ดินประเภทโครงการคมนาคมและขนส่ง</td></tr>
+											</table>
+										</div>
+										</div>
+									</div>
+								</div>
+								<div id="legend-act-patong" class="legend-box">
+									<div class="panel panel-primary">
+										<div class="panel-heading">เทศบัญญัติ เทศบาลเมืองป่าตอง (พ.ศ. ๒๕๔๘)</div>
+											<div class="panel-body table-responsive">
+												<table class="table table-hover legend-table">
+													<tr><td><img src="map/img/building/zone_2.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ในบริเวณเทศบาลเมืองป่าตอง เว้นแต่พื้นที่บริเวณที่ ๒ และพื้นที่ตามกฎหมายควบคุมอาคาร ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙) และ ฉบับที่ ๒๐ (พ.ศ. ๒๕๓๒)</td></tr>
+													<tr><td><img src="map/img/building/zone_1.png" height="15px" width="30px"></td>
+													<td class="text-left">
+														<dd><b>ทิศเหนือ: </b>จุดที่บรรจบเขตถนนราษฎร์อุทิศ ๒๐๐ ปีฟากตะวันออก กับเขตทางหลวงแผ่นดินหมายเลข ๔๐๒๙ ฟากใต้ ไปทางทิศตะวันออกจดเขตถนนผังเมืองสาย ก ฟากตะวันตก
+																และจุดที่บรรจบเขตถนนผังเมืองสาย ก กับเขตถนนไสน้ำเย็นฟากใต้ไปทางทิศตะวันออกจดเขตถนนนาในฟากตะวันตก</dd>
+														<dd><b>ทิศตะวันออก: </b>จดเขตถนนนาในฟากตะวันตก</dd>
+														<dd><b>ทิศใต้: </b>จุดที่บรรจบเขตถนนราษฎร์อุทิศ ๒๐๐ ปีฟากตะวันออก กับเขตถนนประชานุเคราะห์ ฟากเหนือไปทางทิศตะวันออกจดเขตถนนนาในฟากตะวันตก</dd>
+														<dd><b>ทิศตะวันตก: </b>จดเขตถนนราษฎร์อุทิศ ๒๐๐ ปีฟากตะวันออก</dd>
+														<br>
+														<b>ทั้งนี้ ไม่รวมถึงสถานที่ราชการ สถาบันการศึกษา ศาสนสถาน และที่สาธารณประโยชน์</b>
+													</td></tr>
+												</table>
+											</div>
+										</div>
+									</div>
+								<div>
+								<div id="legend-validate" class="legend-box">
+									<div class="panel panel-primary">
+										<div class="panel-heading">กรุณาเลือกประเภทสิ่งปลูกสร้าง</div>
+											<div class="panel-body table-responsive">
+												<div class="divTable">
+												<div class="divTableBody">
+													<div class="divTableRow">
+														<div class="divTableCell text-left" style="width: 25px">กลุ่ม: </div>
+														<div class="divTableCell text-left">
+															<div class="form-group">
+															  <select id="category-index" class="form-control">
+																<option value="-" selected>- สิ่งปลูกสร้างตามกลุ่ม -</option>
+																<option value="B">อาคารพาณิชย์</option>
+																<option value="L">อาคารที่อยู่อาศัย</option>
+																<option value="P">อาคารสาธารณะ</option>
+																<option value="F">โรงงาน</option>
+																<option value="I">โครงสร้างพื้นฐาน</option>
+																<option value="G">สถานที่เกี่ยวกับน้ำมันเชื้อเพลิงและก๊าซ</option>
+															  </select>
+															</div>
+														</div>
+													</div>
+													<div class="divTableRow">
+														<div class="divTableCell text-left">ประเภท: </div>
+														<div class="divTableCell text-left">
+															<div class="form-group">
+															  <select id="group-index" class="form-control" disabled>
+																<option value="-" selected>- สิ่งปลูกสร้างตามประเภท -</option>
+															  </select>
+															</div>
+														</div>
+													</div>
+													<div class="divTableRow">
+														<div class="divTableCell text-left">กิจการ: </div>
+														<div class="divTableCell text-left">
+															<div class="form-group">
+															  <select id="oper-prod-index" class="form-control" disabled>
+																<option value="-" selected>- กิจการ หรือการดำเนินงาน -</option>
+															  </select>
+															</div>
+														</div>
+													</div>
+												</div>
+												</div>
+												<!--
+												<div id="validate-msg" style="display: none"><span style="color : red; font-weight:bold; font-size: 15px; margin: 10px 0px">กรุณาเลือกกิจการของสิ่งปลูกสร้าง</span></div>
+												-->
+												<button id="validate-btn" class="btn btn-success result-fancybox" type="button" style="font-size: 16px" >ตรวจสอบการใช้ประโชยน์ที่ดิน</button>
+											</div>
+									</div>
+							
 							</li>
 			
 						</ul>					
@@ -370,7 +587,7 @@
 						
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn">
 							<div class="lu-acts-item">
-								<a class="fancybox" title="กฏหมายสิ่งแวดล้อม" data-fancybox-group="works" href="img/portfolio/2012_lu_town_plan.jpg">
+								<a class="acts-fancybox" title="กฏหมายสิ่งแวดล้อม" data-fancybox-group="works" href="img/portfolio/2012_lu_town_plan.jpg">
 									<div class="lu-acts-icon"><i class="fa fa-envira fa-3x"></i></div>
 								</a>
 								<h3>กฏหมายสิ่งแวดล้อม </h3>
@@ -380,7 +597,7 @@
 					
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s">
 							<div class="lu-acts-item">
-								<a class="fancybox" title="กฏหมายควบคุมอาคาร (๒๕๒๙)" data-fancybox-group="works" href="img/portfolio/2012_lu_town_plan.jpg">	
+								<a class="acts-fancybox" title="กฏหมายควบคุมอาคาร (๒๕๒๙)" data-fancybox-group="works" href="img/portfolio/2012_lu_town_plan.jpg">	
 									<div class="lu-acts-icon"><i class="fa fa-building fa-3x"></i></div>
 								</a>
 								<h3>กฏหมายควบคุมอาคาร (๒๕๒๙)</h3>
@@ -390,7 +607,7 @@
 					
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s">
 							<div class="lu-acts-item">
-								<a class="fancybox" title="กฏหมายควบคุมอาคาร (๒๕๓๒) " data-fancybox-group="works" href="img/portfolio/2012_lu_town_plan.jpg">	
+								<a class="acts-fancybox" title="กฏหมายควบคุมอาคาร (๒๕๓๒) " data-fancybox-group="works" href="img/portfolio/2012_lu_town_plan.jpg">	
 									<div class="lu-acts-icon"><i class="fa fa-home fa-3x"></i></div>
 								</a>
 								<h3>กฏหมายควบคุมอาคาร (๒๕๓๒) </h3>
@@ -400,7 +617,7 @@
 					
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
 							<div class="lu-acts-item">
-								<a class="fancybox" title="กฏหมายผังเมืองรวม" data-fancybox-group="works" href="acts/infographic/policy-horz.jpg">
+								<a class="acts-fancybox" title="กฏหมายผังเมืองรวม" data-fancybox-group="works" href="acts/infographic/policy-horz.jpg">
 									<div class="lu-acts-icon"><i class="fa fa-map fa-3x"></i></div>
 								</a>
 								<h3>กฏหมายผังเมืองรวม</h3>
@@ -410,7 +627,7 @@
 						
 						<div class="col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
 							<div class="lu-acts-item">
-								<a class="fancybox" title="เทศบัญญัติเทศบาลเมืองป่าตอง" data-fancybox-group="works" href="img/portfolio/2012_lu_town_plan.jpg">	
+								<a class="acts-fancybox" title="เทศบัญญัติเทศบาลเมืองป่าตอง" data-fancybox-group="works" href="img/portfolio/2012_lu_town_plan.jpg">	
 									<div class="lu-acts-icon"><i class="fa fa-fire fa-3x"></i></div>
 								</a>
 								<h3>เทศบัญญัติเทศบาลเมืองป่าตอง</h3>
@@ -809,7 +1026,6 @@
         <script src="js/wow.min.js"></script>
 		<!-- Custom Functions -->
         <script src="js/main.js"></script> 
-		
 		<script src="js-map/map.js"></script>
 		
   </body>

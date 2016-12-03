@@ -257,6 +257,13 @@ var map = new ol.Map({
   })
 });
 
+var map_obj_array = [tileWMSLayer_Pk_Envi_2553,
+	tileWMSLayer_Pk_Cp_2558,
+	tileWMSLayer_Pk_Bc_15,
+	tileWMSLayer_Pk_Bc_20,
+	tileWMSLayer_Pk_Patong_Lu_Act_2548]
+
+
 // custom zoom control
 map.addControl(new ol.control.Zoom({
     zoomInTipLabel: 'ขยายเข้า',
@@ -296,6 +303,8 @@ function changeLawMap(lawmap){
 		vectorLayer.setVisible(false);
 		map.getView().setCenter(center);
 		map.getView().setZoom(11);
+		$(".legend-box").hide();
+		$("#legend-phuket").show()
 	}
 	
 	if(lawmap == 'envi'){
@@ -312,6 +321,8 @@ function changeLawMap(lawmap){
 		vectorLayer.setVisible(false);
 		map.getView().setCenter(center);
 		map.getView().setZoom(11);
+		$(".legend-box").hide();
+		$("#legend-act-envi").show()
 	}
 	
 	if(lawmap == 'bc15'){
@@ -328,6 +339,8 @@ function changeLawMap(lawmap){
 		vectorLayer.setVisible(false);
 		map.getView().setCenter([10941407,882399]);
 		map.getView().setZoom(14);
+		$(".legend-box").hide();
+		$("#legend-act-bc15").show()
 	}
 	
 	if(lawmap == 'bc20'){
@@ -344,6 +357,8 @@ function changeLawMap(lawmap){
 		vectorLayer.setVisible(false);
 		map.getView().setCenter(center);
 		map.getView().setZoom(11);
+		$(".legend-box").hide();
+		$("#legend-act-bc20").show()
 	}
 	
 	if(lawmap == 'cp'){
@@ -360,6 +375,8 @@ function changeLawMap(lawmap){
 		vectorLayer.setVisible(false);
 		map.getView().setCenter(center);
 		map.getView().setZoom(11);
+		$(".legend-box").hide();
+		$("#legend-act-cp").show()
 	}
 	
 	if(lawmap == 'patong'){
@@ -376,18 +393,26 @@ function changeLawMap(lawmap){
 		vectorLayer.setVisible(false);
 		map.getView().setCenter([10942415,882202]);
 		map.getView().setZoom(14);
+		$(".legend-box").hide();
+		$("#legend-act-patong").show()
 	}
 	
 	
 }
 
+var mapZone;
+var twoZone;
+
  map.on('singleclick', function(evt) {
+	mapZone = [];
+	twoZone = false;
         //document.getElementById('nodelist').innerHTML = "Loading... please wait...";
     var view = map.getView();
 	if(view.getZoom() < 16){ // need to zoom more
 		if(vectorLayer.getVisible())
 			vectorLayer.setVisible(false)
 		$('#zoom-alert').fadeIn().delay(2500).fadeOut();
+		validateInit();
 	} else { //
 		pointMarker.getGeometry().setCoordinates(evt.coordinate)
 		vectorLayer.setVisible(true);
@@ -405,57 +430,56 @@ function changeLawMap(lawmap){
 				if (count_feature != 0){ // click on public area polygon
 					vectorLayer.setVisible(false)
 					$('#public-area-alert').fadeIn().delay(2500).fadeOut();
-				} else { // start check zone for each acts
+					validateInit();
+				} else { 
+					// show select dropdown
+					$(".legend-box").hide();
+					$("#legend-validate").show();
+					validateInit();
 					
-					//alert("2")
+					mapZone = [];
+					// start check zone for each acts
+					$.each(map_obj_array, function(index, value){
+						var source =  value.getSource();
+						var url_ = source.getGetFeatureInfoUrl(
+						evt.coordinate, viewResolution, view.getProjection(),
+						{'INFO_FORMAT': 'text/html', 'FEATURE_COUNT': 50});
+						if(url_){
+							$.post( "geoserver_mid/get_zone.php", { url: url_ }, function (xml){
+								var count_feature = $(xml).find('feature').length 
+								if (count_feature == 1){
+									$layer = $(xml).find( 'feature-id' );
+									$zone = $(xml).find( 'zone' );
+									mz = $layer.text()+":"+$zone.text();
+									mapZone.push(mz)
+								} else if (count_feature > 1) { // more than 1 zone is selected
+									if(vectorLayer.getVisible())
+										vectorLayer.setVisible(false)
+									$('#zoom-alert').fadeIn().delay(2500).fadeOut();
+									twoZone = true;
+								}
+							});	
+						}
+						
+					});
 				}
-			} );
-			
-			
-			getZone(url);
-			//$.ajax( url , { dataType: "jsonp" }).done(function ( data ) {
-			//	console.log('done will never be called, unfortunately...');
-			//});
+			});
 		}
 	}
+
 });
 
 
-//method 1 (proxy)
-function getZone(url_) {
-	$.post( "geoserver_mid/get_zone.php", { url: url_ }, function (xml){
-		var count_feature = $(xml).find('feature').length 
-		if (count_feature == 1){
-			$layer = $(xml).find( 'feature-id' );
-			$zone = $(xml).find( 'zone' );
-			alert("layer : "+$layer.text()+", zone : "+$zone.text())
-		} else if (count_feature > 1) { // more than 1 zone is selected
-			
-			alert("2")
-		}
-		/*
-		xmlDoc = $.parseXML(data);
-		$xml = $( xmlDoc )
-		alert("ff")
-		$features = $xml.find( "feature" )
-		alert("gg")
-		alert($features.length())
-		alert($festures.size())
-		$zone = $xml.find( "zone" );
-		$id_ = $xml.find( "id" );
-		alert($id_+" : "+$zone.text());
-		*/
-	} );
-};
 
-// ajax geoserver callback function for jsonp 
-function parseResponse(data) {
-	if(data.features.length == 1){
-		map_id = data.features[0].id
-		zone = data.features[0].properties.zone
-			alert(map_id+" : "+zone);
-	} else {
-		// in case selecting out of zone or multiple zones
-	}
-}
+
+
+
+
+
+
+
+
+
+
+
 

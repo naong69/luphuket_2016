@@ -81,6 +81,16 @@ main > section {
     background-color: #009EE3;
 }
 
+.validate-btn {
+	background-color: rgba(0,158,227, 0.78);
+	padding: 10px 35px;
+    color: #fff;
+}
+
+.validate-btn:hover, .validate-btn:focus {
+	background-color: rgba(0,158,227, 0.60);
+}
+
 /* Sweep To Right */
 .btn-effect {
 	vertical-align: middle;
@@ -604,19 +614,36 @@ h1.navbar-brand {
 }
 
 .map-item {
-    margin: 0 0 0 0;
+    margin: 3px 0 0 0;
     overflow: hidden;
     position: relative;
     width: 64%;
 }
 
 .legend-item {
-    cursor: pointer;
-    margin: 0 1% 1% 0;
+    margin: 40px 1% 1% 0;
     overflow: hidden;
     position: relative;
     width: 32%;
-	border: 1px solid #009EE3;
+	vertical-align: top;
+}
+
+.legend-box {
+	display : none;
+}
+
+.legend-zone {
+	float: left;
+	width: 100%;
+	font-size:15px;
+	display: table-cell;
+}
+
+.legend-zone {
+	float: left;
+	width: 100%;
+	font-size:15px;
+	display: table-cell;
 }
 
 /*=================================================================
@@ -1310,6 +1337,7 @@ textarea.form-control {
 /* service */
     .map-item {
         width: 100%;
+		height: 550px;
     }
 	.legend-item {
 		width: 100%;
@@ -1317,7 +1345,7 @@ textarea.form-control {
 	
 /* portfolio */
     .portfolio-item {
-        width: 48%;
+        width: 80%;
     }
 
 /* testimonial */
@@ -1421,6 +1449,7 @@ textarea.form-control {
 /* service */
     .map-item {
         width: 100%;
+		height: 550px;
     }
 	.legend-item {
 		width: 100%;
@@ -1430,7 +1459,7 @@ textarea.form-control {
     .portfolio-item {
         margin: 0 auto 10px;
         font-size: 14px;
-        width: 280px;
+        width: 350px;
     }
 
     figcaption.mask {
@@ -1527,6 +1556,7 @@ textarea.form-control {
     .map-item {
         margin: 0 auto;
         width: 100%;
+		height: 550px;
     }
 	.legend-item {
 		width: 100%;
@@ -1534,7 +1564,7 @@ textarea.form-control {
 
 /* portfolio */
     .portfolio-item {
-        width: 48%;
+        width: 80%;
     }
 
     figcaption.mask {
