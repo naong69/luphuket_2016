@@ -23,7 +23,7 @@
 		================================================== -->
 		
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-		
+
 		<!-- Fontawesome Icon font -->
         <link rel="stylesheet" href="css/font-awesome.min.css">
 		<!-- bootstrap.min -->
@@ -70,7 +70,7 @@
 			  top: 3em;
 		    }
 			
-			#zoom-alert, #public-area-alert {
+			#zoom-alert, #public-area-alert, #submit-info {
 				width: 50%;
 				position: absolute;
 				left: 0; 
@@ -155,8 +155,6 @@
 			
 		</style>
 		<link rel="stylesheet" href="https://openlayers.org/en/v3.19.1/css/ol.css" type="text/css">
-		<!--<link rel="stylesheet" href="openlayer_3/v3.19.1/css/ol.css" type="text/css">
-		<link rel="stylesheet" href="ol.css" type="text/css">-->
 		<!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
 		<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
 		<script src="https://openlayers.org/en/v3.19.1/build/ol.js"></script>
@@ -393,7 +391,7 @@
 								<div id="map" class="map">
 									<!-- alert box -->
 									<div id="zoom-alert" class="alert alert-danger" role="alert">
-										<strong>กรุณาขายแผนที่</strong> แล้วเลือกพื้นที่ใหม่ เพื่อความถูกต้องในการตรวจสอบ
+										<strong>กรุณาขยายแผนที่</strong> แล้วเลือกพื้นที่ใหม่ เพื่อความถูกต้องในการตรวจสอบ
 									</div>
 									<div id="public-area-alert" class="alert alert-danger" role="alert">
 										พื้นที่ที่คุณเลือกเป็น <strong>พื้นที่สาธารณะ</strong> กรุณาเลือกพื้นที่ใหม่
@@ -449,9 +447,11 @@
 										<div class="panel-heading">กฏหมายควบคุมอาคาร ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙)</div>
 										<div class="panel-body table-responsive">
 											<table class="table table-hover legend-table">
-												<tr><td><img src="map/img/building/zone_1.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ในเขตตำบลป่าตองที่วัดจากแนวชายฝั่งลงไปในทะเล ๑๐๐ เมตร และวัดจากแนวชายฝั่งเข้าไปในแผ่นดินเป็นระยะ ๕๐ เมตร</td></tr>
-												<tr><td><img src="map/img/building/zone_2.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่วัดจากแนวเขตบริเวณที่ ๑ เข้าไปในแผ่นดิน เป็นระยะ ๑๕๐ เมตร</td></tr>
-												<tr><td><img src="map/img/building/zone_3.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่วัดจากแนวเขตบริเวณที่ ๒เข้าไปในแผ่นดินเป็นระยะ ๓๐๐ เมตร</td></tr>
+												<tr><td><img src="map/img/building/zone_1.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ในบริเวณที่เริ่มจากแนวเชตความคุมอาคารตะวันตก ไปทางทิศตะวันออกข้ามถนนป่าตอง-กมลา ถนนทวีวงศ์ และถนนเลียบหาดป่าตอง
+												 ๑๕ เมตร ไปทางทิศเหนือจดเขตตำบลกมลา ไปทางทิศใต้จนจดบริเวณที่ห่างจากกึ่งกลางคลองปากบางไปทางทิศใต้ตามแนวถนนเลียบริมหาดป่าตองเป็นระยะ ๕๐๐ เมตร</td></tr>
+												<tr><td><img src="map/img/building/zone_4.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่วัดจากแนวศูนย์กลางถนนราษฏรอุทิศ ถนนสองร้อยปี และถนนทุกสายที่เชื่อมระหว่างถนนทวีวงค์กับถนนราษฏรอุทิศ และถนนสองร้อยปี ออกไปทั้งสองข้าง ข้างละ ๑๕ เมตร</td></tr>
+												<tr><td><img src="map/img/building/zone_3.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ที่วัดจากสุดแนวเขตบริเวณที่ ๑ ตลอดแนวไปทางทิศตะวันออกเป็นระยะ ๑๕๐ เมตร</td></tr>
+												<tr><td><img src="map/img/building/zone_2.png" height="15px" width="30px"></td><td class="text-left">พื้นที่ในบริเวณระว่างบริเวณที่ ๒ กับบริเวณที่ ๓ และพื้นที่ในบริเวณที่วัดจากสุดแนวเขตบริเวณที่ ๒ ไปทางทิศเหนือและทิศใต้ ตลอดแนวบริเวณที่ ๓ กว้าง ๑๕๐ เมตร </td></tr>
 											</table>
 										</div>
 									</div>
@@ -587,7 +587,7 @@
 						
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn">
 							<div class="lu-acts-item">
-								<a class="acts-fancybox" title="กฏหมายสิ่งแวดล้อม" data-fancybox-group="works" href="img/portfolio/2012_lu_town_plan.jpg">
+								<a class="acts-fancybox" title="กฏหมายสิ่งแวดล้อม" data-fancybox-group="works" href="acts/infographic/envi_2553.jpg">
 									<div class="lu-acts-icon"><i class="fa fa-envira fa-3x"></i></div>
 								</a>
 								<h3>กฏหมายสิ่งแวดล้อม </h3>
@@ -597,7 +597,7 @@
 					
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s">
 							<div class="lu-acts-item">
-								<a class="acts-fancybox" title="กฏหมายควบคุมอาคาร (๒๕๒๙)" data-fancybox-group="works" href="img/portfolio/2012_lu_town_plan.jpg">	
+								<a class="acts-fancybox" title="กฏหมายควบคุมอาคาร (๒๕๒๙)" data-fancybox-group="works" href="acts/infographic/bd20_2532.jpg">	
 									<div class="lu-acts-icon"><i class="fa fa-building fa-3x"></i></div>
 								</a>
 								<h3>กฏหมายควบคุมอาคาร (๒๕๒๙)</h3>
@@ -607,7 +607,7 @@
 					
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s">
 							<div class="lu-acts-item">
-								<a class="acts-fancybox" title="กฏหมายควบคุมอาคาร (๒๕๓๒) " data-fancybox-group="works" href="img/portfolio/2012_lu_town_plan.jpg">	
+								<a class="acts-fancybox" title="กฏหมายควบคุมอาคาร (๒๕๓๒) " data-fancybox-group="works" href="acts/infographic/bd20_2532.jpg">	
 									<div class="lu-acts-icon"><i class="fa fa-home fa-3x"></i></div>
 								</a>
 								<h3>กฏหมายควบคุมอาคาร (๒๕๓๒) </h3>
@@ -617,7 +617,7 @@
 					
 						<div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
 							<div class="lu-acts-item">
-								<a class="acts-fancybox" title="กฏหมายผังเมืองรวม" data-fancybox-group="works" href="acts/infographic/policy-horz.jpg">
+								<a class="acts-fancybox" title="กฏหมายผังเมืองรวม" data-fancybox-group="works" href="acts/infographic/cp_2558.jpg">
 									<div class="lu-acts-icon"><i class="fa fa-map fa-3x"></i></div>
 								</a>
 								<h3>กฏหมายผังเมืองรวม</h3>
@@ -627,7 +627,7 @@
 						
 						<div class="col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
 							<div class="lu-acts-item">
-								<a class="acts-fancybox" title="เทศบัญญัติเทศบาลเมืองป่าตอง" data-fancybox-group="works" href="img/portfolio/2012_lu_town_plan.jpg">	
+								<a class="acts-fancybox" title="เทศบัญญัติเทศบาลเมืองป่าตอง" data-fancybox-group="works" href="acts/infographic/patong.jpg">	
 									<div class="lu-acts-icon"><i class="fa fa-fire fa-3x"></i></div>
 								</a>
 								<h3>เทศบัญญัติเทศบาลเมืองป่าตอง</h3>
@@ -655,14 +655,14 @@
 									<img src="img/peoples/somporn_small.jpg" alt="นายช่าง สมพร อ่อนทอง">
 									<div class="clearfix">
 										<span style="font-size:18px">นายช่าง สมพร อ่อนทอง <br/>(หัวหน้าฝ่ายออกแบบและควบคุมอาคาร กองช่าง อบต.ไม้ขาว)</span>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+										<p>ปี 2554 ผมเรียนปริญญาโทหลักสูตรการจัดการสิ่งแวดล้อม ที่คณะเทคโนโลยีและสิ่งแวดล้อม มอ. ภูเก็ต หัวข้อวิทยานิพนธ์ของผมเกี่ยวกับการใช้ประโยชน์ที่ดินบนพื้นที่ที่สูงกว่า 80 เมตรในพื้นที่ตำบลกมลา ซึ่งเป็นการศึกษาวิจัยที่เกี่ยวของกับงานในตำแหน่งหน้าที่ของผมโดยตรงในขณะนั้น เราสร้างแผนที่ตามข้อกำหนดในกฎหมายสิ่งแวดล้อม มาตรวจสอบการก่อสร้างอาคารในพื้นที่ ตอนนั้นยังเป็นระบบ offline อยู่ ซึ่งสามารถสนับสนุนการทำงานของ อบต.กมลา ในฐานะผู้บังคับใช้กฏหมายได้ระดับหนึ่งเลยที่เดียว</p>
 									</div>
 								</div>
 								<div class="testimonial-item text-center">
 									<img src="img/peoples/dithanan_small.jpg" alt="นายดิษฐนันท์ เส็นฤทธิ์">
 									<div class="clearfix">
 										<span style="font-size:18px">นายดิษฐนันท์ เส็นฤทธิ์ <br/> (นักวิชาการสิ่งแวดล้อม สำนักงานสิ่งแวดล้อมภาคที่ 15 ภูเก็ต)</span>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+										<p>ผมจบปริญญาตรีมาทาง IT แต่อยากศึกษาต่อทางด้านการจัดการสิ่งแวดล้อม ที่มีการประยุกต์ใช้งานด้านเทคโนโลยี GIS มาช่วยในการจัดการ ผมจึงได้นำความรู้ทางด้าน IT และ GIS มาประยุกต์และพัฒนาต่อยอดจากแนวคิดและงานวิจัยของรุ่นพี่ที่จบไป ให้ออกมาเป็นรูปแบบสารสนเทศบนเครือข่ายอินเตอรเน็ต แต่เปลี่ยนพื้นที่มาเป็นตำบลเชิงทะเล และเพิ่มกฎหมายการใช้ประโยชน์ที่ดินฉบับอื่นๆเข้าไปในขอบเขตงานวิจัยของผม และงานที่ผมได้ทำไป ทำให้ผมจบปริญญาโท จากคณะเทคโนโลยีและสิ่งแวดล้อม มอ. ภูเก็ต ในปี 2556</p>
 									</div>
 								</div>
 								<div class="testimonial-item text-center">
@@ -670,7 +670,7 @@
 									<img src="img/peoples/adisorn_small.jpg" alt="นายอดิศร รัชนิพนธ์">
 									<div class="clearfix">
 										<span style="font-size:18px">นางสาวจุฑาพร เกษร และนายอดิศร รัชนิพนธ์  <br/> (นักวิจัย คณะเทคโนโลยีและสิ่งแวดล้อม มอ.ภูเก็ต)</span>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+										<p>การใช้ประโยชน์ที่ดินในจังหวัดภูเก็ต ถือเป็นงานวิจัยหลักๆ ตามนโยบายขอคณะเทคโนโลยีและสิ่งแวดล้อม ทางคณะสนับสนุนให้เกินการนำเอางานวิจัยที่เป็นประโยชน์ต่อพื้นที่ของคณะไปใช้ประโยชน์ได้จริง เราจึ่งได้นำเอางานวิจัยที่มีอยู่มาพัฒนาให้มี scale ใหญ่ขึ้น ให้ครอบคลุมพื้นที่ทั้งจังหวัดภูเก็ต โดยได้นำเอาแผนที่แนบท้ายกฎหมายที่เกี่ยวข้องกับการใช้ประโยชน์ที่ดินมาเป็นจุดเริ่มในการทำระบบสารสนเทศ online ที่สามารถให้บริการตรวจสอบการใช้ประโยชน์ที่ดินตามกฎหมายการใช้ประโยชน์ที่ดินที่เกี่ยวข้อง</p>
 									</div>
 								</div>
 								<div class="testimonial-item text-center">
@@ -678,7 +678,7 @@
 									<img src="img/peoples/aj_noppachai_small.jpg" alt="อาจารย์ นพชัย วงค์สาย">
 									<div class="clearfix">
 										<span style="font-size:18px">นายเอกชัย กกแก้ว และอาจารย์ นพชัย วงค์สาย <br/>(นักศึกษาปริญาโท และอาจารย์คณะเทคโนโลยีและสิ่งแวดล้อม มอ.ภูเก็ต)</span>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+										<p>หลังจากระบบสารสนเทศ online ในเวอร์ชั่นแรกได้ให้บริการแก่ประชาชนโดยทั่วไป เราได้รับ feedback จากเจ้าหน้าที่ที่เกี่ยวข้องในพื้นที่ เกี่ยวกับความถูกต้องของการทำงานของระบบและการตรวจสอบ เนื่องจากแผนที่แนบท้ายกฎหมายแต่ละฉบับถูกสร้างจากต่างหน่วยงานกัน ทำให้เกิดปัญหาการซ้อนทับกันของขอบเขต เราจึงได้ทำการปรับปรุงระบบตรวจสอบ โดยจัดทำแผนที่ตามข้อกำหนดของแต่ละกฎหมายขึ้นใหม่ เพื่อทำให้ขอบเขตของแต่ละบริเวณที่กฎหมายบังคับใช้ไม่เกิดการ overlap กัน และทำการวิเคราะห์เนื้อหากฎหมาย พร้อมกับจัดรูปแบบเนื้อหากฎหมายให้อยู่ในรูปฐานข้อมูลที่ง่ายต่อการตรวจสอบ</p>
 									</div>
 								</div>
 							</div>
@@ -828,100 +828,7 @@
 				</div>
 			</section>
 			<!-- end portfolio section -->
-			
-			<!-- Price section -->
-			<!--
-			<section id="price">
-				<div class="container">
-					<div class="row">
-					
-						<div class="sec-title text-center wow animated fadeInDown">
-							<h2>Price</h2>
-							<p>Our price for your company</p>
-						</div>
-						
-						<div class="col-md-4 wow animated fadeInUp">
-							<div class="price-table text-center">
-								<span>Silver</span>
-								<div class="value">
-									<span>$</span>
-									<span>24,35</span><br>
-									<span>month</span>
-								</div>
-								<ul>
-									<li>No Bonus Points</li>
-									<li>No Bonus Points</li>
-									<li>No Bonus Points</li>
-									<li>No Bonus Points</li>
-									<li><a href="#">sign up</a></li>
-								</ul>
-							</div>
-						</div>
-						
-						<div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.4s">
-							<div class="price-table featured text-center">
-								<span>Gold</span>
-								<div class="value">
-									<span>$</span>
-									<span>50,00</span><br>
-									<span>month</span>
-								</div>
-								<ul>
-									<li>Free Trial</li>
-									<li>Free Trial</li>
-									<li>Free Trial</li>
-									<li>Free Trial</li>
-									<li><a href="#">sign up</a></li>
-								</ul>
-							</div>
-						</div>
-						
-						<div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.8s">
-							<div class="price-table text-center">
-								<span>Diamond</span>
-								<div class="value">
-									<span>$</span>
-									<span>123,12</span><br>
-									<span>month</span>
-								</div>
-								<ul>
-									<li>All Bonus Points</li>
-									<li>All Bonus Points</li>
-									<li>All Bonus Points</li>
-									<li>All Bonus Points</li>
-									<li><a href="#">sign up</a></li>
-								</ul>
-							</div>
-						</div>
-		
-					</div>
-				</div>
-			</section>
-			<!-- end Price section -->
-			
-			<!-- Social section 
-			<section id="social" class="parallax">
-				<div class="overlay">
-					<div class="container">
-						<div class="row">
-						
-							<div class="sec-title text-center white wow animated fadeInDown">
-								<h2>FOLLOW US</h2>
-								<p>Beautifully simple follow buttons to help you get followers on</p>
-							</div>
-							
-							<ul class="social-button">
-								<li class="wow animated zoomIn"><a href="#"><i class="fa fa-thumbs-up fa-2x"></i></a></li>
-								<li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="#"><i class="fa fa-twitter fa-2x"></i></a></li>
-								<li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="#"><i class="fa fa-dribbble fa-2x"></i></a></li>							
-							</ul>
-							
-						</div>
-					</div>
-				</div>
-			</section>
-			<!-- end Social section -->
-			
+
 			<!-- Contact section -->
 			<section id="contact" class="parallax">
 				<div class="overlay">
@@ -934,7 +841,7 @@
 							</div>
 							
 							<div class="col-md-7 contact-form wow animated fadeInLeft">
-								<form action="#" method="post">
+								<form action="javascript:msgSubmit()" method="post">
 									<div class="input-field">
 										<input type="text" name="name" class="form-control" placeholder="ชื่อ - สกุล">
 									</div>
@@ -944,8 +851,11 @@
 									<div class="input-field">
 										<input type="text" name="subject" class="form-control" placeholder="หัวข้อเรื่อง">
 									</div>
-									<div class="input-field">
+									<div class="input-field" style="position: relative;">
 										<textarea name="message" class="form-control" placeholder="ข้อความ"></textarea>
+										<div id="submit-info" class="alert alert-success" role="alert">
+											ระบบได้บันทึกข้อความของท่านเรียบร้อยแล้ว
+										</div>
 									</div>
 									<button type="submit" id="submit" class="btn btn-blue btn-effect msg-submit-icon">ส่งข้อความ  
 										&nbsp;&nbsp;&nbsp;<i class="fa fa-paper-plane fa-lg"></i>

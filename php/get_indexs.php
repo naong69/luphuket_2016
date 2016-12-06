@@ -4,11 +4,11 @@ include('connect.php');
 //$_POST['group'] = 'B002';
 if(isset($_POST['cat'])){
 	$json_str = "";
-	$sql = "SELECT DISTINCT `group_index`, `group_name` FROM `all_index` WHERE `category_index` = '".$_POST['cat']."'";
+	$sql = "SELECT DISTINCT `group_index`, `group_name_sub` FROM `all_index` WHERE `category_index` = '".$_POST['cat']."'";
 	if ($result=mysqli_query($link,$sql)){
 	  // Fetch one and one row
 	  while ($row=mysqli_fetch_row($result)){
-		$json_str = $json_str.'{"group_index":"'.$row[0].'","group_name":"'.$row[1].'"},';
+		$json_str = $json_str.'{"group_index":"'.$row[0].'","group_name_sub":"'.$row[1].'"},';
 	  }
 	  // Free result set
 	  mysqli_free_result($result);
@@ -20,11 +20,11 @@ if(isset($_POST['cat'])){
 
 if(isset($_POST['group'])){
 	$json_str = "";
-	$sql = "SELECT `indexID`, `oper_prod_index`, `oper_prod_name` FROM `all_index` WHERE `group_index` = '".$_POST['group']."'";
+	$sql = "SELECT `indexID`, `oper_prod_index`, `oper_prod_name_sub` FROM `all_index` WHERE `group_index` = '".$_POST['group']."'";
 	if ($result=mysqli_query($link,$sql)){
 	  // Fetch one and one row
 	  while ($row=mysqli_fetch_row($result)){
-		$json_str = $json_str.'{"indexID":"'.$row[0].'","oper_prod_index":"'.$row[1].'","oper_prod_name":"'.$row[2].'"},';
+		$json_str = $json_str.'{"indexID":"'.$row[0].'","oper_prod_index":"'.$row[1].'","oper_prod_name_sub":"'.$row[2].'"},';
 	  }
 	  // Free result set
 	  mysqli_free_result($result);

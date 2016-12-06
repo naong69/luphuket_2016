@@ -1,5 +1,7 @@
 <?php
 
+if(isset($_REQUEST['data'])&& isset($_REQUEST['index'])){
+
 $data = $_REQUEST['data'];
 $index = $_REQUEST['index'];
 
@@ -22,7 +24,7 @@ $objResult = mysqli_fetch_array($objQuery);
 
 $cat_name = $objResult[2];
 $group_name = $objResult[4];
-$opr_name = $objResult[6];
+$opr_name = $objResult[7];
 
 
 $enval = $cpval = $bc20val = $bc15val = $muval = 1;
@@ -252,10 +254,11 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 		 echo ($enval && $cpval && $bc20val && $bc15val && $muval)?  "<font color='green'><b>สร้างได้</b></font>": "<font color='red'><b>สร้างไม่ได้</b></font>";
 		?>
 		</h3>
-		<hr>
-		<b>1</b><?php echo $cat_name?><br>
-		<b>1</b><?php echo $group_name?><br>
-		<b>1</b><?php echo $opr_name?>
+		<div class="text-left">
+		<b>กลุ่ม: </b><?php echo $cat_name?><br>
+		<b>ประเภท: </b><?php echo $group_name?><br>
+		<b>กิจการ: </b><?php echo $opr_name?>
+		</div>
 		<hr>
 	</div>
 	<?php  if(in_array("pk_en_act_2553",$map)){ ?>
@@ -336,8 +339,12 @@ if(in_array("pk_patong_lu_act_2548",$map)){
         $("ul.subforums").hide();
 
         $("div .acts").click(function(){
-            $("ul.subforums").hide(); //hide all show ul
-            $(this).parent().find("ul").toggle();
+			if($(this).parent().find("ul").is(":visible")){
+				$(this).parent().find("ul").hide();
+			} else {			
+				$("ul.subforums").hide(); //hide all show ul
+				$(this).parent().find("ul").toggle();
+			}
         });
     });    
 </script>
@@ -349,5 +356,7 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 mysqli_free_result($objQuery);
 
 mysqli_close($link);
+
+} // if isset
 
 ?>

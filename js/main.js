@@ -257,7 +257,7 @@ $(document).ready(function(){
 					$.each(index_json_obj, function() {
 						$('#group-index').append($('<option>', {
 							value: this['group_index'],
-							text: this['group_name']
+							text: this['group_name_sub']
 						}));
 					});
 				});
@@ -286,7 +286,7 @@ $(document).ready(function(){
 					$.each(index_json_obj, function() {
 						$('#oper-prod-index').append($('<option>', {
 							value: this['indexID'],
-							text: this['oper_prod_name']
+							text: this['oper_prod_name_sub']
 						}));
 					});
 				});
@@ -311,6 +311,21 @@ $(document).ready(function(){
 		
 
 });
+
+
+function msgSubmit(){
+	$.post( "php/msg_submit.php",{ name: $('input[name=name]').val(), 
+								  email: $('input[name=email]').val(), 
+								  subject: $('input[name=subject]').val(), 
+								  message: $('textarea[name=message]').val(), }, function (){
+		$('#submit-info').fadeIn().delay(2000).fadeOut();
+		$('input[name=name]').val('');
+		$('input[name=email]').val('');
+		$('input[name=subject]').val('');
+		$('textarea[name=message]').val('');
+	});	
+}
+
 
 
 function validateInit(){
