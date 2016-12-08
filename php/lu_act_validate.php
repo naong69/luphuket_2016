@@ -4,6 +4,7 @@ if(isset($_REQUEST['data'])&& isset($_REQUEST['index'])){
 
 $data = $_REQUEST['data'];
 $index = $_REQUEST['index'];
+$index_cat = substr($index,0,1);
 
 $map = array();
 $zone = array();
@@ -23,8 +24,8 @@ $objQuery = mysqli_query($link, $strSQL);
 $objResult = mysqli_fetch_array($objQuery);
 
 $cat_name = $objResult[2];
-$group_name = $objResult[4];
-$opr_name = $objResult[7];
+$group_name = $objResult[5];
+$opr_name = $objResult[8];
 
 
 $enval = $cpval = $bc20val = $bc15val = $muval = 1;
@@ -259,6 +260,8 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 		<b>ประเภท: </b><?php echo $group_name?><br>
 		<b>กิจการ: </b><?php echo $opr_name?>
 		</div>
+		<br>
+		<div><span style="color:red;">ผลการตรวจสอบดังกล่าวอยู่ในช่วงการพัฒนาระบบ ซึ่งไม่สามารถนำไปอ้างอิงทางกฎหมายได้</span></div>
 		<hr>
 	</div>
 	<?php  if(in_array("pk_en_act_2553",$map)){ ?>
@@ -266,14 +269,18 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 		<div class="acts alert <?php echo($enval)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">กฏหมายสิ่งแวดล้อม พ.ศ. ๒๕๕๓</div></div>
         <ul id="subforms1" class="subforums" style="padding: 10px 10px; list-style: none;">
 			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($enval)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
+			<?php if($enval == 1 || strlen($enExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น:</b> <?php echo $enExcepRes ?> </span> </li>
 			<li><span><b>ข้อจำกัด:</b></span>
-				<dd><span><b>โรงงาน:</b> <?php echo $enFacRes ?></span></dd>
+				<?php if($index_cat == 'F'){?><dd><span><b>โรงงาน:</b> <?php echo $enFacRes ?></span></dd><?php } ?>
 				<dd><span><b>ความสูง:</b> <?php echo $enHeightRes ?></span></dd>
 				<dd><span><b>พื้นที่:</b> <?php echo $enAreaRes ?></span></dd>
 				<dd><span><b>ความลาดชัน:</b> <?php echo $enSlopeRes ?></span></dd>
 				<dd><span><b>ผลกระทบสิ่งแวดล้อม:</b> <?php echo $enEiaRes ?></span></dd>
 			</li>
+			<?php } else { ?>
+			<li><span><b>เนื่องจาก:</b>  การใช้ที่ดินไม่สอดคล้องกับข้อกำหนดของประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม พ.ศ.  ๒๕๕๓ </span> </li>
+			<?php } ?>
 		</ul>
     </div>
 	<?php } ?>
@@ -282,11 +289,15 @@ if(in_array("pk_patong_lu_act_2548",$map)){
         <div class="acts alert <?php echo($cpval)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">กฏหมายผังเมืองรวม พ.ศ. ๒๕๕๘</div></div>
 		<ul id="subforms2" class="subforums" style="padding: 10px 10px; list-style: none;">
 			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($cpval)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
+			<?php if($cpval == 1 || strlen($enExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น:</b> <?php echo $enExcepRes ?> </span> </li>
-			<li><span><b>ข้อจำกัด:</b></span>
-				<dd><span><b>โรงงาน:</b> <?php echo $cpFacRes ?></span></dd>
+			<li><span><b>ข้อจำกัด</b></span>
+				<?php if($index_cat == 'F'){?><dd><span><b>โรงงาน:</b> <?php echo $cpFacRes ?></span></dd><?php } ?>
 				<dd><span><b>พื้นที่:</b> <?php echo $cpAreaRes ?></span></dd>
 			</li>
+			<?php } else { ?>
+			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินไม่สอดคล้องตามกฎกระทรวงให้ใช้บังคับผังเมืองรวมจังหวัดภูเก็ต พ.ศ.  ๒๕๕๘ </span> </li>
+			<?php } ?>
 		</ul>
 	</div>
 	<?php } ?>
@@ -295,13 +306,17 @@ if(in_array("pk_patong_lu_act_2548",$map)){
         <div class="acts alert <?php echo($bc20val)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">กฏหมายควบคุมอาคาร ฉบับที่ ๒๐ (พ.ศ. ๒๕๓๒)</div></div>
 		<ul id="subforms3" class="subforums" style="padding: 10px 10px; list-style: none;">
 			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($bc20val)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
+			<?php if($bc20val == 1 || strlen($enExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น:</b> <?php echo $enExcepRes ?> </span> </li>
-			<li><span><b>ข้อจำกัด:</b></span>
-				<dd><span><b>โรงงาน:</b> <?php echo $bc20FacRes ?></span></dd>
+			<li><span><b>ข้อจำกัด</b></span>
+				<?php if($index_cat == 'F'){?><dd><span><b>โรงงาน:</b> <?php echo $bc20FacRes ?></span></dd><?php } ?>
 				<dd><span><b>ความสูง:</b> <?php echo $bc20HeightRes ?></span></dd>
 				<dd><span><b>พื้นที่ว่าง:</b> <?php echo $bc20AreaRes ?></span></dd>
 				<dd><span><b>พื้นที่รวม:</b> <?php echo $bc20ResulRes ?></span></dd>
 			</li>
+			<?php } else { ?>
+			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินไม่สอดคล้องตามกฎกระทรวง ฉบับที่ ๒๐ พ.ศ. ๒๕๓๒ ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</span> </li>
+			<?php } ?>
 		</ul>
     </div>
 	<?php } ?>
@@ -310,12 +325,16 @@ if(in_array("pk_patong_lu_act_2548",$map)){
         <div class="acts alert <?php echo($bc15val)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">กฏหมายควบคุมอาคาร  ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙) </div></div>
 		<ul id="subforms4" class="subforums" style="padding: 10px 10px; list-style: none;">
 		<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($bc15val)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
+			<?php if($bc15val == 1 || strlen($enExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น:</b> <?php echo $enExcepRes ?> </span> </li>
-			<li><span><b>ข้อจำกัด:</b></span>
-				<dd><span><b>โรงงาน:</b> <?php echo $bc15FacRes ?></span></dd>
+			<li><span><b>ข้อจำกัด</b></span>
+				<?php if($index_cat == 'F'){?><dd><span><b>โรงงาน:</b> <?php echo $bc15FacRes ?></span></dd><?php } ?>
 				<dd><span><b>ความสูง:</b> <?php echo $bc15heightRes ?></span></dd>
 				<dd><span><b>พื้นที่:</b> <?php echo $bc15AreaRes ?></span></dd>
 			</li>
+			<?php } else { ?>
+			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินไม่สอดคล้องตามกฎกระทรวง ฉบับที่ ๑๕ พ.ศ. ๒๕๒๙ ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</span> </li>
+			<?php } ?>
 		</ul>
     </div>
 	<?php } ?>
@@ -324,11 +343,15 @@ if(in_array("pk_patong_lu_act_2548",$map)){
         <div class="acts alert <?php echo($muval)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">เทศบัญญัติเทศบาลเมืองป่าตอง พ.ศ. ๒๕๔๘</div></div>
 		<ul id="subforms5" class="subforums" style="padding: 10px 10px; list-style: none;">
 			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($muval)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
+			<?php if($muval == 1 && strlen($enExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น:</b> <?php echo $enExcepRes ?> </span> </li>
 			<li><span><b>ข้อจำกัด:</b></span>
-				<dd><span><b>โรงงาน:</b> <?php echo $muFacRes ?></span></dd>
+				<?php if($index_cat == 'F'){?><dd><span><b>โรงงาน:</b> <?php echo $muFacRes ?></span></dd><?php } ?>
 				<dd><span><b>พื้นที่:</b> <?php echo $muAreaRes ?></span></dd>
 			</li>
+			<?php } else { ?>
+			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินไม่สอดคล้องตามเทศบัญญัติเทศบาลเมืองป่าตอง พ.ศ. ๒๕๔๘</span> </li>
+			<?php } ?>
 		</ul>
     </div>
 	<?php } ?>

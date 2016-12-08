@@ -153,6 +153,21 @@
 			  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
 			}
 			
+			.grabbable {
+				cursor: move; /* fallback if grab cursor is unsupported */
+				cursor: grab;
+				cursor: -moz-grab;
+				cursor: -webkit-grab;
+			}
+
+			 /* (Optional) Apply a "closed-hand" cursor during drag operation. */
+			.grabbable:active { 
+				cursor: grabbing;
+				cursor: -moz-grabbing;
+				cursor: -webkit-grabbing;
+			}
+						
+			
 		</style>
 		<link rel="stylesheet" href="https://openlayers.org/en/v3.19.1/css/ol.css" type="text/css">
 		<!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
@@ -256,22 +271,6 @@
                         </div>
 						
 					</div>
-					<!--
-					<div class="sl-slide" data-orientation="vertical" data-slice1-rotation="10" data-slice2-rotation="-15" data-slice1-scale="1.5" data-slice2-scale="1.5">
-						
-						<div class="bg-img bg-img-3"></div>
-						<div class="slide-caption">
-                            <div class="caption-content">
-								<div class="content-box-2">
-                                <h2>การใช้ประโยชน์ที่ดินอย่างเหมาะสม และยั่งยืน</h2>
-                                <span style="font-size:20px">Land suitability and Sustainable land management</span>
-                                </div>
-								<a href="#" class="btn btn-blue btn-effect">Join US</a>
-                            </div>
-                        </div>
-
-					</div>
-					-->
 				</div>
 				<!-- /sl-slider -->
 
@@ -289,12 +288,10 @@
                     <a href="javascript:;" class="sl-next">
                         <i class="fa fa-angle-right fa-3x"></i>
                     </a>
-                </nav>
-                
+                </nav> 
 
 				<nav id="nav-dots" class="nav-dots visible-xs visible-sm hidden-md hidden-lg">
 					<span class="nav-dot-current"></span>
-					<span></span>
 					<span></span>
 				</nav>
 				
@@ -314,13 +311,13 @@
 								<h3>งานศึกษาวิจัยล่าสุด</h3>
 								<div id="works">
 									<div class="work-item">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br> <br> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+										<p>การทำแผนที่บริเวณตามข้อกำหนดในกฎหมายที่เกี่ยวกับการใช้ประโยชน์ที่ดินภาครัฐโดยประยุกต์ใช้เทคโนโลยี GIS และ Remote Sensing ทำให้ได้แผนที่แนบท้ายกฎหมายที่อยู่ในรูปแบบ digital ที่ให้ความละเอียดถูกต้องสูง สามารถนำไปใช้งานตามสภาพพื้นที่จริงได้อย่างมีประสิทธิภาพ<br> <br> โครงการบูรณาการข้อมูลด้าน GIS และ RS ที่เกี่ยวข้องกับนโยบายการใช้ประโยชน์ที่ดินภาครัฐในพื้นที่จังหวัดภูเก็ต จึงเป็นโครงการเร่งด่วนที่เรากำลังดำเนินการอยู่</p>
 									</div>
 									<div class="work-item">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br><br> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+										<p>ปัญหาสำคัญในการบังคับใช้กฎหมายการใช้ประโยชน์ที่ดินภาครัฐของผู้บังคับใช้กฎหมายในท้องที่ คือการตีความและการอ้างอิงกฎหมายที่มีวัถุประสงค์แตกต่างกัน หลายฉบับ ซึ่งยากต่อการปฏิบัติในการบังคับใช้กฎหมาย  <br><br> การศึกษา<u>ความไม่สอดคล้องกันในเชิงพื้นที่และนิยามตามการตีความกฎหมาย</u>การใช้ประโยชน์ที่ดินภาครัฐ ในรูปแบบ content analysis และ matrix analysis จะสามารถระบุความไม่สอดคล้องกันของกฎหมายที่เกี่ยวข้องต่าง ๆ ได้ เพื่อการนำไปสู่การแก้กฎระเบียบ และสร้างแนวปฏิบัติที่สามารถลดปัญหาการบังคับใช้กฎหมาย และความขัดแย้งในพื้นที่ได้อย่างมีประสิทธิภาพ</p>
 									</div>
 									<div class="work-item">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br><br> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+										<p><u>One map solution</u> สำหรับการบูรณาการข้อมูลต่าง ๆ จากหน่วยงานภาครัฐ ที่จะเป็นประโยชน์ต่อการกำหนดนโยบาย การบริหารจัดการ และการแก้ไขปัญหาต่างๆ ของจังหวัดภูเก็ต ในลักษณะ smart governance จะสามารถสนับสนุนการเป็น smart city ของจังหวัดภูเก็ตตามนโยบาย Thailand 4.0 ของรัฐบาลได้เป็นอย่างดี <br><br> โครงการศึกษาความเป็นไปได้ และการพัฒนาระบบที่เรียกว่า <u>Smart Data Integration and Visualization for Decision Making</u>   ที่อยู่บน Cloud Platform สำหรับหน่วยงานภาครัฐและประชาชนทั้วไป จึงเป็นโครงการศึกษาวิจัยและพัฒนาที่เราต้องการทำให้เกิดขึ้นเพื่อสนับสนุนการพัฒนาจังหวัดภูเก็ตของเราอย่างยังยืน</p>
 									</div>
 								</div>
 							</div>
@@ -330,12 +327,12 @@
 								<h3>ยินดีต้อนรับสู่เว็บไซต์ของเรา</h3>								
 						     	 <div class="message-body">
 									<img src="img/peoples/aj_pun-150x150.jpg" class="pull-left" alt="รองศาสตราจารย์ ดร.พันธ์ ทองชุมนุม">
-						       		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do quis Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+						       		<p><i class="fa fa-quote-left" aria-hidden="true"></i> Website นี้เป็นความพยายามหนึ่งของคณะเทคโนโลยีและสิ่งแวดล้อม มหาวิทยาลัยสงขลานครินทร์ ซึ่งนำโดย ดร.แสงดาว วงค์สาย และทีมงาน ที่พยายามจะแก้ไขปัญหาการใช้ประโยชน์ที่ดินของจังหวัดภูเก็ตให้เป็นไปอย่างมีระบบและมีประสิทธิภาพ โดยการรวบรวมข้อมูลจากแหล่งต่าง ๆ มาผ่านกระบวนการศึกษาวิจัย ทำให้สามารถตอบโจทย์ในประเด็นปัญหาต่าง ๆ ที่เป็นปัญหามาก่อนหน้านี้ และจะเป็นแนวทางในการปฏิบัติงานสำหรับผู้เกี่ยวข้องโดยเฉพาะ ผู้บริหารที่สามารถนำไปใช้ประกอบในการตัดสินใจหรือกำหนดนโยบายต่าง ๆ <i class="fa fa-quote-right" aria-hidden="true"></i> </p>
 									<p class="pull-right">รองศาสตราจารย์ ดร.พันธ์ ทองชุมนุม</p>
 								 </div>
 								 <div class="message-body">
 									<img src="img/peoples/aj_sangdao_small_2.jpg" class="pull-left" alt="ดร.แสงดาว วงค์สาย">
-						       		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do nulla pariatur quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat. </p>
+						       		<p><i class="fa fa-quote-left" aria-hidden="true"></i> เวลาพูดถึงเรื่องการบูรณการข้อมูลภาครัฐ คนส่วนใหญ่จะพูดว่า นั่นคือความฝันของประเทศไทย จากปี 2554 จากความมุ่งมั่นและความพยายามของทีมอาจารย์ นักวิจัย และนักศึกษา มอ ภูเก็ต วันนี้ ความฝันจึงไม่ใช่ความฝัน ความจริงจะเกิดได้ เมื่อเราลงมือทำ <i class="fa fa-quote-right" aria-hidden="true"></i> </p>
 									<p class="pull-right">ดร.แสงดาว วงค์สาย</p>
 								 </div>
 								 <!--
@@ -563,7 +560,7 @@
 												<!--
 												<div id="validate-msg" style="display: none"><span style="color : red; font-weight:bold; font-size: 15px; margin: 10px 0px">กรุณาเลือกกิจการของสิ่งปลูกสร้าง</span></div>
 												-->
-												<button id="validate-btn" class="btn btn-success result-fancybox" type="button" style="font-size: 16px" >ตรวจสอบการใช้ประโชยน์ที่ดิน</button>
+												<button id="validate-btn" class="btn btn-success result-fancybox" type="button" style="font-size: 16px" >ตรวจสอบการใช้ประโยชน์ที่ดิน</button>
 											</div>
 									</div>
 							
@@ -645,7 +642,6 @@
 				<div class="overlay">
 					<div class="container">
 						<div class="row">
-						
 							<div class="sec-title text-center white wow animated fadeInDown">
 								<h2>จากจุดเริ่ม จนถึงปัจุบัน</h2>
 							</div>
@@ -655,14 +651,14 @@
 									<img src="img/peoples/somporn_small.jpg" alt="นายช่าง สมพร อ่อนทอง">
 									<div class="clearfix">
 										<span style="font-size:18px">นายช่าง สมพร อ่อนทอง <br/>(หัวหน้าฝ่ายออกแบบและควบคุมอาคาร กองช่าง อบต.ไม้ขาว)</span>
-										<p>ปี 2554 ผมเรียนปริญญาโทหลักสูตรการจัดการสิ่งแวดล้อม ที่คณะเทคโนโลยีและสิ่งแวดล้อม มอ. ภูเก็ต หัวข้อวิทยานิพนธ์ของผมเกี่ยวกับการใช้ประโยชน์ที่ดินบนพื้นที่ที่สูงกว่า 80 เมตรในพื้นที่ตำบลกมลา ซึ่งเป็นการศึกษาวิจัยที่เกี่ยวของกับงานในตำแหน่งหน้าที่ของผมโดยตรงในขณะนั้น เราสร้างแผนที่ตามข้อกำหนดในกฎหมายสิ่งแวดล้อม มาตรวจสอบการก่อสร้างอาคารในพื้นที่ ตอนนั้นยังเป็นระบบ offline อยู่ ซึ่งสามารถสนับสนุนการทำงานของ อบต.กมลา ในฐานะผู้บังคับใช้กฏหมายได้ระดับหนึ่งเลยที่เดียว</p>
+										<p>ปี 2554 ผมเรียนปริญญาโทหลักสูตรการจัดการสิ่งแวดล้อม ที่คณะเทคโนโลยีและสิ่งแวดล้อม มอ. ภูเก็ต หัวข้อวิทยานิพนธ์ของผมเกี่ยวกับการใช้ประโยชน์ที่ดินบนพื้นที่ที่สูงกว่า 80 เมตรในพื้นที่ตำบลกมลา ซึ่งเป็นการศึกษาวิจัยที่เกี่ยวข้องกับงานในตำแหน่งหน้าที่ในขณะนั้นของผมโดยตรง เราสร้างแผนที่ตามข้อกำหนดในกฎหมายสิ่งแวดล้อม มาตรวจสอบการก่อสร้างอาคารในพื้นที่ ตอนนั้นยังเป็นระบบ offline อยู่ ซึ่งสามารถสนับสนุนการทำงานของ อบต.กมลา ในฐานะผู้บังคับใช้กฏหมายได้ระดับหนึ่งเลยที่เดียว</p>
 									</div>
 								</div>
 								<div class="testimonial-item text-center">
 									<img src="img/peoples/dithanan_small.jpg" alt="นายดิษฐนันท์ เส็นฤทธิ์">
 									<div class="clearfix">
 										<span style="font-size:18px">นายดิษฐนันท์ เส็นฤทธิ์ <br/> (นักวิชาการสิ่งแวดล้อม สำนักงานสิ่งแวดล้อมภาคที่ 15 ภูเก็ต)</span>
-										<p>ผมจบปริญญาตรีมาทาง IT แต่อยากศึกษาต่อทางด้านการจัดการสิ่งแวดล้อม ที่มีการประยุกต์ใช้งานด้านเทคโนโลยี GIS มาช่วยในการจัดการ ผมจึงได้นำความรู้ทางด้าน IT และ GIS มาประยุกต์และพัฒนาต่อยอดจากแนวคิดและงานวิจัยของรุ่นพี่ที่จบไป ให้ออกมาเป็นรูปแบบสารสนเทศบนเครือข่ายอินเตอรเน็ต แต่เปลี่ยนพื้นที่มาเป็นตำบลเชิงทะเล และเพิ่มกฎหมายการใช้ประโยชน์ที่ดินฉบับอื่นๆเข้าไปในขอบเขตงานวิจัยของผม และงานที่ผมได้ทำไป ทำให้ผมจบปริญญาโท จากคณะเทคโนโลยีและสิ่งแวดล้อม มอ. ภูเก็ต ในปี 2556</p>
+										<p>ผมจบปริญญาตรีมาทาง IT แต่อยากศึกษาต่อทางด้านการจัดการสิ่งแวดล้อม ที่มีการประยุกต์ใช้งานด้านเทคโนโลยี GIS มาช่วยในการจัดการ ผมจึงได้นำความรู้ทางด้าน IT และ GIS มาประยุกต์และพัฒนาต่อยอดจากแนวคิดและงานวิจัยของรุ่นพี่ที่จบไป ให้ออกมาเป็นรูปแบบสารสนเทศบนเครือข่ายอินเตอร์เน็ต แต่เปลี่ยนพื้นที่มาเป็นตำบลเชิงทะเล และเพิ่มกฎหมายการใช้ประโยชน์ที่ดินฉบับอื่น ๆ เข้าไปในขอบเขตงานวิจัยของผม และงานที่ผมได้ทำไป ทำให้ผมจบปริญญาโท จากคณะเทคโนโลยีและสิ่งแวดล้อม มอ. ภูเก็ต ในปี 2556</p>
 									</div>
 								</div>
 								<div class="testimonial-item text-center">
@@ -670,7 +666,16 @@
 									<img src="img/peoples/adisorn_small.jpg" alt="นายอดิศร รัชนิพนธ์">
 									<div class="clearfix">
 										<span style="font-size:18px">นางสาวจุฑาพร เกษร และนายอดิศร รัชนิพนธ์  <br/> (นักวิจัย คณะเทคโนโลยีและสิ่งแวดล้อม มอ.ภูเก็ต)</span>
-										<p>การใช้ประโยชน์ที่ดินในจังหวัดภูเก็ต ถือเป็นงานวิจัยหลักๆ ตามนโยบายขอคณะเทคโนโลยีและสิ่งแวดล้อม ทางคณะสนับสนุนให้เกินการนำเอางานวิจัยที่เป็นประโยชน์ต่อพื้นที่ของคณะไปใช้ประโยชน์ได้จริง เราจึ่งได้นำเอางานวิจัยที่มีอยู่มาพัฒนาให้มี scale ใหญ่ขึ้น ให้ครอบคลุมพื้นที่ทั้งจังหวัดภูเก็ต โดยได้นำเอาแผนที่แนบท้ายกฎหมายที่เกี่ยวข้องกับการใช้ประโยชน์ที่ดินมาเป็นจุดเริ่มในการทำระบบสารสนเทศ online ที่สามารถให้บริการตรวจสอบการใช้ประโยชน์ที่ดินตามกฎหมายการใช้ประโยชน์ที่ดินที่เกี่ยวข้อง</p>
+										<p>การใช้ประโยชน์ที่ดินในจังหวัดภูเก็ต ถือเป็นงานวิจัยหลัก ๆ ตามนโยบายขอคณะเทคโนโลยีและสิ่งแวดล้อม ทางคณะสนับสนุนให้เกิดการนำเอางานวิจัยของคณะไปใช้ประโยชน์ได้จริงในพื่นที่ เราจึงได้นำเอางานวิจัยที่มีอยู่มาพัฒนาให้มี scale ใหญ่ขึ้น ให้ครอบคลุมพื้นที่ทั้งจังหวัดภูเก็ต โดยได้นำเอาแผนที่แนบท้ายกฎหมายที่เกี่ยวข้องกับการใช้ประโยชน์ที่ดินมาเป็นจุดเริ่มในการพัฒนาระบบสารสนเทศ online ที่สามารถให้บริการตรวจสอบการใช้ประโยชน์ที่ดินตามกฎหมายการใช้ประโยชน์ที่ดินที่เกี่ยวข้อง</p>
+									</div>
+								</div>
+								<div class="testimonial-item text-center">
+									<img src="img/peoples/nopphatsorn_small.jpg" alt="นางสาวนพภัสสร วงศ์ชู">
+									<img src="img/peoples/pannipa_small.jpg" alt="นางสาวพรรณิภา สุวรรณ">
+									<img src="img/peoples/suparat_small.jpg" alt="นางสาวสุภารัตน์ พิใจดี">
+									<div class="clearfix">
+										<span style="font-size:18px">นางสาวนพภัสสร วงศ์ชู  นางสาวพรรณิภา สุวรรณ และนางสาวสุภารัตน์ พิใจดี <br/>(บัณฑิต สาขาวิชาภูมิสารสนเทศสิ่งแวดล้อม คณะเทคโนโลยีและสิ่งแวดล้อม มอ.ภูเก็ต)</span>
+										<p>ตอนปี 4 พวกหนูโชคดีที่ได้ทำ senior project กับอาจารย์แสงดาว วงค์สาย ที่เกี่ยวกับการบูรณาการข้อมูลนโยบายและกฎหมายควบคุมการใช้ประโยชน์ที่ดินในรูปแบบ GIS โดยพวกหนูได้เลือกพื้นที่เขตเทศบาลเมืองป่าตองเป็นพื้นที่ศึกษา เนื่องจากมีเทศบัญญัติเทศบาลเมืองป่าตอง ปี 2548 บังคับใช้เฉพาะ ผลการศึกษาก่อให้เกิดองค์ความรู้ใหม่ ๆ เช่น ความขัดแย้งกันของกฎหมายควบคุมการใช้ประโยชน์ที่ดินภาครัฐ ที่บังคับใช้ในระดับประเทศ จังหวัด และท้องถิ่น ซึ่งเป็นประเด็นที่มีความน่าสนใจมากที่ทำให้พวกหนูได้รับรางวันชมเชยในการแข่งขันการนำเสนอผลงานวิชาการในการประชุมวิชาการนิสิตนักศึกษาภูมิศาสตร์และภูมิสารสนเทศศาสตร์แห่งประเทศไทย ครั้งที่ 8 ปี 2558 ที่ จุฬาลงกรณ์มหาวิทยาลัย</p>
 									</div>
 								</div>
 								<div class="testimonial-item text-center">
@@ -678,7 +683,7 @@
 									<img src="img/peoples/aj_noppachai_small.jpg" alt="อาจารย์ นพชัย วงค์สาย">
 									<div class="clearfix">
 										<span style="font-size:18px">นายเอกชัย กกแก้ว และอาจารย์ นพชัย วงค์สาย <br/>(นักศึกษาปริญาโท และอาจารย์คณะเทคโนโลยีและสิ่งแวดล้อม มอ.ภูเก็ต)</span>
-										<p>หลังจากระบบสารสนเทศ online ในเวอร์ชั่นแรกได้ให้บริการแก่ประชาชนโดยทั่วไป เราได้รับ feedback จากเจ้าหน้าที่ที่เกี่ยวข้องในพื้นที่ เกี่ยวกับความถูกต้องของการทำงานของระบบและการตรวจสอบ เนื่องจากแผนที่แนบท้ายกฎหมายแต่ละฉบับถูกสร้างจากต่างหน่วยงานกัน ทำให้เกิดปัญหาการซ้อนทับกันของขอบเขต เราจึงได้ทำการปรับปรุงระบบตรวจสอบ โดยจัดทำแผนที่ตามข้อกำหนดของแต่ละกฎหมายขึ้นใหม่ เพื่อทำให้ขอบเขตของแต่ละบริเวณที่กฎหมายบังคับใช้ไม่เกิดการ overlap กัน และทำการวิเคราะห์เนื้อหากฎหมาย พร้อมกับจัดรูปแบบเนื้อหากฎหมายให้อยู่ในรูปฐานข้อมูลที่ง่ายต่อการตรวจสอบ</p>
+										<p>หลังจากระบบสารสนเทศ online ในเวอร์ชั่นแรกได้ให้บริการแก่ประชาชนโดยทั่วไป เราได้รับ feedback จากเจ้าหน้าที่ที่เกี่ยวข้องในพื้นที่ เกี่ยวกับความถูกต้องของการทำงานของระบบ และการตรวจสอบ เนื่องจากแผนที่แนบท้ายกฎหมายแต่ละฉบับถูกสร้างจากต่างหน่วยงานกัน ทำให้เกิดปัญหาการซ้อนทับกันของขอบเขต เราจึงได้ทำการปรับปรุงระบบตรวจสอบ โดยจัดทำแผนที่ตามข้อกำหนดของแต่ละกฎหมายขึ้นใหม่ เพื่อทำให้ขอบเขตของแต่ละบริเวณที่กฎหมายบังคับใช้ไม่เกิดการ overlap กัน และทำการวิเคราะห์เนื้อหากฎหมาย พร้อมกับจัดรูปแบบเนื้อหากฎหมายให้อยู่ในรูปฐานข้อมูลที่ง่ายต่อการตรวจสอบ</p>
 									</div>
 								</div>
 							</div>
@@ -707,7 +712,7 @@
 									<p>การพัฒนาโปรแกรมประยุกต์บนเว็บสำหรับตรวจสอบการใช้ประโยชน์ที่ดินตามกฎหมายภาครัฐ</p>
 								</figcaption>
 								<ul class="external">
-									<li><a href="img/portfolio/papers/2016_การพัฒนาโปรแกรมประยุกต์บนเว็บสำหรับตรวจสอบการใช้ประโยชน์ที่ดินตามกฎหมายภาครัฐ.pdf" target="_blank"><i class="fa fa-link"></i></a></li>
+									<li><a href="img/portfolio/papers/2016_Web-Based Application of Land Use Verification_Phuket Case Study.pdf" target="_blank"><i class="fa fa-link"></i></a></li>
 								</ul>
 							</li>
 							
@@ -729,7 +734,7 @@
 									<p>Web application for GIS-based tourism data integration of Phuket province, Thailand</p>
 								</figcaption>
 								<ul class="external">
-									<li><a href="img/portfolio/papers/2015_Web application for GIS-based tourism data integration of Phuket province, Thailand.pdf" target="_blank"><i class="fa fa-link"></i></a></li>
+									<li><a href="img/portfolio/papers/2016_Web%20application%20for%20GIS-based%20tourism%20data%20integration%20of%20Phuket%20province,%20Thailand.pdf" target="_blank"><i class="fa fa-link"></i></a></li>
 								</ul>
 							</li>
 							
@@ -905,7 +910,7 @@
 							</ul>
 						</div>
 						
-						<p>Copyright &copy; 2016 Developed By <a href="http://www.rgden.com">GDEN</a> <br />
+						<p>Copyright &copy; 2016 Developed By <a href="http://www.rgden.com" target="_blank">GDEN</a> <br />
 							Design By <a href="http://www.themefisher.com">Themefisher</a>
 						</p>
 					</div>

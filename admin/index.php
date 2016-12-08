@@ -24,8 +24,8 @@ if ($result=mysqli_query($link,$sql)){
 				<th>id</th>
 				<th>name</th>
 				<th>email</th>
-				<th width="100px">subject</th>
-				<th width="400px">message</th>
+				<th>subject</th>
+				<th width="300px">message</th>
 				<th>date-time</th>
 			</tr>
 		<?php

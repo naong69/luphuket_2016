@@ -469,6 +469,11 @@ var twoZone;
 
 });
 
+$('#map').mousedown(function() {
+    $(this).addClass('grabbable');
+}).mouseup(function() {
+    $(this).removeClass('grabbable');
+});
 
 
 

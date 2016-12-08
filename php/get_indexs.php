@@ -1,6 +1,6 @@
 <?php
 include('connect.php');
-//$_POST['cat'] = 'G';
+//$_POST['cat'] = 'B';
 //$_POST['group'] = 'B002';
 if(isset($_POST['cat'])){
 	$json_str = "";
