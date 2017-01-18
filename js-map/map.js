@@ -402,10 +402,12 @@ function changeLawMap(lawmap){
 
 var mapZone;
 var twoZone;
+var xy;
 
  map.on('singleclick', function(evt) {
 	mapZone = [];
 	twoZone = false;
+	xy = evt.coordinate;
         //document.getElementById('nodelist').innerHTML = "Loading... please wait...";
     var view = map.getView();
 	if(view.getZoom() < 16){ // need to zoom more

@@ -223,7 +223,7 @@ $(document).ready(function(){
 			 //alert(mapZone);
 			 //alert($('#oper-prod-index').val());
 			$(".result-fancybox").fancybox({
-				href : 'php/lu_act_validate.php?data='+mapZone+'&index='+$('#oper-prod-index').val(),
+				href : 'php/lu_act_validate.php?data='+mapZone+'&index='+$('#oper-prod-index').val()+'&xy='+xy,
 				width         : '75%',
 				height        : '700',
 				autoScale     : false,

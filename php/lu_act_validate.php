@@ -1,8 +1,8 @@
 <?php
 //$data = "pk_cp_act_2558.110:2,pk_bc15_act_2529.7:3,pk_en_act_2553.43:2";
 //$index = "B002001";
-//echo $_REQUEST['index'];
-if(isset($_REQUEST['data'])&& isset($_REQUEST['index'])){
+
+if(isset($_REQUEST['data'])&& isset($_REQUEST['index'])&& isset($_REQUEST['xy'])){
 
 $data = $_REQUEST['data'];
 $index = $_REQUEST['index'];
@@ -19,6 +19,28 @@ foreach (explode(",", $data) as $value){
 
 include('connect.php');
 
+// loging process
+$user_agent     =   $_SERVER['HTTP_USER_AGENT'];
+// load functions
+include_once("utill.php");
+
+$xy = $_REQUEST['xy'];
+$remote_ip = get_client_ip();
+// find OS 
+
+$user_os        =   getOS();
+$user_browser   =   getBrowser();
+
+$datetime = date("Y-m-d H:i:s");
+$utc = new DateTime($datetime, new DateTimeZone('UTC'));
+$utc->setTimezone(new DateTimeZone('Asia/Bangkok'));
+$time_stamp = $utc->format('Y-m-d H:i:s');
+
+$strSQL = "INSERT INTO `validate_logs` (`time_stamp`, `ip`, `os`, `browser`, `coor_xy`, `build_up_index`) VALUES ('".$time_stamp."', '".$remote_ip."', '".$user_os."', '".$user_browser."', '".$xy."', '".$index."')";
+$objQuery = mysqli_query($link, $strSQL);
+
+
+// validate process
 // start query
 
 $strSQL = "SELECT * FROM all_index WHERE indexID = '".$index."' ";
