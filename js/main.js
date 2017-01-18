@@ -312,18 +312,34 @@ $(document).ready(function(){
 
 });
 
+$('input[name=email]').on('input', function() {
+    $('input[name=email]').removeClass('form-control-error')
+});
+
+$('textarea[name=message]').on('input', function() {
+    $('textarea[name=message]').removeClass('form-control-error')
+});
+
+
 
 function msgSubmit(){
-	$.post( "php/msg_submit.php",{ name: $('input[name=name]').val(), 
-								  email: $('input[name=email]').val(), 
-								  subject: $('input[name=subject]').val(), 
-								  message: $('textarea[name=message]').val(), }, function (){
-		$('#submit-info').fadeIn().delay(2000).fadeOut();
-		$('input[name=name]').val('');
-		$('input[name=email]').val('');
-		$('input[name=subject]').val('');
-		$('textarea[name=message]').val('');
-	});	
+	if($('input[name=email]').val() == "" || $('textarea[name=message]').val() == "") {
+		if($('input[name=email]').val() == "")
+			$('input[name=email]').addClass('form-control-error')
+		if($('textarea[name=message]').val() == "")
+			$('textarea[name=message]').addClass('form-control-error')
+	} else {
+		$.post( "php/msg_submit.php",{ name: $('input[name=name]').val(), 
+									  email: $('input[name=email]').val(), 
+									  subject: $('input[name=subject]').val(), 
+									  message: $('textarea[name=message]').val(), }, function (){
+			$('#submit-info').fadeIn().delay(2000).fadeOut();
+			$('input[name=name]').val('');
+			$('input[name=email]').val('');
+			$('input[name=subject]').val('');
+			$('textarea[name=message]').val('');
+		});	
+	}
 }
 
 
