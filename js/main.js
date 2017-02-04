@@ -252,15 +252,16 @@ $(document).ready(function(){
 			//fill options based on category-index
 			$('#group-index').find('option').not(':first').remove();
 				// get indexs
-				$.post( "php/get_indexs.php",{ cat: $('#category-index').val() }, function (j){
-					index_json_obj = $.parseJSON(j);
-					$.each(index_json_obj, function() {
-						$('#group-index').append($('<option>', {
-							value: this['group_index'],
-							text: this['group_name_sub']
-						}));
-					});
+			$.post( "php/get_indexs.php",{ cat: $('#category-index').val() }, function (j){
+				index_json_obj = $.parseJSON(j);
+				
+				$.each(index_json_obj, function() {
+					$('#group-index').append($('<option>', {
+						value: this['group_index'],
+						text: this['group_name_sub']
+					}));
 				});
+			});
 				
 			// enable group-index select
 			$('#group-index').prop('disabled', false);

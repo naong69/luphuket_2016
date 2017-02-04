@@ -10,10 +10,13 @@
         <meta charset="utf-8">
 		<!-- Always force latest IE rendering engine or request Chrome Frame -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Phuket Land Use Policy</title>		
+        <title>Phuket Land Use Policy : การใช้ประโยชน์ที่ดินภูเก็ต</title>		
 		<!-- Meta Description -->
-        <meta name="description" content="Land Use Acts on Phuket Island">
-        <meta name="keywords" content="phuket law, land use, land use policy, land related act, phuket environment act, building control act, town planning act">
+        <meta name="description" content="ระบบตรวจสอบการใช้ประโยชน์ที่ดินภูเก็ต แผนที่ ผังเมืองรวม 2558 เทศบัญญัติผังเมืองป่าตอง กฎหมายควบคุมอาคาร กฏหมายสิ่งแวดล้อม  ประกาศพื้นที่ควบคุมสิ่งแวดล้อม">
+        <meta name="keywords" content="การใช้ประโยชน์ที่ดิน, การใช้ประโยชน์ที่ดินภูเก็ต, ตรวจสอบการใช้ประโยชน์ที่ดิน, 
+		การอนุรักษสิ่งแวดล้อม, บริการตรวจสอบการใช้ประโยชน์ที่ดิน, กรมโยธาธิการและผังเมือง, ผังเมืองรวมภูเก็ต 2558, ควบคุมอาคาร, ผังเมืองป่าตอง,  พื้นที่ควบคุมสิ่งแวดล้อม,
+		phuket land use policy, phuket smart city, Thailand 4.0, phuket land use regulations, land use law and regulation, phuket environment act, 
+		building control act, urban planning policy, land use zoning, environmental sustainability, land and property usage rights">
         <meta name="author" content="GDEN">
 		
 		<!-- Mobile Specific Meta -->
@@ -166,7 +169,10 @@
 				cursor: -moz-grabbing;
 				cursor: -webkit-grabbing;
 			}
-						
+				
+			div #logo{
+				float:left;
+			}
 			
 		</style>
 		<link rel="stylesheet" href="https://openlayers.org/en/v3.19.1/css/ol.css" type="text/css">
@@ -206,6 +212,7 @@
 					<!-- /responsive nav button -->
 					
 					<!-- logo -->
+					<div id="logo"><a href="http://www.phuket.psu.ac.th" target="_blank"><img src="img/logopsu.gif" height="70px" width="38px" ></a></div>
 					<h1 class="navbar-brand">
 						<a href="#body">LandUse@Phuket</a>
 					</h1>
@@ -263,7 +270,7 @@
                             <div class="caption-content">
 								<div class="content-box-1">
                                 <h2>กฏหมายการใช้ประโยชน์ที่ดินในจังหวัดภูเก็ต</h2>
-								<span style="font-size:20px">Land Use Regulations and Acts for Phuket</span>
+								<span style="font-size:20px">Phuket Land Use Laws and Regulations</span>
 								</div>
                                 <a href="#lu-acts" class="btn btn-blue btn-effect"><span style="font-size:16px">ศึกษากฏหมาย</span></a>
 								
@@ -345,6 +352,42 @@
 			</section>
 			<!-- end about section -->
 			
+			<!-- sponsor section -->
+			<section id="sponsor">
+				<div class="container">
+					<div class="row">
+					
+						<div class="sec-title text-center wow animated fadeInDown" style="margin-bottom:0px">
+							<h2>ผู้สนับสนุนงานวิจัย</h2>
+						</div>
+						
+						<div class="col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
+							<div >
+								<a title="กองทุนวิจัยวิทยาเขต มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตภูเก็ต" target="_blank" href="http://www.phuket.psu.ac.th/">	
+									<img src="img/logopsu.gif" height="150px" width="83px" >
+								</a>
+								<a title="กองทุนวิจัยวิทยาเขต มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตภูเก็ต" target="_blank" href="http://www.phuket.psu.ac.th/">
+									<h3>กองทุนวิจัย มอ วิทยาเขตภูเก็ต</h3>
+								</a>
+								<p>มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตภูเก็ต</p>							
+							</div>
+						</div>
+						<div class="col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
+							<div class="lu-acts-item">
+								<a class="acts-fancybox" title="กองทุนวิจัยคณะเทคโนโลยีและสิ่งแวดล้อม" target="_blank" href="https://te.psu.ac.th/">	
+									<img src="img/Logo_TE.png" height="150px" width="104px" >
+								</a>
+								<a class="acts-fancybox" title="กองทุนวิจัยคณะเทคโนโลยีและสิ่งแวดล้อม" target="_blank" href="https://te.psu.ac.th/">	
+									<h3>กองทุนวิจัยคณะเทคโนโลยีและสิ่งแวดล้อม</h3>
+								</a>
+								<p>มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตภูเก็ต</p>							
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+			<!-- end sponsor section -->
 			
 			<!-- Service section -->
 			<section id="service">
@@ -444,7 +487,7 @@
 										<div class="panel-heading">กฏหมายควบคุมอาคาร ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙)</div>
 										<div class="panel-body table-responsive">
 											<table class="table table-hover legend-table">
-												<tr><td><img src="map/img/building/zone_1.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๑ : พื้นที่ในบริเวณที่เริ่มจากแนวเชตความคุมอาคารตะวันตก ไปทางทิศตะวันออกข้ามถนนป่าตอง-กมลา ถนนทวีวงศ์ และถนนเลียบหาดป่าตอง
+												<tr><td><img src="map/img/building/zone_1.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๑ : พื้นที่ในบริเวณที่เริ่มจากแนวเขตความคุมอาคารตะวันตก ไปทางทิศตะวันออกข้ามถนนป่าตอง-กมลา ถนนทวีวงศ์ และถนนเลียบหาดป่าตอง
 												 ๑๕ เมตร ไปทางทิศเหนือจดเขตตำบลกมลา ไปทางทิศใต้จนจดบริเวณที่ห่างจากกึ่งกลางคลองปากบางไปทางทิศใต้ตามแนวถนนเลียบริมหาดป่าตองเป็นระยะ ๕๐๐ เมตร</td></tr>
 												<tr><td><img src="map/img/building/zone_4.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๒ : พื้นที่ที่วัดจากแนวศูนย์กลางถนนราษฏรอุทิศ ถนนสองร้อยปี และถนนทุกสายที่เชื่อมระหว่างถนนทวีวงค์กับถนนราษฏรอุทิศ และถนนสองร้อยปี ออกไปทั้งสองข้าง ข้างละ ๑๕ เมตร</td></tr>
 												<tr><td><img src="map/img/building/zone_3.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๓ : พื้นที่ที่วัดจากสุดแนวเขตบริเวณที่ ๑ ตลอดแนวไปทางทิศตะวันออกเป็นระยะ ๑๕๐ เมตร</td></tr>
@@ -474,8 +517,8 @@
 												<tr><td><img src="map/img/city_plan/zone_1.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๑ : ที่ดินประเภทที่อยู่อาศัยหนาแน่นน้อย</td></tr>
 												<tr><td><img src="map/img/city_plan/zone_2.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๒ : ที่ดินประเภทที่อยู่อาศัยหนาแน่นปานกลาง</td></tr>
 												<tr><td><img src="map/img/city_plan/zone_3.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๓ : ที่ดินประเภทพาณิชยกรรมและที่อยู่อาศัยหนาแน่นมาก</td></tr>
-												<tr><td><img src="map/img/city_plan/zone_4.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๔ : ที่ดินประเภทอุตสาหกรรมเฉพาะกิจ</td></tr>
-												<tr><td><img src="map/img/city_plan/zone_5.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๕ : ที่ดินประเภทอุตสาหกรรมและคลังสินค้า </td></tr>
+												<tr><td><img src="map/img/city_plan/zone_4.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๔ : ที่ดินประเภทอุตสาหกรรมและคลังสินค้า</td></tr>
+												<tr><td><img src="map/img/city_plan/zone_5.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๕ : ที่ดินประเภทอุตสาหกรรมเฉพาะกิจ </td></tr>
 												<tr><td><img src="map/img/city_plan/zone_6.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๖ : ที่ดินประเภทชนบทและเกษตรกรรม</td></tr>
 												<tr><td><img src="map/img/city_plan/zone_7.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๗ : ที่ดินประเภทที่โล่งเพื่อการรักษาคุณภาพสิ่งแวดล้อม</td></tr>
 												<tr><td><img src="map/img/city_plan/zone_8.png" height="15px" width="30px"></td><td class="text-left">บริเวณที่ ๘ : ที่ดินประเภทอนุรักษ์ป่าไม้</td></tr>
@@ -587,8 +630,8 @@
 								<a class="acts-fancybox" title="กฏหมายสิ่งแวดล้อม" data-fancybox-group="works" href="acts/infographic/envi_2553.jpg">
 									<div class="lu-acts-icon"><i class="fa fa-envira fa-3x"></i></div>
 								</a>
-								<h3>กฏหมายสิ่งแวดล้อม </h3>
-								<p>ประกาศกระทรวงทรัพยากรธรรมชาติและสื่งแวดล้อม  ในบริเวณพื้นที่จังหวัดภูเก็ต พ.ศ. ๒๕๕๓</p>
+								<h3>กฎหมายสิ่งแวดล้อม </h3>
+								<p>ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม ในบริเวณพื้นที่จังหวัดภูเก็ต พ.ศ. ๒๕๕๓</p>
 							</div>
 						</div>
 					
@@ -597,8 +640,8 @@
 								<a class="acts-fancybox" title="กฏหมายควบคุมอาคาร (๒๕๒๙)" data-fancybox-group="works" href="acts/infographic/bd20_2532.jpg">	
 									<div class="lu-acts-icon"><i class="fa fa-building fa-3x"></i></div>
 								</a>
-								<h3>กฏหมายควบคุมอาคาร (๒๕๒๙)</h3>
-								<p>กฏกระทรวง ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙) ออกตามความในพระราชยัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</p>
+								<h3>กฎหมายควบคุมอาคาร (๒๕๒๙)</h3>
+								<p>กฎกระทรวง ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙) ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</p>
 							</div>
 						</div>
 					
@@ -607,8 +650,8 @@
 								<a class="acts-fancybox" title="กฏหมายควบคุมอาคาร (๒๕๓๒) " data-fancybox-group="works" href="acts/infographic/bd20_2532.jpg">	
 									<div class="lu-acts-icon"><i class="fa fa-home fa-3x"></i></div>
 								</a>
-								<h3>กฏหมายควบคุมอาคาร (๒๕๓๒) </h3>
-								<p>กฏกระทรวง ฉบับที่ ๒๐ (พ.ศ. ๒๕๓๒) ออกตามความในพระราชยัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</p>
+								<h3>กฎหมายควบคุมอาคาร (๒๕๓๒) </h3>
+								<p>กฎกระทรวง ฉบับที่ ๒๐ (พ.ศ. ๒๕๓๒) ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</p>
 							</div>
 						</div>
 					
@@ -617,7 +660,7 @@
 								<a class="acts-fancybox" title="กฏหมายผังเมืองรวม" data-fancybox-group="works" href="acts/infographic/cp_2558.jpg">
 									<div class="lu-acts-icon"><i class="fa fa-map fa-3x"></i></div>
 								</a>
-								<h3>กฏหมายผังเมืองรวม</h3>
+								<h3>กฎหมายผังเมืองรวม</h3>
 								<p>กฏกระทรวง  ให้ใช้บังคับผังเมืองรวมจังหวัดภูเก็ต พ.ศ. ๒๕๕๔ และ พ.ศ. ๒๕๕๘</p>							
 							</div>
 						</div>

@@ -1,6 +1,8 @@
 <?php
-//$data = "pk_cp_act_2558.110:2,pk_bc15_act_2529.7:3,pk_en_act_2553.43:2";
-//$index = "B002001";
+//$_REQUEST['data'] = "pk_cp_act_2558.110:2,pk_bc20_act_2532.2:1,pk_bc15_act_2529.7:3,pk_en_act_2553.43:2,pk_patong_lu_act_2548.5:2";
+//$_REQUEST['index'] = "B001001";
+//$_REQUEST['xy'] = "12. ";
+//$_REQUEST['data'] = "pk_patong_lu_act_2548.1:1,pk_cp_act_2558.9:1_1,pk_en_act_2553.568:8";
 
 if(isset($_REQUEST['data'])&& isset($_REQUEST['index'])&& isset($_REQUEST['xy'])){
 
@@ -60,48 +62,71 @@ $enval = $cpval = $bc20val = $bc15val = $muval = 1;
 if(in_array("pk_en_act_2553",$map)){
 	$key = array_search("pk_en_act_2553",$map);	
 	
-	// validate
+	//Validate
 	$strSQL = "SELECT A.zone_".$zone[$key]." FROM `en_validate_matrix` as A WHERE indexID = '".$index."'";
     $objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
     $enval = $objResult[0];
 	
-    //Factory Restriction
-    $strSQL = "SELECT B.dec FROM `en_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_factory_restriction` as A WHERE indexID = '".$index."')";
-    $objQuery = mysqli_query($link, $strSQL);
-    $objResult = mysqli_fetch_array($objQuery);
-    $enFacRes = $objResult[0];
-
     //Exception
-    $strSQL = "SELECT B.dec FROM `en_exception_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_exception` as A WHERE indexID = '".$index."')";
-    $objQuery = mysqli_query($link, $strSQL);
+    $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_exception` as A WHERE indexID = '".$index."')";
+	$objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
     $enExcepRes = $objResult[0];
-
-    //Area Restriction
-    $strSQL = "SELECT B.dec FROM `en_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_area_restriction` as A WHERE indexID = '".$index."')";
+	
+	//General Restriction
+    $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_general_restriction` as A WHERE indexID = '".$index."')";
     $objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
-    $enAreaRes = $objResult[0];
+    $enGenRes = $objResult[0];	
+	
+    //Factory Restriction
+	if(substr($index,0,1)=='F'){
+		$strSQL = "SELECT B.ex_re_dec FROM `en_factory_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_factory_type_1_restriction` as A WHERE indexID = '".$index."')";
+		$objQuery = mysqli_query($link, $strSQL);
+		$objResult = mysqli_fetch_array($objQuery);
+		$enFacRes1 = $objResult[0];
+		
+		$strSQL = "SELECT B.ex_re_dec FROM `en_factory_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_factory_type_2_restriction` as A WHERE indexID = '".$index."')";
+		$objQuery = mysqli_query($link, $strSQL);
+		$objResult = mysqli_fetch_array($objQuery);
+		$enFacRes2 = $objResult[0];
 
-    //EIA Restriction
-    $strSQL = "SELECT B.dec FROM `en_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_eia_restriction` as A WHERE indexID = '".$index."')";
-    $objQuery = mysqli_query($link, $strSQL);
-    $objResult = mysqli_fetch_array($objQuery);
-    $enEiaRes =  $objResult[0];
+		$strSQL = "SELECT B.ex_re_dec FROM `en_factory_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_factory_type_3_restriction` as A WHERE indexID = '".$index."')";
+		$objQuery = mysqli_query($link, $strSQL);
+		$objResult = mysqli_fetch_array($objQuery);
+		$enFacRes3 = $objResult[0];
 
-    //Height Restriction
-    $strSQL = "SELECT B.dec FROM `en_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_height_restriction` as A WHERE indexID = '".$index."')";
+	} else {
+		$enFacRes1 = "-";
+		$enFacRes2 = "-";
+		$enFacRes3 = "-";
+	}
+
+	//Height Restriction
+    $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_height_restriction` as A WHERE indexID = '".$index."')";
     $objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
     $enHeightRes = $objResult[0];
 
+    //Area Restriction
+    $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_area_restriction` as A WHERE indexID = '".$index."')";
+    $objQuery = mysqli_query($link, $strSQL);
+    $objResult = mysqli_fetch_array($objQuery);
+    $enAreaRes = $objResult[0];
+
     //Slope Restriction
-    $strSQL = "SELECT B.dec FROM `en_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_slope_restriction` as A WHERE indexID = '".$index."')";
+    $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_slope_restriction` as A WHERE indexID = '".$index."')";
     $objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
     $enSlopeRes = $objResult[0];
 	
+	//EIA Restriction
+    $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_eia_restriction` as A WHERE indexID = '".$index."')";
+    $objQuery = mysqli_query($link, $strSQL);
+    $objResult = mysqli_fetch_array($objQuery);
+    $enEiaRes =  $objResult[0];
+
 }
 
 
@@ -110,30 +135,31 @@ if(in_array("pk_en_act_2553",$map)){
 if(in_array("pk_cp_act_2558",$map)){
 	$key = array_search("pk_cp_act_2558",$map);	
 	
-	// validate
-	
+	//Validate
 	$strSQL = "SELECT A.zone_".$zone[$key]." FROM `cp_validate_matrix` as A WHERE indexID = '".$index."'";
-    $objQuery = mysqli_query($link, $strSQL);
+	$objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
     $cpval = $objResult[0];
-	
-    //Factory Restriction
-    $strSQL = "SELECT B.dec FROM `cp_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `cp_factory_restriction` as A WHERE indexID = '".$index."')";
+
+    //Exception
+    $strSQL = "SELECT B.ex_re_dec FROM `cp_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `cp_exception` as A WHERE indexID = '".$index."')";
     $objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
-    $cpFacRes = $objResult[0];
+    $cpExcepRes = $objResult[0];
+	
+    //General Restriction
+    $strSQL = "SELECT B.ex_re_dec FROM `cp_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `cp_general_restriction` as A WHERE indexID = '".$index."')";
+	$objQuery = mysqli_query($link, $strSQL);
+    $objResult = mysqli_fetch_array($objQuery);
+    $cpGenRes = $objResult[0];
 
     //Area Restriction
-    $strSQL = "SELECT B.dec FROM `cp_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `cp_area_restriction` as A WHERE indexID = '".$index."')";
+    $strSQL = "SELECT B.ex_re_dec FROM `cp_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `cp_area_restriction` as A WHERE indexID = '".$index."')";
     $objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
     $cpAreaRes = $objResult[0];
 
-    //Exception
-    $strSQL = "SELECT B.dec FROM `cp_exception_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `cp_exception` as A WHERE indexID = '".$index."')";
-    $objQuery = mysqli_query($link, $strSQL);
-    $objResult = mysqli_fetch_array($objQuery);
-    $cpExcepRes = $objResult[0];
+
                
 }               
                
@@ -148,29 +174,32 @@ if(in_array("pk_bc20_act_2532",$map)){
     $objResult = mysqli_fetch_array($objQuery);
     $bc20val = $objResult[0];
 	
-    //Factory Restriction
-    $strSQL = "SELECT B.dec FROM `bc20_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc20_factory_restriction` as A WHERE indexID = '".$index."')";
-    $objQuery = mysqli_query($link, $strSQL);
+	//Exception
+    $strSQL = "SELECT B.ex_re_dec FROM `bc20_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc20_exception` as A WHERE indexID = '".$index."')";  
+	$objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
-    $bc20FacRes = $objResult[0];
+    $bc20ExcepRes = $objResult[0];
+	
+    //General Restriction
+    $strSQL = "SELECT B.ex_re_dec FROM `bc20_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc20_general_restriction` as A WHERE indexID = '".$index."')";
+	$objQuery = mysqli_query($link, $strSQL);
+    $objResult = mysqli_fetch_array($objQuery);
+    $bc20GenRes = $objResult[0];
 
     //Height Restriction
-    $strSQL = "SELECT B.dec FROM `bc20_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc20_height_restriction` as A WHERE indexID = '".$index."')";
-    $objQuery = mysqli_query($link, $strSQL);
+    $strSQL = "SELECT B.ex_re_dec FROM `bc20_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc20_height_restriction` as A WHERE indexID = '".$index."')";
+        
+	$objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
     $bc20HeightRes = $objResult[0];
 
     //Area Restriction
-    $strSQL = "SELECT B.dec FROM `bc20_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc20_area_restriction` as A WHERE indexID = '".$index."')";
+    $strSQL = "SELECT B.ex_re_dec FROM `bc20_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc20_area_restriction` as A WHERE indexID = '".$index."')";
     $objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
     $bc20AreaRes = $objResult[0];
 
-    //Result Area Restriction
-    $strSQL = "SELECT B.dec FROM `bc20_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc20_result_area_restriction` as A WHERE indexID = '".$index."')";
-    $objQuery = mysqli_query($link, $strSQL);
-    $objResult = mysqli_fetch_array($objQuery);
-    $bc20ResulRes = $objResult[0];
+    
     
 }
     /*===BuildingControl15======================================================================================================================================================================================*/
@@ -185,20 +214,26 @@ if(in_array("pk_bc15_act_2529",$map)){
     $objResult = mysqli_fetch_array($objQuery);
     $bc15val = $objResult[0];
 	
-    //Factory Restriction
-    $strSQL = "SELECT B.dec FROM `bc15_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc15_factory_restriction` as A WHERE indexID = '".$index."')";
-    $objQuery = mysqli_query($link, $strSQL);
+	//Exception
+    $strSQL = "SELECT B.ex_re_dec FROM `bc15_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc15_exception` as A WHERE indexID = '".$index."')";  
+	$objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
-    $bc15FacRes = $objResult[0];
+    $bc15ExcepRes = $objResult[0];
+	
+    //General Restriction
+    $strSQL = "SELECT B.ex_re_dec FROM `bc15_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc15_general_restriction` as A WHERE indexID = '".$index."')";
+	$objQuery = mysqli_query($link, $strSQL);
+    $objResult = mysqli_fetch_array($objQuery);
+    $bc15GenRes = $objResult[0];
 
     //Height Restriction
-    $strSQL = "SELECT B.dec FROM `bc15_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc15_height_restriction` as A WHERE indexID = '".$index."')";
+    $strSQL = "SELECT B.ex_re_dec FROM `bc15_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc15_height_restriction` as A WHERE indexID = '".$index."')";
     $objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
-    $bc15heightRes = $objResult[0];
+    $bc15HeightRes = $objResult[0];
     
     //Area Restriction
-    $strSQL = "SELECT B.dec FROM `bc15_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc15_area_restriction` as A WHERE indexID = '".$index."')";
+    $strSQL = "SELECT B.ex_re_dec FROM `bc15_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `bc15_area_restriction` as A WHERE indexID = '".$index."')";
     $objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
     $bc15AreaRes = $objResult[0];
@@ -210,22 +245,17 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 	$key = array_search("pk_patong_lu_act_2548",$map);	
 	
 	// validate
-	$strSQL = "SELECT A.zone_".$zone[$key]." FROM `mu_validate_matrix` as A WHERE indexID = '".$index."'";
-    $objQuery = mysqli_query($link, $strSQL);
-    $objResult = mysqli_fetch_array($objQuery);
-    $muval = $objResult[0];
+	$strSQL = "SELECT A.zone_".$zone[$key]." FROM `pt_validate_matrix` as A WHERE indexID = '".$index."'";
 	
-    //Factory Restriction
-    $strSQL = "SELECT B.dec FROM `mu_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `mu_factory_restriction` as A WHERE indexID = '".$index."')";
-    $objQuery = mysqli_query($link, $strSQL);
+	$objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
-    $muFacRes = $objResult[0];
-
-    //Area Restriction
-    $strSQL = "SELECT B.dec FROM `mu_restriction_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `mu_area_restriction` as A WHERE indexID = '".$index."')";
-    $objQuery = mysqli_query($link, $strSQL);
+    $ptval = $objResult[0];
+	
+    //Gen Restriction
+    $strSQL = "SELECT B.ex_re_dec FROM `pt_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `pt_general_restriction` as A WHERE indexID = '".$index."')";
+	$objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
-    $muAreaRes = $objResult[0];
+    $ptGenRes = $objResult[0];
 
 }
 
@@ -296,8 +326,13 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($enval)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
 			<?php if($enval == 1 || strlen($enExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น:</b> <?php echo $enExcepRes ?> </span> </li>
-			<li><span><b><u>ข้อจำกัด</u></b></span>
-				<?php if($index_cat == 'F'){?><dd><span><b>โรงงาน:</b> <?php echo $enFacRes ?></span></dd><?php } ?>
+			<li><span><b>ข้อจำกัด</b></span>
+				<dd><span><b>ข้อจำกัดทั้วไป:</b> <?php echo $enGenRes ?></span></dd>
+				<?php if($index_cat == 'F'){?>
+				<dd><span><b>โรงงานจำพวกที่ 1:</b> <?php echo $enFacRes1 ?></span></dd>
+				<dd><span><b>โรงงานจำพวกที่ 2:</b> <?php echo $enFacRes2 ?></span></dd>
+				<dd><span><b>โรงงานจำพวกที่ 3:</b> <?php echo $enFacRes3 ?></span></dd>
+				<?php } ?>
 				<dd><span><b>ความสูง:</b> <?php echo $enHeightRes ?></span></dd>
 				<dd><span><b>พื้นที่:</b> <?php echo $enAreaRes ?></span></dd>
 				<dd><span><b>ความลาดชัน:</b> <?php echo $enSlopeRes ?></span></dd>
@@ -315,9 +350,9 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 		<ul id="subforms2" class="subforums" style="padding: 10px 10px; list-style: none;">
 			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($cpval)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
 			<?php if($cpval == 1 || strlen($cpExcepRes) != 1) { ?>
-			<li><span><b><u>ข้อยกเว้น</u></b> <?php echo $cpExcepRes ?> </span> </li>
+			<li><span><b>ข้อยกเว้น:</b> <?php echo $cpExcepRes ?> </span> </li>
 			<li><span><b>ข้อจำกัด</b></span>
-				<?php if($index_cat == 'F'){?><dd><span><b>โรงงาน:</b> <?php echo $cpFacRes ?></span></dd><?php } ?>
+				<dd><span><b>ข้อจำกัดทั้วไป:</b> <?php echo $cpGenRes ?></span></dd>
 				<dd><span><b>พื้นที่:</b> <?php echo $cpAreaRes ?></span></dd>
 			</li>
 			<?php } else { ?>
@@ -331,12 +366,12 @@ if(in_array("pk_patong_lu_act_2548",$map)){
         <div class="acts alert <?php echo($bc20val)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">กฏหมายควบคุมอาคาร ฉบับที่ ๒๐ (พ.ศ. ๒๕๓๒)</div></div>
 		<ul id="subforms3" class="subforums" style="padding: 10px 10px; list-style: none;">
 			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($bc20val)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
-			<?php if($bc20val == 1) { ?>
-			<li><span><b><u>ข้อจำกัด</u></b></span>
-				<?php if($index_cat == 'F'){?><dd><span><b>โรงงาน:</b> <?php echo $bc20FacRes ?></span></dd><?php } ?>
+			<?php if($bc20val == 1 || strlen($bc20ExcepRes) != 1) { ?>
+			<li><span><b>ข้อยกเว้น</b> <?php echo $bc20ExcepRes ?> </span> </li>
+			<li><span><b>ข้อจำกัด</b></span>
+				<dd><span><b>ข้อจำกัดทั้วไป:</b> <?php echo $bc20GenRes ?></span></dd>
 				<dd><span><b>ความสูง:</b> <?php echo $bc20HeightRes ?></span></dd>
-				<dd><span><b>พื้นที่ว่าง:</b> <?php echo $bc20AreaRes ?></span></dd>
-				<dd><span><b>พื้นที่รวม:</b> <?php echo $bc20ResulRes ?></span></dd>
+				<dd><span><b>พื้นที่:</b> <?php echo $bc20AreaRes ?></span></dd>
 			</li>
 			<?php } else { ?>
 			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินไม่สอดคล้องตามกฎกระทรวง ฉบับที่ ๒๐ พ.ศ. ๒๕๓๒ ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</span> </li>
@@ -349,10 +384,11 @@ if(in_array("pk_patong_lu_act_2548",$map)){
         <div class="acts alert <?php echo($bc15val)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">กฏหมายควบคุมอาคาร  ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙) </div></div>
 		<ul id="subforms4" class="subforums" style="padding: 10px 10px; list-style: none;">
 		<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($bc15val)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
-			<?php if($bc15val == 1 ) { ?>
-			<li><span><b><u>ข้อจำกัด</u></b></span>
-				<?php if($index_cat == 'F'){?><dd><span><b>โรงงาน:</b> <?php echo $bc15FacRes ?></span></dd><?php } ?>
-				<dd><span><b>ความสูง:</b> <?php echo $bc15heightRes ?></span></dd>
+			<?php if($bc15val == 1 || strlen($bc15ExcepRes) != 1) { ?>
+			<li><span><b>ข้อยกเว้น</b> <?php echo $bc15ExcepRes ?> </span> </li>
+			<li><span><b>ข้อจำกัด</b></span>
+				<dd><span><b>ข้อจำกัดทั้วไป:</b> <?php echo $bc15GenRes ?></span></dd>
+				<dd><span><b>ความสูง:</b> <?php echo $bc15HeightRes ?></span></dd>
 				<dd><span><b>พื้นที่:</b> <?php echo $bc15AreaRes ?></span></dd>
 			</li>
 			<?php } else { ?>
@@ -366,11 +402,8 @@ if(in_array("pk_patong_lu_act_2548",$map)){
         <div class="acts alert <?php echo($muval)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">เทศบัญญัติเทศบาลเมืองป่าตอง พ.ศ. ๒๕๔๘</div></div>
 		<ul id="subforms5" class="subforums" style="padding: 10px 10px; list-style: none;">
 			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($muval)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
-			<?php if($muval == 1 ) { ?>
-			<li><span><b>ข้อจำกัด:</b></span>
-				<?php if($index_cat == 'F'){?><dd><span><b>โรงงาน:</b> <?php echo $muFacRes ?></span></dd><?php } ?>
-				<dd><span><b>พื้นที่:</b> <?php echo $muAreaRes ?></span></dd>
-			</li>
+			<?php if($ptval == 1 ) { ?>
+			<li><span><b>ข้อจำกัด:</b> <?php echo $ptGenRes ?></span></span></li>
 			<?php } else { ?>
 			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินไม่สอดคล้องตามเทศบัญญัติเทศบาลเมืองป่าตอง พ.ศ. ๒๕๔๘</span> </li>
 			<?php } ?>

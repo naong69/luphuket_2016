@@ -1,7 +1,8 @@
 <?php
 include('connect.php');
-//$_POST['cat'] = 'B';
-//$_POST['group'] = 'B002';
+
+//$_POST['cat'] = 'F';
+//$_POST['group'] = '001';
 if(isset($_POST['cat'])){
 	$json_str = "";
 	$sql = "SELECT DISTINCT `group_index`, `group_name_sub` FROM `all_index` WHERE `category_index` = '".$_POST['cat']."'";
@@ -34,5 +35,6 @@ if(isset($_POST['group'])){
 	echo $json_str;
 }
 
-
+/* close connection */
+mysqli_close($link);
 ?>
