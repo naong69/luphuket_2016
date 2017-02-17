@@ -319,6 +319,8 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 		<div><span style="color:red;">ผลการตรวจสอบดังกล่าวอยู่ในช่วงการพัฒนาระบบ ซึ่งไม่สามารถนำไปใช้อ้างอิงทางกฎหมายได้</span></div>
 		<hr>
 	</div>
+	<div class="text-center">ท่านสามารถดูรายละเอียดข้อกำหนดการใช้ประโยชน์ที่ดินตามแต่ละกฎหมายได้ โดยคลิกที่แถบข้างล่างนี้</div>
+	<br>
 	<?php  if(in_array("pk_en_act_2553",$map)){ ?>
     <div class="span9 btn-block">
 		<div class="acts alert <?php echo($enval)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">กฏหมายสิ่งแวดล้อม พ.ศ. ๒๕๕๓</div></div>
