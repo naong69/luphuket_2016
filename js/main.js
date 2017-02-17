@@ -474,7 +474,13 @@ function init() {
         position: new google.maps.LatLng(7.894724, 98.352156),
         map: map,
 		icon: 'img/icons/map-marker.png',
+		title: 'คณะเทคโนโลยีและสิ่งแวดล้อม มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตภูเก็ต'
     });
+	
+	marker.addListener('click', function() {
+	 window.open('https://www.google.co.th/maps/place/Faculty+of+Technology+and+Environment/@7.8922156,98.3471783,15z/data=!4m5!3m4!1s0x0:0x43ed556e96eb7eb8!8m2!3d7.8947623!4d98.352077?hl=en','_blank')
+	});
+
 }
 
 // ========== END GOOGLE MAP ========== //

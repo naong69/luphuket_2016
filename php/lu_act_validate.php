@@ -316,7 +316,7 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 		<b>กิจการ: </b><?php echo $opr_name?>
 		</div>
 		<br>
-		<div><span style="color:red;">ผลการตรวจสอบดังกล่าวอยู่ในช่วงการพัฒนาระบบ ซึ่งไม่สามารถนำไปอ้างอิงทางกฎหมายได้</span></div>
+		<div><span style="color:red;">ผลการตรวจสอบดังกล่าวอยู่ในช่วงการพัฒนาระบบ ซึ่งไม่สามารถนำไปใช้อ้างอิงทางกฎหมายได้</span></div>
 		<hr>
 	</div>
 	<?php  if(in_array("pk_en_act_2553",$map)){ ?>
@@ -327,7 +327,7 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 			<?php if($enval == 1 || strlen($enExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น:</b> <?php echo $enExcepRes ?> </span> </li>
 			<li><span><b>ข้อจำกัด</b></span>
-				<dd><span><b>ข้อจำกัดทั้วไป:</b> <?php echo $enGenRes ?></span></dd>
+				<dd><span><b>ข้อจำกัดทั่วไป:</b> <?php echo $enGenRes ?></span></dd>
 				<?php if($index_cat == 'F'){?>
 				<dd><span><b>โรงงานจำพวกที่ 1:</b> <?php echo $enFacRes1 ?></span></dd>
 				<dd><span><b>โรงงานจำพวกที่ 2:</b> <?php echo $enFacRes2 ?></span></dd>
@@ -339,7 +339,7 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 				<dd><span><b>ผลกระทบสิ่งแวดล้อม:</b> <?php echo $enEiaRes ?></span></dd>
 			</li>
 			<?php } else { ?>
-			<li><span><b>เนื่องจาก:</b>  การใช้ที่ดินไม่สอดคล้องกับข้อกำหนดของประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม พ.ศ.  ๒๕๕๓ </span> </li>
+			<li><span><b>เนื่องจาก:</b>  การใช้ที่ดินสร้างสิ่งปลูกสร้างไม่สอดคล้องกับข้อกำหนดของประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม พ.ศ.  ๒๕๕๓ </span> </li>
 			<?php } ?>
 		</ul>
     </div>
@@ -352,11 +352,11 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 			<?php if($cpval == 1 || strlen($cpExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น:</b> <?php echo $cpExcepRes ?> </span> </li>
 			<li><span><b>ข้อจำกัด</b></span>
-				<dd><span><b>ข้อจำกัดทั้วไป:</b> <?php echo $cpGenRes ?></span></dd>
+				<dd><span><b>ข้อจำกัดทั่วไป:</b> <?php echo $cpGenRes ?></span></dd>
 				<dd><span><b>พื้นที่:</b> <?php echo $cpAreaRes ?></span></dd>
 			</li>
 			<?php } else { ?>
-			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินไม่สอดคล้องตามกฎกระทรวงให้ใช้บังคับผังเมืองรวมจังหวัดภูเก็ต พ.ศ.  ๒๕๕๘ </span> </li>
+			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินสร้างสิ่งปลูกสร้างไม่สอดคล้องตามกฎกระทรวงให้ใช้บังคับผังเมืองรวมจังหวัดภูเก็ต พ.ศ.  ๒๕๕๘ </span> </li>
 			<?php } ?>
 		</ul>
 	</div>
@@ -369,12 +369,12 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 			<?php if($bc20val == 1 || strlen($bc20ExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น</b> <?php echo $bc20ExcepRes ?> </span> </li>
 			<li><span><b>ข้อจำกัด</b></span>
-				<dd><span><b>ข้อจำกัดทั้วไป:</b> <?php echo $bc20GenRes ?></span></dd>
+				<dd><span><b>ข้อจำกัดทั่วไป:</b> <?php echo $bc20GenRes ?></span></dd>
 				<dd><span><b>ความสูง:</b> <?php echo $bc20HeightRes ?></span></dd>
 				<dd><span><b>พื้นที่:</b> <?php echo $bc20AreaRes ?></span></dd>
 			</li>
 			<?php } else { ?>
-			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินไม่สอดคล้องตามกฎกระทรวง ฉบับที่ ๒๐ พ.ศ. ๒๕๓๒ ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</span> </li>
+			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินสร้างสิ่งปลูกสร้างไม่สอดคล้องตามกฎกระทรวง ฉบับที่ ๒๐ พ.ศ. ๒๕๓๒ ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</span> </li>
 			<?php } ?>
 		</ul>
     </div>
@@ -387,12 +387,12 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 			<?php if($bc15val == 1 || strlen($bc15ExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น</b> <?php echo $bc15ExcepRes ?> </span> </li>
 			<li><span><b>ข้อจำกัด</b></span>
-				<dd><span><b>ข้อจำกัดทั้วไป:</b> <?php echo $bc15GenRes ?></span></dd>
+				<dd><span><b>ข้อจำกัดทั่วไป:</b> <?php echo $bc15GenRes ?></span></dd>
 				<dd><span><b>ความสูง:</b> <?php echo $bc15HeightRes ?></span></dd>
 				<dd><span><b>พื้นที่:</b> <?php echo $bc15AreaRes ?></span></dd>
 			</li>
 			<?php } else { ?>
-			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินไม่สอดคล้องตามกฎกระทรวง ฉบับที่ ๑๕ พ.ศ. ๒๕๒๙ ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</span> </li>
+			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินสร้างสิ่งปลูกสร้างไม่สอดคล้องตามกฎกระทรวง ฉบับที่ ๑๕ พ.ศ. ๒๕๒๙ ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</span> </li>
 			<?php } ?>
 		</ul>
     </div>
@@ -405,7 +405,7 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 			<?php if($ptval == 1 ) { ?>
 			<li><span><b>ข้อจำกัด:</b> <?php echo $ptGenRes ?></span></span></li>
 			<?php } else { ?>
-			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินไม่สอดคล้องตามเทศบัญญัติเทศบาลเมืองป่าตอง พ.ศ. ๒๕๔๘</span> </li>
+			<li><span><b>เนื่องจาก:</b> การใช้ที่ดินสร้างสิ่งปลูกสร้างไม่สอดคล้องตามเทศบัญญัติเทศบาลเมืองป่าตอง พ.ศ. ๒๕๔๘</span> </li>
 			<?php } ?>
 		</ul>
     </div>
