@@ -1359,6 +1359,7 @@ textarea.form-control {
 		height: 550px;
     }
 	.legend-item {
+		padding-top : 100px;
 		width: 100%;
 	}
 

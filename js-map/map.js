@@ -300,9 +300,11 @@ function changeLawMap(lawmap){
 		tileWMSLayer_Pk_Bc_15.setVisible(false);
 		tileWMSLayer_Pk_Bc_20.setVisible(false);
 		tileWMSLayer_Pk_Patong_Lu_Act_2548.setVisible(false);
-		vectorLayer.setVisible(false);
-		map.getView().setCenter(center);
-		map.getView().setZoom(11);
+		if(vectorLayer.getVisible() == false){
+			vectorLayer.setVisible(false);
+			map.getView().setCenter(center);
+			map.getView().setZoom(11);
+		}
 		$(".legend-box").hide();
 		$("#legend-phuket").show()
 	}
@@ -318,9 +320,11 @@ function changeLawMap(lawmap){
 		tileWMSLayer_Pk_Bc_15.setVisible(false);
 		tileWMSLayer_Pk_Bc_20.setVisible(false);
 		tileWMSLayer_Pk_Patong_Lu_Act_2548.setVisible(false);
-		vectorLayer.setVisible(false);
-		map.getView().setCenter(center);
-		map.getView().setZoom(11);
+		if(vectorLayer.getVisible() == false){
+			vectorLayer.setVisible(false);
+			map.getView().setCenter(center);
+			map.getView().setZoom(11);
+		}
 		$(".legend-box").hide();
 		$("#legend-act-envi").show()
 	}
@@ -336,9 +340,11 @@ function changeLawMap(lawmap){
 		tileWMSLayer_Pk_Bc_15.setVisible(true);
 		tileWMSLayer_Pk_Bc_20.setVisible(false);
 		tileWMSLayer_Pk_Patong_Lu_Act_2548.setVisible(false);
-		vectorLayer.setVisible(false);
-		map.getView().setCenter([10941407,882399]);
-		map.getView().setZoom(14);
+		if(vectorLayer.getVisible() == false){
+			vectorLayer.setVisible(false);
+			map.getView().setCenter([10941407,882399]);
+			map.getView().setZoom(14);
+		}
 		$(".legend-box").hide();
 		$("#legend-act-bc15").show()
 	}
@@ -354,9 +360,11 @@ function changeLawMap(lawmap){
 		tileWMSLayer_Pk_Bc_15.setVisible(false);
 		tileWMSLayer_Pk_Bc_20.setVisible(true);
 		tileWMSLayer_Pk_Patong_Lu_Act_2548.setVisible(false);
-		vectorLayer.setVisible(false);
-		map.getView().setCenter(center);
-		map.getView().setZoom(11);
+		if(vectorLayer.getVisible() == false){
+			vectorLayer.setVisible(false);
+			map.getView().setCenter(center);
+			map.getView().setZoom(11);
+		}
 		$(".legend-box").hide();
 		$("#legend-act-bc20").show()
 	}
@@ -372,9 +380,11 @@ function changeLawMap(lawmap){
 		tileWMSLayer_Pk_Bc_15.setVisible(false);
 		tileWMSLayer_Pk_Bc_20.setVisible(false);
 		tileWMSLayer_Pk_Patong_Lu_Act_2548.setVisible(false);
-		vectorLayer.setVisible(false);
-		map.getView().setCenter(center);
-		map.getView().setZoom(11);
+		if(vectorLayer.getVisible() == false){
+			vectorLayer.setVisible(false);
+			map.getView().setCenter(center);
+			map.getView().setZoom(11);
+		}
 		$(".legend-box").hide();
 		$("#legend-act-cp").show()
 	}
@@ -390,9 +400,11 @@ function changeLawMap(lawmap){
 		tileWMSLayer_Pk_Bc_15.setVisible(false);
 		tileWMSLayer_Pk_Bc_20.setVisible(false);
 		tileWMSLayer_Pk_Patong_Lu_Act_2548.setVisible(true);
-		vectorLayer.setVisible(false);
-		map.getView().setCenter([10942415,882202]);
-		map.getView().setZoom(14);
+		if(vectorLayer.getVisible() == false){
+			vectorLayer.setVisible(false);
+			map.getView().setCenter([10942415,882202]);
+			map.getView().setZoom(14);
+		}
 		$(".legend-box").hide();
 		$("#legend-act-patong").show()
 	}
@@ -453,7 +465,11 @@ var xy;
 									$layer = $(xml).find( 'feature-id' );
 									$zone = $(xml).find( 'zone' );
 									mz = $layer.text()+":"+$zone.text();
-									mapZone.push(mz)
+									mapZone.push(mz);
+									var width = $(window).width();
+									if(width < 980){
+										$('#legend-container').scrollView();
+									}
 								} else if (count_feature > 1) { // more than 1 zone is selected
 									if(vectorLayer.getVisible())
 										vectorLayer.setVisible(false)
@@ -477,7 +493,13 @@ $('#map').mousedown(function() {
     $(this).removeClass('grabbable');
 });
 
-
+$.fn.scrollView = function () {
+    return this.each(function () {
+        $('html, body').animate({
+            scrollTop: $(this).offset().top
+        }, 1000);
+    });
+}
 
 
 
