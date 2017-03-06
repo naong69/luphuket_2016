@@ -395,9 +395,9 @@ if(isset($_REQUEST['login'])){
 			'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 		  ]
 		]);
-		
 		$.post( "get_validate_logs.php",{ time: $('#time-index').val() }, function (j){
 			index_json_obj = $.parseJSON(j);
+			
 			$.each(index_json_obj, function() {
 				// re-coordinate
 				xy = this['coor_xy'].split(" ");
@@ -424,7 +424,6 @@ if(isset($_REQUEST['login'])){
 					break;
 				}
 
-				
 				var circle ={
 					path: google.maps.SymbolPath.CIRCLE,
 					fillColor: color,
