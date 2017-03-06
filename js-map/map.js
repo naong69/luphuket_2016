@@ -420,7 +420,7 @@ var xy;
 	mapZone = [];
 	twoZone = false;
 	xy = evt.coordinate;
-        //document.getElementById('nodelist').innerHTML = "Loading... please wait...";
+	
     var view = map.getView();
 	if(view.getZoom() < 16){ // need to zoom more
 		if(vectorLayer.getVisible())
@@ -430,7 +430,6 @@ var xy;
 	} else { //
 		pointMarker.getGeometry().setCoordinates(evt.coordinate)
 		vectorLayer.setVisible(true);
-		
 		//return true;
 		// check if click on public area
 		var viewResolution = view.getResolution();

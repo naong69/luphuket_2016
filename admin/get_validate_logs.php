@@ -1,10 +1,17 @@
 <?php
+if(isset($_REQUEST['time'])){
 include('../php/connect.php');
 
+$time = $_REQUEST['time'];
 // start query
 $json_str = "";
 
-$sql = "SELECT * FROM `validate_logs`";
+if($time == 'a'){
+	$sql = "SELECT * FROM `validate_logs`";
+} else {
+	$sql = "SELECT * FROM `validate_logs` WHERE `time_stamp` BETWEEN DATE_ADD(CURDATE(), INTERVAL -".$time." DAY) AND CURDATE()";
+}
+
 if ($result=mysqli_query($link,$sql)){
 	while ($row=mysqli_fetch_row($result)){
 		$json_str = $json_str.'{"time_stamp":"'.$row[0].'","os":"'.$row[1].'","browser":"'.$row[2].'","ip":"'.$row[3].'","coor_xy":"'.$row[4].'","build_up_index":"'.$row[5].'"},';
@@ -18,5 +25,5 @@ if ($result=mysqli_query($link,$sql)){
 }
 
 mysqli_close($link);
-
+}
 ?>

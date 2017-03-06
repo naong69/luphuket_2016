@@ -1,10 +1,16 @@
 <?php
+if(isset($_REQUEST['time'])){
 include('../php/connect.php');
 
+$time = $_REQUEST['time'];
 // start query
 $json_str = "";
 
-$sql = "SELECT * FROM `feedbacks`";
+if($time == 'a'){
+	$sql = "SELECT * FROM `feedbacks`";
+} else {
+	$sql = "SELECT * FROM `feedbacks` WHERE `time_stamp` BETWEEN DATE_ADD(CURDATE(), INTERVAL -".$time." DAY) AND CURDATE()";
+} 
 if ($result=mysqli_query($link,$sql)){
 	while ($row=mysqli_fetch_row($result)){
 		$json_str = $json_str.'{"id":"'.$row[0].'","name":"'.$row[1].'","email":"'.$row[2].'","subject":"'.$row[3].'","message":"'.$row[4].'","date-time":"'.$row[5].'"},';
@@ -18,5 +24,5 @@ if ($result=mysqli_query($link,$sql)){
 }
 
 mysqli_close($link);
-
+}
 ?>

@@ -309,7 +309,10 @@ $(document).ready(function(){
 			$('#oper-prod-index').parent().addClass('form-control-error');
 	});
 
-		
+	
+	$('#back-to-map').click(function(){
+		$('#map-title').scrollView();
+	})
 
 });
 

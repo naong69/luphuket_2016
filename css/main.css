@@ -646,6 +646,10 @@ h1.navbar-brand {
 	display: table-cell;
 }
 
+#back-to-map{
+	display: none;
+}
+
 /*=================================================================
 	Land use acts
 ==================================================================*/
@@ -1250,6 +1254,10 @@ textarea.form-control {
 		width: 100%;
 	}
 	
+	#back-to-map{
+		display: inline-block;
+	}
+	
 /* portfolio */
     .portfolio-item {
         width: 80%;
@@ -1362,6 +1370,10 @@ textarea.form-control {
 		padding-top : 100px;
 		width: 100%;
 	}
+	
+	#back-to-map{
+		display: inline-block;
+	}
 
 /*portfolio*/
     .portfolio-item {
@@ -1470,6 +1482,10 @@ textarea.form-control {
 		width: 100%;
 	}
 
+	#back-to-map{
+		display: inline-block;
+	}
+	
 /* portfolio */
     .portfolio-item {
         width: 80%;
