@@ -57,6 +57,7 @@ if(isset($_REQUEST['login'])){
 			</select>
 		</div>
 	</div>
+	<a href="#" onClick="showIp(this)">1.0.244.81</a>
 	
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist" id="myTab">
@@ -221,7 +222,7 @@ if(isset($_REQUEST['login'])){
 		validataLog = index_json_obj;
 		i = 1;
 		$.each(index_json_obj, function() {
-			$('#validate-logs-table').append('<tr><td>'+i+'</td><td>'+this['time_stamp']+'</td><td>'+this['os']+'</td><td>'+this['browser']+'</td><td>'+this['ip']+'</td><td>'+this['coor_xy']+'</td><td>'+this['build_up_index']+'</td></tr>');
+			$('#validate-logs-table').append('<tr><td>'+i+'</td><td>'+this['time_stamp']+'</td><td>'+this['os']+'</td><td>'+this['browser']+'</td><td><a <a href="http://ipinfo.io/'+this['ip']+'/" target="_blank" >'+this['ip']+'</a></td><td><a href="#" onclick="showXYonGoogleMap(\''+this['coor_xy']+'\')">'+this['coor_xy']+'</a></td><td><span style="cursor: pointer;" title="'+this['category_name']+'/'+this['group_name_sub']+'/'+this['oper_prod_name_sub']+'">'+this['build_up_index']+'</span></td></tr>');
 			i++;
 		});
 	});
@@ -237,9 +238,10 @@ if(isset($_REQUEST['login'])){
 			gmarkers[i].setMap(null);
 		}
 	}
+
+	
 	 
 	// update grahp and tabular accoding to time
-	 
 	$('#time-index').change(function() {
 		//message update
 		$.post( "get_message.php",{ time: $('#time-index').val() }, function (j){
@@ -255,7 +257,8 @@ if(isset($_REQUEST['login'])){
 			index_json_obj = $.parseJSON(j);
 			i = 1;
 			$.each(index_json_obj, function() {
-				$('#validate-logs-table').append('<tr><td>'+i+'</td><td>'+this['time_stamp']+'</td><td>'+this['os']+'</td><td>'+this['browser']+'</td><td>'+this['ip']+'</td><td>'+this['coor_xy']+'</td><td>'+this['build_up_index']+'</td></tr>');
+				ip = '"'+this['ip']+'"';
+				$('#validate-logs-table').append('<tr><td>'+i+'</td><td>'+this['time_stamp']+'</td><td>'+this['os']+'</td><td>'+this['browser']+'</td><td><a href="http://ipinfo.io/'+this['ip']+'/" target="_blank">'+this['ip']+'</a></td><td><a href="#" onclick="showXYonGoogleMap(\''+this['coor_xy']+'\')">'+this['coor_xy']+'</a></td><td><span style="cursor: pointer;" title="'+this['category_name']+'/'+this['group_name_sub']+'/'+this['oper_prod_name_sub']+'">'+this['build_up_index']+'</span></td></tr>');
 				i++;
 			});
 		});
@@ -395,12 +398,13 @@ if(isset($_REQUEST['login'])){
 			'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 		  ]
 		]);
+		
 		$.post( "get_validate_logs.php",{ time: $('#time-index').val() }, function (j){
 			index_json_obj = $.parseJSON(j);
 			
 			$.each(index_json_obj, function() {
 				// re-coordinate
-				xy = this['coor_xy'].split(" ");
+				xy = this['coor_xy'].split(",");
 				latLong = proj4('EPSG:3857', 'EPSG:4326',[xy[0],xy[1]]);
 				
 				switch(this['build_up_index'].substr(0,1)){
@@ -450,6 +454,31 @@ if(isset($_REQUEST['login'])){
 
 		
 	}
+	
+	function showXYonGoogleMap(coorxy){
+
+		proj4.defs([
+		  [
+			'EPSG:3857',
+			'+proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +a=6378137 +b=6378137 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs '
+		  ],[
+			'EPSG:32647',
+			'+proj=utm +zone=47 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'
+		  ],[
+			'EPSG:4326',
+			'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+		  ]
+		]);
+		
+		// re-coordinate
+		xy = coorxy.split(",");
+		latLong = proj4('EPSG:3857', 'EPSG:4326',[xy[0],xy[1]])
+
+		url = "https://maps.google.com/maps?z=12&t=m&q="+latLong[1]+","+latLong[0]
+		//alert(url)
+		window.open(url,'_blank');
+		
+	}
 
 	function CenterControl(controlDiv, map) {
 
@@ -486,10 +515,8 @@ if(isset($_REQUEST['login'])){
 
 	
 </script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCur6MaPaTB5QKXNdN7N4JFJZoCBko9FC4&callback=initMap"></script>
-						
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCur6MaPaTB5QKXNdN7N4JFJZoCBko9FC4&callback=initMap"></script>					
 </body>
-
 </html>
 <?php
 	}
