@@ -20,6 +20,7 @@ if(isset($_REQUEST['time'])){
 	} else {
 		$sql = "SELECT SUBSTRING(`build_up_index`, 1, 1) as type, COUNT(*)AS count FROM `validate_logs` WHERE `time_stamp` BETWEEN DATE_ADD(CURDATE(), INTERVAL -".$time." DAY) AND CURDATE() GROUP BY SUBSTRING(`build_up_index`, 1, 1) ORDER by type";
 	}
+
 	if ($result=mysqli_query($link,$sql)){
 		while ($row=mysqli_fetch_row($result)){
 			$cat_count = $cat_count.$row[1].",";
@@ -70,6 +71,7 @@ if(isset($_REQUEST['time'])){
 	} else {
 		$sql = "SELECT `os` as os, COUNT(*)AS count FROM `validate_logs` WHERE `time_stamp` BETWEEN DATE_ADD(CURDATE(), INTERVAL -".$time." DAY) AND CURDATE() GROUP BY `os` ORDER by os";
 	}
+	
 	if ($result=mysqli_query($link,$sql)){
 		$i=0;
 		while ($row=mysqli_fetch_row($result)){
@@ -99,6 +101,7 @@ if(isset($_REQUEST['time'])){
 	} else {
 		$sql = "SELECT `browser` as browser, COUNT(*)AS count FROM `validate_logs` WHERE `time_stamp` BETWEEN DATE_ADD(CURDATE(), INTERVAL -".$time." DAY) AND CURDATE() GROUP BY `browser` ORDER by browser";
 	}
+
 	if ($result=mysqli_query($link,$sql)){
 		$i=0;
 		while ($row=mysqli_fetch_row($result)){

@@ -56,8 +56,7 @@ if(isset($_REQUEST['login'])){
 			</select>
 		</div>
 	</div>
-	<a href="#" onClick="showIp(this)">1.0.244.81</a>
-	
+
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist" id="myTab">
       <li role="presentation"><a href="#validate" aria-controls="settings" role="tab" data-toggle="tab">Summary of Validate</a></li>
@@ -520,12 +519,8 @@ if(isset($_REQUEST['login'])){
 
 	
 </script>
-<<<<<<< HEAD
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCur6MaPaTB5QKXNdN7N4JFJZoCBko9FC4&callback=initMap"></script>					
 </body>
-=======
-
->>>>>>> origin/master
 </html>
 <?php
 	}
