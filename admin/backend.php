@@ -4,7 +4,6 @@ if(isset($_REQUEST['login'])){
 	if($_REQUEST['login']== 'secure'){
 	
 ?>
-<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -123,8 +122,10 @@ if(isset($_REQUEST['login'])){
 		</div>
     </div>
   </div>
-</div>
+</div>						
+</body>
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCur6MaPaTB5QKXNdN7N4JFJZoCBko9FC4"></script>
 <script>
 	// initial graph and tabular
 	// graph
@@ -208,6 +209,9 @@ if(isset($_REQUEST['login'])){
 			data: browserData
 		});
 		
+		
+		// load google map
+		initMap();
 	});
 	
 	// tabular
@@ -304,7 +308,7 @@ if(isset($_REQUEST['login'])){
 			index_json_obj = $.parseJSON(j);
 			$.each(index_json_obj, function() {
 				// re-coordinate
-				xy = this['coor_xy'].split(" ");
+				xy = this['coor_xy'].split(",");
 				latLong = proj4('EPSG:3857', 'EPSG:4326',[xy[0],xy[1]]);
 				
 				switch(this['build_up_index'].substr(0,1)){
@@ -352,6 +356,7 @@ if(isset($_REQUEST['login'])){
 
 
 	function initMap() {
+	
 		// Basic options for a simple Google Map
 		// For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
 
@@ -515,8 +520,12 @@ if(isset($_REQUEST['login'])){
 
 	
 </script>
+<<<<<<< HEAD
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCur6MaPaTB5QKXNdN7N4JFJZoCBko9FC4&callback=initMap"></script>					
 </body>
+=======
+
+>>>>>>> origin/master
 </html>
 <?php
 	}
