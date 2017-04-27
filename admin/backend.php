@@ -32,6 +32,14 @@ if(isset($_REQUEST['login'])){
 		width: 100%;
 		height: 680px;
 	}
+	#validate-count {
+		font-size : 30px;
+	}
+	#validate-num{
+		font-size : 60px;
+		color : red;
+	}
+
 </style>
 <script src="js/Chart.js"></script>
 <script src="js/proj4.js"></script>
@@ -59,8 +67,8 @@ if(isset($_REQUEST['login'])){
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist" id="myTab">
-      <li role="presentation"><a href="#validate" aria-controls="settings" role="tab" data-toggle="tab">Summary of Validate</a></li>
-	  <li role="presentation"><a href="#validate-logs" aria-controls="settings" role="tab" data-toggle="tab">Validate Logs</a></li>
+      <li role="presentation"><a href="#validate" aria-controls="settings" role="tab" data-toggle="tab">Summary of Validation</a></li>
+	  <li role="presentation"><a href="#validate-logs" aria-controls="settings" role="tab" data-toggle="tab">Validation Logs</a></li>
 	  <li role="presentation"><a href="#feedback" aria-controls="settings" role="tab" data-toggle="tab">Feedback</a></li>
 	</ul>
 
@@ -71,10 +79,13 @@ if(isset($_REQUEST['login'])){
 			<div align="center">
 				<h2>Summary</h2>
 			</div>
-			<div id="map-containner" align="left" class="col-md-8">
+			<div id="map-containner"  class="col-md-8">
 				<div id="map-canvas"></div>
 			</div>
-			<div id="graph-container" align="right" class="col-md-4">
+			<div id="graph-container"  class="col-md-4" >
+				<div style="width: 500px; height: 120px;" class="text-center validate-count-box">
+					<span id="validate-count">validate <span id="validate-num"></span> times</span>
+				</div>
 				<div id="buildingCatChart-container" style="width: 500px; height: 400px;">
 					<canvas id="buildingCatChart" width="350" height="225"></canvas>
 				</div>
@@ -228,6 +239,8 @@ if(isset($_REQUEST['login'])){
 			$('#validate-logs-table').append('<tr><td>'+i+'</td><td>'+this['time_stamp']+'</td><td>'+this['os']+'</td><td>'+this['browser']+'</td><td><a <a href="http://ipinfo.io/'+this['ip']+'/" target="_blank" >'+this['ip']+'</a></td><td><a href="#" onclick="showXYonGoogleMap(\''+this['coor_xy']+'\')">'+this['coor_xy']+'</a></td><td><span style="cursor: pointer;" title="'+this['category_name']+'/'+this['group_name_sub']+'/'+this['oper_prod_name_sub']+'">'+this['build_up_index']+'</span></td></tr>');
 			i++;
 		});
+		$('#validate-num').empty();
+		$('#validate-num').append(i-1);
 	});
 
 
@@ -264,6 +277,8 @@ if(isset($_REQUEST['login'])){
 				$('#validate-logs-table').append('<tr><td>'+i+'</td><td>'+this['time_stamp']+'</td><td>'+this['os']+'</td><td>'+this['browser']+'</td><td><a href="http://ipinfo.io/'+this['ip']+'/" target="_blank">'+this['ip']+'</a></td><td><a href="#" onclick="showXYonGoogleMap(\''+this['coor_xy']+'\')">'+this['coor_xy']+'</a></td><td><span style="cursor: pointer;" title="'+this['category_name']+'/'+this['group_name_sub']+'/'+this['oper_prod_name_sub']+'">'+this['build_up_index']+'</span></td></tr>');
 				i++;
 			});
+			$('#validate-num').empty();
+			$('#validate-num').append(i-1);
 		});
 		
 		
@@ -478,7 +493,7 @@ if(isset($_REQUEST['login'])){
 		xy = coorxy.split(",");
 		latLong = proj4('EPSG:3857', 'EPSG:4326',[xy[0],xy[1]])
 
-		url = "https://maps.google.com/maps?z=12&t=m&q="+latLong[1]+","+latLong[0]
+		url = "https://maps.google.com/maps?z=12&t=k&q="+latLong[1]+","+latLong[0]
 		//alert(url)
 		window.open(url,'_blank');
 		
