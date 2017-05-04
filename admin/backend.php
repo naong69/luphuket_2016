@@ -143,9 +143,7 @@ if(isset($_REQUEST['login'])){
 	var buildingCatChart;
 	var osChart;
 	var browserChart;
-	
-	var validataLog;
-	
+
 	var cat_data = null;
 	var cat_color = null;
 	
@@ -233,7 +231,6 @@ if(isset($_REQUEST['login'])){
 	});
 	$.post( "get_validate_logs.php",{ time: $('#time-index').val() }, function (j){
 		index_json_obj = $.parseJSON(j);
-		validataLog = index_json_obj;
 		i = 1;
 		$.each(index_json_obj, function() {
 			$('#validate-logs-table').append('<tr><td>'+i+'</td><td>'+this['time_stamp']+'</td><td>'+this['os']+'</td><td>'+this['browser']+'</td><td><a <a href="http://ipinfo.io/'+this['ip']+'/" target="_blank" >'+this['ip']+'</a></td><td><a href="#" onclick="showXYonGoogleMap(\''+this['coor_xy']+'\')">'+this['coor_xy']+'</a></td><td><span style="cursor: pointer;" title="'+this['category_name']+'/'+this['group_name_sub']+'/'+this['oper_prod_name_sub']+'">'+this['build_up_index']+'</span></td></tr>');

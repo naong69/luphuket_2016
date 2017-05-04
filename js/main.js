@@ -83,6 +83,8 @@ $(function() {
 var index_array;
 var index_json_obj;
 
+var client_ip = null;
+
 $(document).ready(function(){
 
 	/* ========================================================================= */
@@ -205,6 +207,7 @@ $(document).ready(function(){
 	});
 	*/
 	
+		
 	$('#validate-btn').click(function(){
 		 if(twoZone) {
 			if(vectorLayer.getVisible())
@@ -222,7 +225,7 @@ $(document).ready(function(){
 		 } else {
 			 //alert(mapZone);
 			 //alert($('#oper-prod-index').val());
-			$(".result-fancybox").fancybox({
+			$.fancybox({
 				href : 'php/lu_act_validate.php?data='+mapZone+'&index='+$('#oper-prod-index').val()+'&xy='+xy,
 				width         : '75%',
 				height        : '700',
@@ -230,6 +233,37 @@ $(document).ready(function(){
 				transitionIn  : 'elastic',
 				transitionOut : 'elastic',
 				type          : 'iframe',
+				afterClose	  : function() { //evaluation form
+
+					$.getJSON('//freegeoip.net/json/?callback=?', function(data) {
+						index_json_obj = $.parseJSON(JSON.stringify(data, null, 2));
+						new_client_ip = index_json_obj.ip
+						if(client_ip != new_client_ip){
+							$.fancybox({
+								href : 'system_evaluation_form.html',
+								width         : '75%',
+								height        : '400',
+								autoScale     : false,
+								transitionIn  : 'elastic',
+								transitionOut : 'elastic',
+								type          : 'iframe',
+								closeBtn      : false,
+								enableEscapeButton: false,
+								
+								helpers : {
+									overlay : {
+										closeClick : false,
+										css : {
+											'background' : 'rgba(0,0,0,0.8)'
+										}
+									}
+								}
+							});
+							client_ip = new_client_ip
+						}	
+						
+					});			
+				},
 				
 				helpers : {
 					overlay : {
@@ -238,7 +272,6 @@ $(document).ready(function(){
 						}
 					}
 				}
-				
 			}); 
 			 
 		 }
