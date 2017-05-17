@@ -4,11 +4,15 @@
 //$_REQUEST['xy'] = "12. ";
 //$_REQUEST['data'] = "pk_patong_lu_act_2548.1:1,pk_cp_act_2558.9:1_1,pk_en_act_2553.568:8";
 
+echo $_REQUEST['data'];
+
 if(isset($_REQUEST['data'])&& isset($_REQUEST['index'])&& isset($_REQUEST['xy'])){
 
 $data = $_REQUEST['data'];
 $index = $_REQUEST['index'];
 $index_cat = substr($index,0,1);
+
+if ($data != ""){
 
 $map = array();
 $zone = array();
@@ -435,6 +439,40 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 mysqli_free_result($objQuery);
 
 mysqli_close($link);
+
+} else { // if data != ""
+
+?>
+<html>
+<head>
+<title>ตรวจสอบสิ่งปลูกสร้าง</title>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<style type="text/css">
+ h3 {
+		color : red;
+ }
+</style>
+</head>
+<body>
+<div class="container">
+	<div align="center">
+		<h3>พื้นที่ที่ตรวจสอบไม่อยู่ในพี้นที่ตามที่กำหนดในกฏหมายที่ระบบให้บริการตรวจสอบ</h3>
+		<br />
+		<h4>๑. ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม ในบริเวณพื้นที่จังหวัดภูเก็ต พ.ศ. ๒๕๕๓</h4>
+		<h4>๒. กฎกระทรวง ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙) ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</h4>
+		<h4>๓. กฎกระทรวง ฉบับที่ ๒๐ (พ.ศ. ๒๕๓๒) ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</h4>
+		<h4>๔. กฏกระทรวง ให้ใช้บังคับผังเมืองรวมจังหวัดภูเก็ต พ.ศ. ๒๕๕๔ และ พ.ศ. ๒๕๕๘</h4>
+		<h4>๕. เทศบัญญัติเทศบาลเมืองป่าตอง เรื่องกำหนดบริเวณห้ามก่อสร้าง ดัดแปลง หรือเปลี่ยนการใช้อาคารในพื้นที่เทศบาลเมืองป่าตอง พ.ศ. ๒๕๔๘</h4>
+	</div>
+</div>
+</body>
+
+<?php
+	
+}
+
 
 } // if isset
 
