@@ -4,7 +4,7 @@
 //$_REQUEST['xy'] = "12. ";
 //$_REQUEST['data'] = "pk_patong_lu_act_2548.1:1,pk_cp_act_2558.9:1_1,pk_en_act_2553.568:8";
 
-echo $_REQUEST['data'];
+//echo $_REQUEST['data'];
 
 if(isset($_REQUEST['data'])&& isset($_REQUEST['index'])&& isset($_REQUEST['xy'])){
 
