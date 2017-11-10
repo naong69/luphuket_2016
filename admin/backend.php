@@ -32,12 +32,15 @@ if(isset($_REQUEST['login'])){
 		width: 100%;
 		height: 680px;
 	}
-	#validate-count {
+	#validate-count, #evaluation-count{
 		font-size : 30px;
 	}
-	#validate-num{
+	#validate-num, #evaluation-num{
 		font-size : 60px;
 		color : red;
+	}
+	.rank-header{
+		font-size : 25px;	
 	}
 
 </style>
@@ -69,6 +72,7 @@ if(isset($_REQUEST['login'])){
     <ul class="nav nav-tabs" role="tablist" id="myTab">
       <li role="presentation"><a href="#validate" aria-controls="settings" role="tab" data-toggle="tab">Summary of Validation</a></li>
 	  <li role="presentation"><a href="#validate-logs" aria-controls="settings" role="tab" data-toggle="tab">Validation Logs</a></li>
+	  <li role="presentation"><a href="#evaluation" aria-controls="settings" role="tab" data-toggle="tab">System Evaluation</a></li>
 	  <li role="presentation"><a href="#feedback" aria-controls="settings" role="tab" data-toggle="tab">Feedback</a></li>
 	</ul>
 
@@ -115,6 +119,40 @@ if(isset($_REQUEST['login'])){
 			</div>
 		</div>
 		
+		<div class="tab-pane" id="evaluation" >
+			<div align="center">
+				<h2>System Evaluation</h2>
+			</div>
+			<div align="center" class="text-center">
+				<span id="evaluation-count">evaluate <span id="evaluation-num"></span> times</span>
+			</div>
+			<div id="graph-container" align="center" >
+				<div id="userGroupChart-container" style="width: 500px; height: 400px;">
+					<canvas id="userGroupChart" width="350" height="225"></canvas>
+				</div>
+			</div>
+			<div id="graph-container"  class="col-md-6" >
+				<div class="text-center"><span class="rank-header">ความสะดวกในการใช้งานระบบตรวจสอบ</span></div>
+				<div id="rank1Chart-container" style="width: 500px; height: 400px;">
+					<canvas id="rank1Chart" width="350" height="225"></canvas>
+				</div>
+				<div class="text-center"><span class="rank-header">ประโยชน์ที่ได้รับจากระบบตรวจสอบ</span></div>
+				<div id="rank3Chart-container" style="width: 500px; height: 400px;">
+					<canvas id="rank3Chart" width="350" height="225"></canvas>
+				</div>
+			</div>
+			<div id="graph-container"  class="col-md-6" >
+				<div class="text-center"><span class="rank-header">ความถูกต้อง/ความหน้าเชื่อถือของผลการตรวจสอบ</span></div>
+				<div id="rank2Chart-container" style="width: 500px; height: 400px;">
+					<canvas id="rank2Chart" width="350" height="225"></canvas>
+				</div>
+				<div class="text-center"><span class="rank-header">ความพึงพอใจโดยรวมของเว็บไซต์ระบบตรวจสอบ</span></div>
+				<div id="rank4Chart-container" style="width: 500px; height: 400px;">
+					<canvas id="rank4Chart" width="350" height="225"></canvas>
+				</div>
+			</div>
+		</div>
+		
 		<div class= "tab-pane" id="feedback" >
 			<div align="center">
 				<h2>Message</h2>
@@ -135,7 +173,7 @@ if(isset($_REQUEST['login'])){
 </div>						
 </body>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCur6MaPaTB5QKXNdN7N4JFJZoCBko9FC4"></script>
+
 <script>
 	// initial graph and tabular
 	// graph
@@ -143,6 +181,8 @@ if(isset($_REQUEST['login'])){
 	var buildingCatChart;
 	var osChart;
 	var browserChart;
+	var userGroupChart;
+	var rankChart;
 
 	var cat_data = null;
 	var cat_color = null;
@@ -220,6 +260,113 @@ if(isset($_REQUEST['login'])){
 		
 		// load google map
 		initMap();
+	});
+	
+	$.post( "get_evaluate.php",{ time: $('#time-index').val() }, function (j){
+		index_json_obj = $.parseJSON(j);
+		
+		
+		
+		//user
+		group_data = index_json_obj["group"].count;
+		group_color = index_json_obj["group"].color;
+		group_label = index_json_obj["group"].label;
+		var groupData = {
+			labels: group_label,
+			datasets: [
+				{
+					data: group_data,
+					backgroundColor: group_color,
+					hoverBackgroundColor: group_color
+				}]
+		};
+		var ctx = document.getElementById("userGroupChart");	
+		userGroupChart = new Chart(ctx, {
+			type: 'pie',
+			data: groupData
+		});	
+		
+		//count all
+		var count = group_data[0]+group_data[1]+group_data[2]+group_data[3]
+		$('#evaluation-num').empty();
+		$('#evaluation-num').append(count);
+
+		//rank1
+		rank1_data = index_json_obj["rank1"].count;
+		rank1_color = index_json_obj["rank1"].color;
+		rank1_label = index_json_obj["rank1"].label;
+		var rank1Data = {
+			labels: rank1_label,
+			datasets: [
+				{
+					data: rank1_data,
+					backgroundColor: rank1_color,
+					hoverBackgroundColor: rank1_color
+				}]
+		};
+		var ctx = document.getElementById("rank1Chart");	
+		rank1Chart = new Chart(ctx, {
+			type: 'pie',
+			data: rank1Data
+		});	
+		
+		//rank2
+		rank2_data = index_json_obj["rank2"].count;
+		rank2_color = index_json_obj["rank2"].color;
+		rank2_label = index_json_obj["rank2"].label;
+		var rank2Data = {
+			labels: rank2_label,
+			datasets: [
+				{
+					data: rank2_data,
+					backgroundColor: rank2_color,
+					hoverBackgroundColor: rank2_color
+				}]
+		};
+		var ctx = document.getElementById("rank2Chart");	
+		rank2Chart = new Chart(ctx, {
+			type: 'pie',
+			data: rank2Data
+		});
+		
+		//rank3
+		rank3_data = index_json_obj["rank3"].count;
+		rank3_color = index_json_obj["rank3"].color;
+		rank3_label = index_json_obj["rank3"].label;
+		var rank3Data = {
+			labels: rank3_label,
+			datasets: [
+				{
+					data: rank3_data,
+					backgroundColor: rank3_color,
+					hoverBackgroundColor: rank3_color
+				}]
+		};
+		var ctx = document.getElementById("rank3Chart");	
+		rank3Chart = new Chart(ctx, {
+			type: 'pie',
+			data: rank3Data
+		});
+		
+		//rank4
+		rank4_data = index_json_obj["rank4"].count;
+		rank4_color = index_json_obj["rank4"].color;
+		rank4_label = index_json_obj["rank4"].label;
+		var rank4Data = {
+			labels: rank4_label,
+			datasets: [
+				{
+					data: rank4_data,
+					backgroundColor: rank4_color,
+					hoverBackgroundColor: rank4_color
+				}]
+		};
+		var ctx = document.getElementById("rank4Chart");	
+		rank4Chart = new Chart(ctx, {
+			type: 'pie',
+			data: rank4Data
+		});
+		
 	});
 	
 	// tabular
@@ -531,7 +678,7 @@ if(isset($_REQUEST['login'])){
 
 	
 </script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCur6MaPaTB5QKXNdN7N4JFJZoCBko9FC4&callback=initMap"></script>					
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCur6MaPaTB5QKXNdN7N4JFJZoCBko9FC4&callback=initMap"></script>				
 </body>
 </html>
 <?php
