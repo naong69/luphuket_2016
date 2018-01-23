@@ -178,6 +178,9 @@
 			img #ribbon{
 				margin-left: 20px;
 			}
+			img .logo{
+			    vertical-align: text-top;
+			}
 			
 		</style>
 		<link rel="stylesheet" href="https://openlayers.org/en/v3.19.1/css/ol.css" type="text/css">
@@ -217,7 +220,7 @@
 					<!-- /responsive nav button -->
 					
 					<!-- logo -->
-					<div id="logo"><a href="http://www.phuket.psu.ac.th" target="_blank"><img src="img/logopsu.gif" height="70px" width="38px" ></a></div>
+					<div id="logo" vertical><a href="http://www.phuket.psu.ac.th" target="_blank"><img class="logo" src="img/logopsu.gif" height="70px" width="38px" ></a> <a href="http://http://www.tu.ac.th/" target="_blank"><img class="logo" src="img/logotu.png" height="70px" width="70px" ></a></div>
 					<h1 class="navbar-brand">
 						<a href="#body">LandUse@Phuket</a>
 					</h1>
@@ -232,7 +235,7 @@
                         <li><a href="#lu-acts">นโยบายและกฏหมาย</a></li>
 						<li><a href="#portfolio">งานศึกษาวิจัย</a></li>
                         <li><a href="#contact">ติดต่อเรา</a></li>
-						<li>&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/ribbon.png" width="50px" height="50px" id="ribbon"></li>
+						<!-- <li>&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/ribbon.png" width="50px" height="50px" id="ribbon"></li> -->
                     </ul>
                 </nav>
 				<!-- /main nav -->
@@ -381,12 +384,30 @@
 						<div class="col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
 							<div class="lu-acts-item">
 								<a class="acts-fancybox" title="กองทุนวิจัยคณะเทคโนโลยีและสิ่งแวดล้อม" target="_blank" href="https://te.psu.ac.th/">	
-									<img src="img/Logo_TE.png" height="150px" width="104px" >
+									<img src="img/logo_TE.png" height="150px" width="104px" >
 								</a>
 								<a class="acts-fancybox" title="กองทุนวิจัยคณะเทคโนโลยีและสิ่งแวดล้อม" target="_blank" href="https://te.psu.ac.th/">	
 									<h3>กองทุนวิจัยคณะเทคโนโลยีและสิ่งแวดล้อม</h3>
 								</a>
 								<p>มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตภูเก็ต</p>							
+							</div>
+						</div>
+						
+						<div class="col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
+							<div class="lu-acts-item">
+								<a class="acts-fancybox" title="ภาควิชาคณิตศาสตร์และสถิต" target="_blank" href="http://math.sci.tu.ac.th/">	
+									<img src="img/logo_tu_math-stat.png" height="150px" >
+								</a>
+								<a class="acts-fancybox" title="คณะวิทยาศาสตร์และเทคโนโลย" target="_blank" href="http://www.sci.tu.ac.th/">	
+									<img src="img/logo_tu_sic.png" height="150px" >
+								</a>
+								<a class="acts-fancybox" title="ภาควิชาคณิตศาสตร์และสถิติ" target="_blank" href="http://math.sci.tu.ac.th/">	
+									<h3>ภาควิชาคณิตศาสตร์และสถิติ </h3>
+								</a>
+								<a class="acts-fancybox" title="คณะวิทยาศาสตร์และเทคโนโลยี" target="_blank" href="http://www.sci.tu.ac.th/">	
+									<h3>คณะวิทยาศาสตร์และเทคโนโลยี</h3>
+								</a>
+								<p>มหาวิทยาลัยธรรมศาสตร์</p>							
 							</div>
 						</div>
 						
