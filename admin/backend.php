@@ -370,12 +370,7 @@ if(isset($_REQUEST['login'])){
 	});
 	
 	// tabular
-	$.post( "get_message.php",{ time: $('#time-index').val() }, function (j){
-		index_json_obj = $.parseJSON(j);
-		$.each(index_json_obj, function() {
-			$('#message-table').append('<tr><td>'+this['id']+'</td><td>'+this['name']+'</td><td>'+this['email']+'</td><td>'+this['subject']+'</td><td>'+this['message']+'</td><td>'+this['date-time']+'</td></tr>');
-		});
-	});
+	
 	$.post( "get_validate_logs.php",{ time: $('#time-index').val() }, function (j){
 		index_json_obj = $.parseJSON(j);
 		i = 1;
@@ -387,7 +382,15 @@ if(isset($_REQUEST['login'])){
 		$('#validate-num').append(i-1);
 	});
 
-
+	$.post( "get_message.php",{ time: $('#time-index').val() }, function (j){
+		index_json_obj = $.parseJSON(j);
+		i = 1;
+		$.each(index_json_obj, function() { 
+			$('#message-table').append('<tr><td>'+i+'</td><td>'+this['name']+'</td><td>'+this['email']+'</td><td>'+this['subject']+'</td><td>'+this['message']+'</td><td>'+this['datetime']+'</td></tr>');
+			i++;
+		});
+	});
+	
     $('#myTab a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
@@ -407,8 +410,10 @@ if(isset($_REQUEST['login'])){
 		$.post( "get_message.php",{ time: $('#time-index').val() }, function (j){
 			$('#message-table tr td').remove();
 			index_json_obj = $.parseJSON(j);
+			i = 1;
 			$.each(index_json_obj, function() {
-				$('#message-table').append('<tr><td>'+this['id']+'</td><td>'+this['name']+'</td><td>'+this['email']+'</td><td>'+this['subject']+'</td><td>'+this['message']+'</td><td>'+this['date-time']+'</td></tr>');
+				$('#message-table').append('<tr><td>'+i+'</td><td>'+this['name']+'</td><td>'+this['email']+'</td><td>'+this['subject']+'</td><td>'+this['message']+'</td><td>'+this['datetime']+'</td></tr>');
+				i++;
 			});
 		});
 		//validate logs file update

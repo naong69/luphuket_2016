@@ -9,7 +9,7 @@ $json_str = "";
 if($time == 'a'){
 	$sql = "SELECT `landuse_phuket`.`validate_logs`.*, `landuse_phuket`.`all_index`.`category_name`, `landuse_phuket`.`all_index`.`group_name_sub`, `landuse_phuket`.`all_index`.`oper_prod_name_sub` FROM `landuse_phuket`.`validate_logs` LEFT JOIN `landuse_phuket`.`all_index` ON `landuse_phuket`.`validate_logs`.`build_up_index` = `landuse_phuket`.`all_index`.`indexID` ORDER BY `landuse_phuket`.`validate_logs`.`time_stamp` DESC";
 } else {
-	$sql = "SELECT `landuse_phuket`.`validate_logs`.*, `landuse_phuket`.`all_index`.`category_name`, `landuse_phuket`.`all_index`.`group_name_sub`, `landuse_phuket`.`all_index`.`oper_prod_name_sub` FROM `landuse_phuket`.`validate_logs` LEFT JOIN `landuse_phuket`.`all_index` ON `landuse_phuket`.`validate_logs`.`build_up_index` = `landuse_phuket`.`all_index`.`indexID` WHERE `landuse_phuket`.`validate_logs`.`time_stamp` BETWEEN DATE_ADD(CURDATE(), INTERVAL -".$time." DAY) AND CURDATE() ORDER BY `landuse_phuket`.`validate_logs`.`time_stamp` DESC";
+	$sql = "SELECT `landuse_phuket`.`validate_logs`.*, `landuse_phuket`.`all_index`.`category_name`, `landuse_phuket`.`all_index`.`group_name_sub`, `landuse_phuket`.`all_index`.`oper_prod_name_sub` FROM `landuse_phuket`.`validate_logs` LEFT JOIN `landuse_phuket`.`all_index` ON `landuse_phuket`.`validate_logs`.`build_up_index` = `landuse_phuket`.`all_index`.`indexID` WHERE `landuse_phuket`.`validate_logs`.`time_stamp` BETWEEN DATE_ADD(NOW(), INTERVAL - ".$time." DAY) AND NOW() ORDER BY `landuse_phuket`.`validate_logs`.`time_stamp` DESC";
 }
 
 if ($result=mysqli_query($link,$sql)){

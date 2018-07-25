@@ -18,7 +18,7 @@ if(isset($_REQUEST['time'])){
 	if ($time == 'a') {
 		$sql = "SELECT SUBSTRING(`build_up_index`, 1, 1) as type, COUNT(*)AS count FROM `validate_logs` GROUP BY SUBSTRING(`build_up_index`, 1, 1) ORDER by type";
 	} else {
-		$sql = "SELECT SUBSTRING(`build_up_index`, 1, 1) as type, COUNT(*)AS count FROM `validate_logs` WHERE `time_stamp` BETWEEN DATE_ADD(CURDATE(), INTERVAL -".$time." DAY) AND CURDATE() GROUP BY SUBSTRING(`build_up_index`, 1, 1) ORDER by type";
+		$sql = "SELECT SUBSTRING(`build_up_index`, 1, 1) as type, COUNT(*)AS count FROM `validate_logs` WHERE `time_stamp` BETWEEN DATE_ADD(NOW(), INTERVAL -".$time." DAY) AND NOW() GROUP BY SUBSTRING(`build_up_index`, 1, 1) ORDER by type";
 	}
 
 	if ($result=mysqli_query($link,$sql)){

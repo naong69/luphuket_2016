@@ -9,11 +9,11 @@ $json_str = "";
 if($time == 'a'){
 	$sql = "SELECT * FROM `feedbacks`";
 } else {
-	$sql = "SELECT * FROM `feedbacks` WHERE `time_stamp` BETWEEN DATE_ADD(CURDATE(), INTERVAL -".$time." DAY) AND CURDATE()";
+	$sql = "SELECT * FROM `feedbacks` WHERE `time_stamp` BETWEEN DATE_ADD(NOW(), INTERVAL -".$time." DAY) AND NOW()";
 } 
 if ($result=mysqli_query($link,$sql)){
 	while ($row=mysqli_fetch_row($result)){
-		$json_str = $json_str.'{"id":"'.$row[0].'","name":"'.$row[1].'","email":"'.$row[2].'","subject":"'.$row[3].'","message":"'.$row[4].'","date-time":"'.$row[5].'"},';
+		$json_str = $json_str.'{"id":"'.$row[0].'","name":"'.$row[1].'","email":"'.$row[2].'","subject":"'.$row[3].'","message":"'.str_replace(array("\n", "\r", '"'), ' ', $row[4]).'","datetime":"'.$row[5].'"},';
 	}
 	// Free result set
 	mysqli_free_result($result);
