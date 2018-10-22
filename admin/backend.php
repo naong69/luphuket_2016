@@ -142,7 +142,7 @@ if(isset($_REQUEST['login'])){
 				</div>
 			</div>
 			<div id="graph-container"  class="col-md-6" >
-				<div class="text-center"><span class="rank-header">ความถูกต้อง/ความหน้าเชื่อถือของผลการตรวจสอบ</span></div>
+				<div class="text-center"><span class="rank-header">ความถูกต้อง/ความน่าเชื่อถือของผลการตรวจสอบ</span></div>
 				<div id="rank2Chart-container" style="width: 500px; height: 400px;">
 					<canvas id="rank2Chart" width="350" height="225"></canvas>
 				</div>

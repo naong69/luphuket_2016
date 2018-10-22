@@ -409,7 +409,6 @@ function changeLawMap(lawmap){
 		$("#legend-act-patong").show()
 	}
 	
-	
 }
 
 var mapZone;
@@ -420,8 +419,9 @@ var xy;
 	mapZone = [];
 	twoZone = false;
 	xy = evt.coordinate;
-	
+
     var view = map.getView();
+    
 	if(view.getZoom() < 16){ // need to zoom more
 		if(vectorLayer.getVisible())
 			vectorLayer.setVisible(false)

@@ -183,6 +183,8 @@ $(document).ready(function(){
 		}
 		
 	});
+	
+
 	/*
 	$("#validate-btn").on('click',function(){
 		$(".result-fancybox").fancybox({
@@ -206,7 +208,6 @@ $(document).ready(function(){
 		
 	});
 	*/
-	
 		
 	$('#validate-btn').click(function(){
 		 if(twoZone) {
@@ -234,35 +235,7 @@ $(document).ready(function(){
 				transitionOut : 'elastic',
 				type          : 'iframe',
 				afterClose	  : function() { //evaluation form
-
-					$.getJSON('//freegeoip.net/json/?callback=?', function(data) {
-						index_json_obj = $.parseJSON(JSON.stringify(data, null, 2));
-						new_client_ip = index_json_obj.ip
-						if(client_ip != new_client_ip){
-							$.fancybox({
-								href : 'system_evaluation_form.html',
-								width         : '75%',
-								height        : '400',
-								autoScale     : false,
-								transitionIn  : 'elastic',
-								transitionOut : 'elastic',
-								type          : 'iframe',
-								closeBtn      : false,
-								enableEscapeButton: false,
-								
-								helpers : {
-									overlay : {
-										closeClick : false,
-										css : {
-											'background' : 'rgba(0,0,0,0.8)'
-										}
-									}
-								}
-							});
-							client_ip = new_client_ip
-						}	
-						
-					});			
+					ipLookUp();
 				},
 				
 				helpers : {
@@ -277,6 +250,10 @@ $(document).ready(function(){
 		 }
 	});
 
+	$("#evaluation-btn").on('click',function(){
+		evaluationForm();
+	});
+	
 	$('#category-index').change(function(){
 		// remove error 
 		$('#category-index').parent().removeClass('form-control-error')
@@ -357,7 +334,46 @@ $('textarea[name=message]').on('input', function() {
     $('textarea[name=message]').removeClass('form-control-error')
 });
 
+function ipLookUp() {
+  $.ajax('http://ip-api.com/json')
+  .then(
+      function success(response) {
+          new_client_ip = response.query
 
+			if(client_ip != new_client_ip){
+				evaluationForm()
+				client_ip = new_client_ip
+			}
+      },
+
+      function fail(data, status) {
+          //console.log('Request failed.  Returned status of', status);
+      }
+  );
+}
+
+function evaluationForm() {
+	$.fancybox({
+		href : 'system_evaluation_form.html',
+		width    	: '75%',
+		height   	: '400',
+		autoScale     : false,
+		transitionIn  : 'elastic',
+		transitionOut : 'elastic',
+		type          : 'iframe',
+		closeBtn      : false,
+		enableEscapeButton: false,
+								
+		helpers : {
+			overlay : {
+				closeClick : false,
+				css : {
+					'background' : 'rgba(0,0,0,0.8)'
+				}
+			}
+		}
+		});
+}
 
 function msgSubmit(){
 	if($('input[name=email]').val() == "" || $('textarea[name=message]').val() == "") {
@@ -378,7 +394,6 @@ function msgSubmit(){
 		});	
 	}
 }
-
 
 
 function validateInit(){
