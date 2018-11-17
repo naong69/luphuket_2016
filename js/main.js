@@ -85,6 +85,7 @@ var index_json_obj;
 
 var client_ip = null;
 
+
 $(document).ready(function(){
 
 	/* ========================================================================= */
@@ -128,8 +129,6 @@ $(document).ready(function(){
     $(window).resize(function(){'use strict',
         $('#home-slider, #slider, .sl-slider, .sl-content-wrapper').css('height',slideHeight);
     });
-	
-	
 	
 	$("#works, #testimonial").owlCarousel({	 
 		navigation : true,
@@ -208,47 +207,169 @@ $(document).ready(function(){
 		
 	});
 	*/
+	
+	
+	/* ========================================================================= */
+	/*	Validation/Index Dropdown Event
+	/* ========================================================================= */
+
+	// load index list
+	$.post( "php/get_index_json.php", function (j){
+		index_json_obj = $.parseJSON(j);
 		
+		// load top 10 index
+		$.post( "php/get_10index_json.php", function (j){
+			index10_json_obj = $.parseJSON(j);
+			$.each(index10_json_obj, function() {
+				oper_prod_name_sub = getValues(getObjects(index_json_obj,'indexID',this['indexID']),'oper_prod_name_sub');
+				$( "#index10-list" ).append('<div class="radio"><label><input type="radio" value="'+this['indexID']+'" name="oper-prod-radio" >'+oper_prod_name_sub+' ('+this['count']+')</label></div>');
+			});
+			// set first label check
+			$('input:radio[name="oper-prod-radio"]').first().attr('checked', true);
+		});
+	});
+	
+	
+
+    var options = {
+    	url: "php/get_index_search_json.php",
+
+    	getValue: "oper_prod_name_sub",
+
+    	template: {
+        	type: "description",
+        	fields: {
+            	description: "group_name"
+        	}
+    	},
+
+    	list: {
+        	match: {
+            	enabled: true
+        	}
+    	},
+
+    	theme: "round"
+	};
+
+	$('#building-index').easyAutocomplete(options);
+	
+    $('#building-index').val("");
+	
 	$('#validate-btn').click(function(){
-		 if(twoZone) {
-			if(vectorLayer.getVisible())
-				vectorLayer.setVisible(false)
-			$('#zoom-alert').fadeIn().delay(2500).fadeOut();
-			return false;
-		 } else if($('#oper-prod-index').val()=="-") {
-			$('#oper-prod-index').parent().addClass('form-control-error')
-			if($('#category-index').val()=="-")
-				$('#category-index').parent().addClass('form-control-error')
-			if($('#group-index').val()=="-")
-				$('#group-index').parent().addClass('form-control-error')
-			 //$("#validate-msg").show();
-			return false;
-		 } else {
-			 //alert(mapZone);
-			 //alert($('#oper-prod-index').val());
-			$.fancybox({
-				href : 'php/lu_act_validate.php?data='+mapZone+'&index='+$('#oper-prod-index').val()+'&xy='+xy,
-				width         : '75%',
-				height        : '700',
-				autoScale     : false,
-				transitionIn  : 'elastic',
-				transitionOut : 'elastic',
-				type          : 'iframe',
-				afterClose	  : function() { //evaluation form
-					ipLookUp();
-				},
+	
+		var tab_id = $('ul#building-select-tab li.active').index()
+	
+    	if(tab_id == 0) {
+			if(twoZone) {
+				if(vectorLayer.getVisible())
+					vectorLayer.setVisible(false)
+				$('#zoom-alert').fadeIn().delay(2500).fadeOut();
+				return false;
+			 } else if($('#oper-prod-index').val()=="-" ) {
+				$('#oper-prod-index').parent().addClass('form-control-error')
+				if($('#category-index').val()=="-")
+					$('#category-index').parent().addClass('form-control-error')
+				if($('#group-index').val()=="-")
+					$('#group-index').parent().addClass('form-control-error')
+				 //$("#validate-msg").show();
+				return false;
+			 } else {
+				 //alert(mapZone);
+				 //alert($('#oper-prod-index').val());
+			 
+				$.fancybox({
+					href : 'php/lu_act_validate.php?data='+mapZone+'&index='+$('#oper-prod-index').val()+'&xy='+xy,
+					width         : '75%',
+					height        : '700',
+					autoScale     : false,
+					transitionIn  : 'elastic',
+					transitionOut : 'elastic',
+					type          : 'iframe',
+					afterClose	  : function() { //evaluation form
+						ipLookUp();
+					},
 				
-				helpers : {
-					overlay : {
-						css : {
-							'background' : 'rgba(0,0,0,0.8)'
+					helpers : {
+						overlay : {
+							css : {
+								'background' : 'rgba(0,0,0,0.8)'
+								}
+							}
+						}
+				}); 
+			 
+			 }//if(twoZone)
+    	} else if (tab_id == 1){
+    		if(twoZone) {
+				if(vectorLayer.getVisible())
+					vectorLayer.setVisible(false)
+				$('#zoom-alert').fadeIn().delay(2500).fadeOut();
+				return false;
+			 } else {
+				 //alert(mapZone);
+				 //alert($('#oper-prod-index').val());
+				var operProdIndex = $("input[name='oper-prod-radio']:checked").val()
+	
+				$.fancybox({
+					href : 'php/lu_act_validate.php?data='+mapZone+'&index='+operProdIndex+'&xy='+xy,
+					width         : '75%',
+					height        : '700',
+					autoScale     : false,
+					transitionIn  : 'elastic',
+					transitionOut : 'elastic',
+					type          : 'iframe',
+					afterClose	  : function() { //evaluation form
+						ipLookUp();
+					},
+				
+					helpers : {
+						overlay : {
+							css : {
+								'background' : 'rgba(0,0,0,0.8)'
+							}
 						}
 					}
-				}
-			}); 
+				}); 
 			 
-		 }
-	});
+		 	}//if(twoZone)
+    	} else if (tab_id == 2){
+       		if(twoZone) {
+				if(vectorLayer.getVisible())
+					vectorLayer.setVisible(false)
+				$('#zoom-alert').fadeIn().delay(2500).fadeOut();
+				return false;
+			 } else {
+				 //alert(mapZone);
+				 //alert($('#oper-prod-index').val());
+				var operProdIndex = getValues(getObjects(index_json_obj,'oper_prod_name_sub',$("#building-index").val()),'indexID');
+       		
+				$.fancybox({
+					href : 'php/lu_act_validate.php?data='+mapZone+'&index='+operProdIndex+'&xy='+xy,
+					width         : '75%',
+					height        : '700',
+					autoScale     : false,
+					transitionIn  : 'elastic',
+					transitionOut : 'elastic',
+					type          : 'iframe',
+					afterClose	  : function() { //evaluation form
+						ipLookUp();
+					},
+				
+					helpers : {
+						overlay : {
+							css : {
+								'background' : 'rgba(0,0,0,0.8)'
+							}
+						}
+					}
+				}); 
+			 
+		 	}//if(twoZone)
+       		
+		}//if(tab_id
+	 
+	});//validate-btn
 
 	$("#evaluation-btn").on('click',function(){
 		evaluationForm();
@@ -258,22 +379,21 @@ $(document).ready(function(){
 		// remove error 
 		$('#category-index').parent().removeClass('form-control-error')
 		
-		if($('#category-index').val()!="-"){
+		if($('#category-index').val() != "-"){
+
 			//fill options based on category-index
 			$('#group-index').find('option').not(':first').remove();
-				// get indexs
-			$.post( "php/get_indexs.php",{ cat: $('#category-index').val() }, function (j){
-				index_json_obj = $.parseJSON(j);
-				
-				$.each(index_json_obj, function() {
+			category_index_obj = getObjects(index_json_obj,'category_index',$('#category-index').val());
+			check = '000'
+			$.each(category_index_obj, function() {
+				if(check != this['group_index']){
 					$('#group-index').append($('<option>', {
 						value: this['group_index'],
 						text: this['group_name_sub']
 					}));
-				});
+				}
+				check = this['group_index'];
 			});
-				
-			// enable group-index select
 			$('#group-index').prop('disabled', false);
 		} else {
 			$('#group-index').prop('disabled', true);
@@ -284,24 +404,23 @@ $(document).ready(function(){
 		}
 		
 	});
-
+	
 	$('#group-index').change(function(){
 		// remove error 
 		$('#group-index').parent().removeClass('form-control-error')
-		
-		if($('#group-index').val()!="-"){
+
+		if($('#group-index').val() != "-"){
+			
 			//fill options based on category-index
 			$('#oper-prod-index').find('option').not(':first').remove();
-			$.post( "php/get_indexs.php",{ group: $('#group-index').val() }, function (j){
-					index_json_obj = $.parseJSON(j);
-					$.each(index_json_obj, function() {
-						$('#oper-prod-index').append($('<option>', {
-							value: this['indexID'],
-							text: this['oper_prod_name_sub']
-						}));
-					});
-				});
-			// enable group-index select
+			category_index_obj = getObjects(index_json_obj,'category_index',$('#category-index').val());
+			group_index_obj = getObjects(category_index_obj,'group_index',$('#group-index').val());
+			$.each(group_index_obj, function() {
+				$('#oper-prod-index').append($('<option>', {
+					value: this['indexID'],
+					text: this['oper_prod_name_sub']
+				}));
+			});
 			$('#oper-prod-index').prop('disabled', false);
 		} else {
 			$('#group-index').parent().addClass('form-control-error');
@@ -319,7 +438,6 @@ $(document).ready(function(){
 			$('#oper-prod-index').parent().addClass('form-control-error');
 	});
 
-	
 	$('#back-to-map').click(function(){
 		$('#map-title').scrollView();
 	})
@@ -395,7 +513,6 @@ function msgSubmit(){
 	}
 }
 
-
 function validateInit(){
 	
 	$('#category-index').parent().removeClass('form-control-error');
@@ -415,19 +532,18 @@ function validateInit(){
 	$('#oper-prod-index').prop('disabled', true);
 }
 
-
 function loadLawDoc(law){
-	
-	if(law == 'กฏหมายควบคุมอาคาร (๒๕๒๙)'){
+
+	if(law == 'กฏหมายควบคุมอาคาร(๒๕๒๙)'){
 		window.open('acts/pdf/ควบคุมอาคารฉบับที่_15_(2529).pdf', '_blank');
 	}
 	
-	if(law == 'กฏหมายควบคุมอาคาร (๒๕๓๒) '){
+	if(law == 'กฏหมายควบคุมอาคาร(๒๕๓๒)'){
 		window.open('acts/pdf/ควบคุมอาคารฉบับที่_20_(2532).pdf', '_blank');
 	}
 	
-	if(law == 'กฏหมายสิ่งแวดล้อม'){
-		window.open('acts/pdf/ประกาศกระทรวงทรัพย์ฯ_(2553).pdf', '_blank');
+	if(law == 'ประกาศสิ่งแวดล้อม(๒๕๖๐)'){
+		window.open('acts/pdf/ประกาศกระทรวงทรัพย์ฯ_(2560).pdf', '_blank');
 	}
 	
 	if(law == 'กฏหมายผังเมืองรวม'){
@@ -440,6 +556,59 @@ function loadLawDoc(law){
 	}
 
 }
+
+/* === function to handle JSON object === */
+
+//return an array of objects according to key, value, or key and value matching
+function getObjects(obj, key, val) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getObjects(obj[i], key, val));    
+        } else 
+        //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
+        if (i == key && obj[i] == val || i == key && val == '') { //
+            objects.push(obj);
+        } else if (obj[i] == val && key == ''){
+            //only add if the object is not already in the array
+            if (objects.lastIndexOf(obj) == -1){
+                objects.push(obj);
+            }
+        }
+    }
+    return objects;
+}
+
+//return an array of values that match on a certain key
+function getValues(obj, key) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getValues(obj[i], key));
+        } else if (i == key) {
+            objects.push(obj[i]);
+        }
+    }
+    return objects;
+}
+
+//return an array of keys that match on a certain value
+function getKeys(obj, val) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getKeys(obj[i], val));
+        } else if (obj[i] == val) {
+            objects.push(i);
+        }
+    }
+    return objects;
+}
+
+
 
 /* ==========  START GOOGLE MAP ========== */
 

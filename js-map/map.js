@@ -77,18 +77,18 @@ var tileWMSLayer_Pk_Public_Area  =  new ol.layer.Tile({
 tileWMSLayer_Pk_Public_Area.setOpacity(0.5)
 
 // laws map
-var tileWMSLayer_Pk_Envi_2553  =  new ol.layer.Tile({
+var tileWMSLayer_Pk_Envi_2560  =  new ol.layer.Tile({
   extent: [-13884991, 2870341, -7455066, 6338219],
   source: new ol.source.TileWMS({
     url: 'http://52.77.120.244:8080/geoserver/phuket_lu_law/wms',
 	params: {'FORMAT': 'image/png',
 			 'VERSION': '1.1.1', 
-			LAYERS: 'phuket_lu_law:pk_en_act_2553'},
+			LAYERS: 'phuket_lu_law:pk_en_act_2560'},
     serverType: 'geoserver'
   }),
   visible: false
 });
-tileWMSLayer_Pk_Envi_2553.setOpacity(0.4)
+tileWMSLayer_Pk_Envi_2560.setOpacity(0.4)
 
 var tileWMSLayer_Pk_Bc_15  =  new ol.layer.Tile({
   extent: [-13884991, 2870341, -7455066, 6338219],
@@ -156,6 +156,7 @@ var app = window.app;
 * @extends {ol.control.Control}
 * @param {Object=} opt_options Control options.
 */
+
 app.HomeControl = function(opt_options) {
 
 	var options = opt_options || {};
@@ -172,7 +173,7 @@ app.HomeControl = function(opt_options) {
 	  //tileWMSLayer_Pk_Road.setVisible(true);
 	  //tileWMSLayer_Pk_Powerline.setVisible(true);
 	  tileWMSLayer_Pk_Public_Area.setVisible(true);
-	  tileWMSLayer_Pk_Envi_2553.setVisible(false);
+	  tileWMSLayer_Pk_Envi_2560.setVisible(false);
 	  tileWMSLayer_Pk_Cp_2558.setVisible(false);
 	  tileWMSLayer_Pk_Bc_15.setVisible(false);
 	  tileWMSLayer_Pk_Bc_20.setVisible(false);
@@ -195,6 +196,7 @@ app.HomeControl = function(opt_options) {
 
 };
 ol.inherits(app.HomeControl, ol.control.Control);
+
 
 // create marker
 
@@ -233,31 +235,31 @@ var map = new ol.Map({
 			  tipLabel: 'ย่อ-ขยายเต็มหน้าจอ'
 		  })
         ]),
-  layers: [
-	googleLayerRoadmap,
-	googleLayerHybrid,
-	//tileWMSLayer_Pk_Water,
-	//tileWMSLayer_Pk_Road,
-	//tileWMSLayer_Pk_Powerline,
-	tileWMSLayer_Pk_Public_Area,
-	tileWMSLayer_Pk_Boundary,
-	tileWMSLayer_Pk_Envi_2553,
-	tileWMSLayer_Pk_Cp_2558,
-	tileWMSLayer_Pk_Bc_15,
-	tileWMSLayer_Pk_Bc_20,
-	tileWMSLayer_Pk_Patong_Lu_Act_2548,
-	vectorLayer
-  ],
-  target: 'map',
-  view: new ol.View({
-    center: center,
-    zoom: 11,
-	minZoom: 11,
-	maxZoom: 19
-  })
+  	layers: [
+		googleLayerRoadmap,
+		googleLayerHybrid,
+		//tileWMSLayer_Pk_Water,
+		//tileWMSLayer_Pk_Road,
+		//tileWMSLayer_Pk_Powerline,
+		tileWMSLayer_Pk_Public_Area,
+		tileWMSLayer_Pk_Boundary,
+		tileWMSLayer_Pk_Envi_2560,
+		tileWMSLayer_Pk_Cp_2558,
+		tileWMSLayer_Pk_Bc_15,
+		tileWMSLayer_Pk_Bc_20,
+		tileWMSLayer_Pk_Patong_Lu_Act_2548,
+		vectorLayer
+	],
+  	target: 'map',
+  	view: new ol.View({
+    	center: center,
+    	zoom: 11,
+		minZoom: 11,
+		maxZoom: 19
+  	})
 });
 
-var map_obj_array = [tileWMSLayer_Pk_Envi_2553,
+var map_obj_array = [tileWMSLayer_Pk_Envi_2560,
 	tileWMSLayer_Pk_Cp_2558,
 	tileWMSLayer_Pk_Bc_15,
 	tileWMSLayer_Pk_Bc_20,
@@ -273,7 +275,6 @@ map.addControl(new ol.control.Zoom({
 
 var olGM = new olgm.OLGoogleMaps({map: map}); // map is the ol.Map instance
 olGM.activate();
-
 
 // change based map
 function changeBasedMap(basedmap) {
@@ -295,7 +296,7 @@ function changeLawMap(lawmap){
 		//tileWMSLayer_Pk_Road.setVisible(true);
 		//tileWMSLayer_Pk_Powerline.setVisible(true);
 		tileWMSLayer_Pk_Public_Area.setVisible(true);
-		tileWMSLayer_Pk_Envi_2553.setVisible(false);
+		tileWMSLayer_Pk_Envi_2560.setVisible(false);
 		tileWMSLayer_Pk_Cp_2558.setVisible(false);
 		tileWMSLayer_Pk_Bc_15.setVisible(false);
 		tileWMSLayer_Pk_Bc_20.setVisible(false);
@@ -315,7 +316,7 @@ function changeLawMap(lawmap){
 		//tileWMSLayer_Pk_Road.setVisible(false);
 		//tileWMSLayer_Pk_Powerline.setVisible(false);
 		tileWMSLayer_Pk_Public_Area.setVisible(false);
-		tileWMSLayer_Pk_Envi_2553.setVisible(true);
+		tileWMSLayer_Pk_Envi_2560.setVisible(true);
 		tileWMSLayer_Pk_Cp_2558.setVisible(false);
 		tileWMSLayer_Pk_Bc_15.setVisible(false);
 		tileWMSLayer_Pk_Bc_20.setVisible(false);
@@ -335,7 +336,7 @@ function changeLawMap(lawmap){
 		//tileWMSLayer_Pk_Road.setVisible(false);
 		//tileWMSLayer_Pk_Powerline.setVisible(false);
 		tileWMSLayer_Pk_Public_Area.setVisible(false);
-		tileWMSLayer_Pk_Envi_2553.setVisible(false);
+		tileWMSLayer_Pk_Envi_2560.setVisible(false);
 		tileWMSLayer_Pk_Cp_2558.setVisible(false);
 		tileWMSLayer_Pk_Bc_15.setVisible(true);
 		tileWMSLayer_Pk_Bc_20.setVisible(false);
@@ -355,7 +356,7 @@ function changeLawMap(lawmap){
 		//tileWMSLayer_Pk_Road.setVisible(false);
 		//tileWMSLayer_Pk_Powerline.setVisible(false);
 		tileWMSLayer_Pk_Public_Area.setVisible(false);
-		tileWMSLayer_Pk_Envi_2553.setVisible(false);
+		tileWMSLayer_Pk_Envi_2560.setVisible(false);
 		tileWMSLayer_Pk_Cp_2558.setVisible(false);
 		tileWMSLayer_Pk_Bc_15.setVisible(false);
 		tileWMSLayer_Pk_Bc_20.setVisible(true);
@@ -375,7 +376,7 @@ function changeLawMap(lawmap){
 		//tileWMSLayer_Pk_Road.setVisible(false);
 		//tileWMSLayer_Pk_Powerline.setVisible(false);
 		tileWMSLayer_Pk_Public_Area.setVisible(false);
-		tileWMSLayer_Pk_Envi_2553.setVisible(false);
+		tileWMSLayer_Pk_Envi_2560.setVisible(false);
 		tileWMSLayer_Pk_Cp_2558.setVisible(true);
 		tileWMSLayer_Pk_Bc_15.setVisible(false);
 		tileWMSLayer_Pk_Bc_20.setVisible(false);
@@ -395,7 +396,7 @@ function changeLawMap(lawmap){
 		//tileWMSLayer_Pk_Road.setVisible(false);
 		//tileWMSLayer_Pk_Powerline.setVisible(false);
 		tileWMSLayer_Pk_Public_Area.setVisible(false);
-		tileWMSLayer_Pk_Envi_2553.setVisible(false);
+		tileWMSLayer_Pk_Envi_2560.setVisible(false);
 		tileWMSLayer_Pk_Cp_2558.setVisible(false);
 		tileWMSLayer_Pk_Bc_15.setVisible(false);
 		tileWMSLayer_Pk_Bc_20.setVisible(false);

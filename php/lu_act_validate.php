@@ -55,7 +55,9 @@ $objResult = mysqli_fetch_array($objQuery);
 
 $cat_name = $objResult[2];
 $group_name = $objResult[5];
-$opr_name = $objResult[8];
+$opr_name1 = $objResult[7];
+$opr_name2 = $objResult[8];
+$opr_name3 = $objResult[9];
 
 
 $enval = $cpval = $bc20val = $bc15val = $muval = 1;
@@ -63,8 +65,8 @@ $enval = $cpval = $bc20val = $bc15val = $muval = 1;
 
     /*==Environment=============================================================================================================================================================================*/
               
-if(in_array("pk_en_act_2553",$map)){
-	$key = array_search("pk_en_act_2553",$map);	
+if(in_array("pk_en_act_2560",$map)){
+	$key = array_search("pk_en_act_2560",$map);	
 	
 	//Validate
 	$strSQL = "SELECT A.zone_".$zone[$key]." FROM `en_validate_matrix` as A WHERE indexID = '".$index."'";
@@ -107,11 +109,17 @@ if(in_array("pk_en_act_2553",$map)){
 		$enFacRes3 = "-";
 	}
 
-	//Height Restriction
-    $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_height_restriction` as A WHERE indexID = '".$index."')";
+	//Height Restriction1
+    $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_height_restriction_1` as A WHERE indexID = '".$index."')";
     $objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
-    $enHeightRes = $objResult[0];
+    $enHeightRes1 = $objResult[0];
+	
+	//Height Restriction2
+    $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_height_restriction_2` as A WHERE indexID = '".$index."')";
+    $objQuery = mysqli_query($link, $strSQL);
+    $objResult = mysqli_fetch_array($objQuery);
+    $enHeightRes2 = $objResult[0];
 
     //Area Restriction
     $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_area_restriction` as A WHERE indexID = '".$index."')";
@@ -119,11 +127,18 @@ if(in_array("pk_en_act_2553",$map)){
     $objResult = mysqli_fetch_array($objQuery);
     $enAreaRes = $objResult[0];
 
-    //Slope Restriction
-    $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_slope_restriction` as A WHERE indexID = '".$index."')";
+    //Slope Restriction1
+    $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_slope_restriction_1` as A WHERE indexID = '".$index."')";
     $objQuery = mysqli_query($link, $strSQL);
     $objResult = mysqli_fetch_array($objQuery);
-    $enSlopeRes = $objResult[0];
+    $enSlopeRes1 = $objResult[0];
+	
+	//Slope Restriction2
+    $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_slope_restriction_2` as A WHERE indexID = '".$index."')";
+    $objQuery = mysqli_query($link, $strSQL);
+    $objResult = mysqli_fetch_array($objQuery);
+    $enSlopeRes2 = $objResult[0];
+	
 	
 	//EIA Restriction
     $strSQL = "SELECT B.ex_re_dec FROM `en_ex_re_key` as B WHERE indexID IN (SELECT A.zone_".$zone[$key]." FROM `en_eia_restriction` as A WHERE indexID = '".$index."')";
@@ -317,7 +332,9 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 		<div class="text-left">
 		<b>กลุ่ม: </b><?php echo $cat_name?><br>
 		<b>ประเภท: </b><?php echo $group_name?><br>
-		<b>กิจการ: </b><?php echo $opr_name?>
+		<b>กิจการ: </b><?php echo $opr_name1?><br>
+		<b>นิยาม: </b><?php echo $opr_name2?><br>
+		<b>อ้างอิง: </b><?php echo $opr_name3?>
 		</div>
 		<br>
 		<div><span style="color:red;">ผลการตรวจสอบดังกล่าวอยู่ในช่วงการพัฒนาระบบ ซึ่งไม่สามารถนำไปใช้อ้างอิงทางกฎหมายได้</span></div>
@@ -325,9 +342,9 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 	</div>
 	<div class="text-center">ท่านสามารถดูรายละเอียดข้อกำหนดการใช้ประโยชน์ที่ดินตามแต่ละกฎหมายได้ โดยคลิกที่แถบข้างล่างนี้</div>
 	<br>
-	<?php  if(in_array("pk_en_act_2553",$map)){ ?>
+	<?php  if(in_array("pk_en_act_2560",$map)){ ?>
     <div class="span9 btn-block">
-		<div class="acts alert <?php echo($enval)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">กฏหมายสิ่งแวดล้อม พ.ศ. ๒๕๕๓</div></div>
+		<div class="acts alert <?php echo($enval)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">ประกาศสิ่งแวดล้อม พ.ศ. ๒๕๖๐</div></div>
         <ul id="subforms1" class="subforums" style="padding: 10px 10px; list-style: none;">
 			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($enval)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
 			<?php if($enval == 1 || strlen($enExcepRes) != 1) { ?>
@@ -339,9 +356,11 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 				<dd><span><b>โรงงานจำพวกที่ 2:</b> <?php echo $enFacRes2 ?></span></dd>
 				<dd><span><b>โรงงานจำพวกที่ 3:</b> <?php echo $enFacRes3 ?></span></dd>
 				<?php } ?>
-				<dd><span><b>ความสูง:</b> <?php echo $enHeightRes ?></span></dd>
+				<dd><span><b>ความสูง:</b> <?php echo $enHeightRes1 ?></span></dd>
+				<dd><span><b>:</b> <?php echo $enHeightRes2 ?></span></dd>
 				<dd><span><b>พื้นที่:</b> <?php echo $enAreaRes ?></span></dd>
-				<dd><span><b>ความลาดชัน:</b> <?php echo $enSlopeRes ?></span></dd>
+				<dd><span><b>ความลาดชัน:</b> <?php echo $enSlopeRes1 ?></span></dd>
+				<dd><span><b>:</b> <?php echo $enSlopeRes2 ?></span></dd>
 				<dd><span><b>ผลกระทบสิ่งแวดล้อม:</b> <?php echo $enEiaRes ?></span></dd>
 			</li>
 			<?php } else { ?>
