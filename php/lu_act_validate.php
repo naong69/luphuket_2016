@@ -1,8 +1,8 @@
 <?php
 //$_REQUEST['data'] = "pk_cp_act_2558.110:2,pk_bc20_act_2532.2:1,pk_bc15_act_2529.7:3,pk_en_act_2553.43:2,pk_patong_lu_act_2548.5:2";
 //$_REQUEST['index'] = "B001001";
-//$_REQUEST['xy'] = "12. ";
-//$_REQUEST['data'] = "pk_patong_lu_act_2548.1:1,pk_cp_act_2558.9:1_1,pk_en_act_2553.568:8";
+//$_REQUEST['xy'] = "10947019.48856417, 883707.7902814166";
+//$_REQUEST['data'] = "pk_cp_act_2558.111:3_1:16,pk_bc20_act_2532.5:3:,pk_en_act_2560.493:2_bc20:";
 
 //echo $_REQUEST['data'];
 
@@ -12,15 +12,42 @@ $data = $_REQUEST['data'];
 $index = $_REQUEST['index'];
 $index_cat = substr($index,0,1);
 
+$xy_3857 = $_REQUEST['xy'];
+
+if(isset($_REQUEST['all'])){
+ 	$all = true;
+} else {
+	$all = false;
+}
+
+
 if ($data != ""){
 
 $map = array();
 $zone = array();
+$zone_ = array();
 
 foreach (explode(",", $data) as $value){
   $mz = explode(":", $value);
   array_push($map, explode(".", $mz[0])[0]);
-  array_push($zone,str_replace(".","_",$mz[1]));
+  array_push($zone,$mz[1]);
+  if(strlen($mz[2]) > 0){
+  	$z_ = explode("_", $mz[1])[0].".".$mz[2];
+  } else {
+  	$z_ = explode("_", $mz[1])[0];
+  }
+  //echo sizeof(explode("_", $mz[1]))."<br>";
+  if(sizeof(explode("_", $mz[1]))==2) {
+  	if(explode("_", $mz[1])[1] == "cp4")
+  		$z_ = $z_." (ซ้อนทับกับโซน 4 : ที่ดินประเภทอุตสาหกรรมและคลังสินค้า ในกฏหมายผังเมืองรวม พ.ศ. ๒๕๕๘)";
+  	if(explode("_", $mz[1])[1] == "cp5")
+  		$z_ = $z_." (ซ้อนทับกับโซน 5 : ที่ดินประเภทอุตสาหกรรมเฉพาะกิจ ในกฏหมายผังเมืองรวม พ.ศ. ๒๕๕๘)";
+  	if(explode("_", $mz[1])[1] == "bc15")
+  		$z_ = $z_." (ซ้อนทับกับโซน ".$z_." ในกฏหมายควบคุมอาคาร ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙))";
+  	if(explode("_", $mz[1])[1] == "bc20")
+  		$z_ = $z_." (ซ้อนทับกับโซน ".$z_." ในกฏหมายควบคุมอาคาร ฉบับที่ ๒๐ (พ.ศ. ๒๕๓๒))";
+  }
+  array_push($zone_,$z_);
 }
 
 include('connect.php');
@@ -286,18 +313,24 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 <title>ตรวจสอบสิ่งปลูกสร้าง</title>
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!--<script src="../js/jquery-1.11.1.min.js"></script>-->
 <script src="../js/bootstrap.min.js"></script>
+<script src="js/proj4.js"></script>
 <style type="text/css">
 
-	li span, dd span{
-		font-size : 16px;
+	.result {
+		font-size : 14px;
+	}
+	
+	li span, dd span {
+		font-size : 14px;
 	}
 
 	li span.val {
 		font-weight : bold;
 	}
 	button span {
-		font-size : 18px;
+		font-size : 16px;
 	}
 	
 	.container {
@@ -311,25 +344,34 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 	
 	div .act-label {
 		display: inline-block;
-		font-size : 18px;
+		font-size : 16px;
 	}
 	
 	.subforms {
 		overflow-x: visible;
 		overflow-y: visible;
 	}
+	
+	.back-button  {
+    	float: right;
+    	margin-right: 10px;
+	}
 
 </style>
 </head>
 <body>
 <div class="container">
-	<div align="center">
+	<div align="center" class="result">
 		<h3>ผลการตรวจสอบ: 
 		<?php  
 		 echo ($enval && $cpval && $bc20val && $bc15val && $muval)?  "<font color='green'><b>สร้างได้</b></font>": "<font color='red'><b>สร้างไม่ได้</b></font>";
 		?>
 		</h3>
+		<?php
+		if($all) echo '<div class="back-button"><a href="javascript:history.back()"><< กลับไป</a></div>';
+		?>
 		<div class="text-left">
+		<b>พิกัด: </b><span id="latlon"></span><br>
 		<b>กลุ่ม: </b><?php echo $cat_name?><br>
 		<b>ประเภท: </b><?php echo $group_name?><br>
 		<b>กิจการ: </b><?php echo $opr_name1?><br>
@@ -340,13 +382,16 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 		<div><span style="color:red;">ผลการตรวจสอบดังกล่าวอยู่ในช่วงการพัฒนาระบบ ซึ่งไม่สามารถนำไปใช้อ้างอิงทางกฎหมายได้</span></div>
 		<hr>
 	</div>
-	<div class="text-center">ท่านสามารถดูรายละเอียดข้อกำหนดการใช้ประโยชน์ที่ดินตามแต่ละกฎหมายได้ โดยคลิกที่แถบข้างล่างนี้</div>
+	<div class="text-center result">ท่านสามารถดูรายละเอียดข้อกำหนดการใช้ประโยชน์ที่ดินตามแต่ละกฎหมายได้ โดยคลิกที่แถบข้างล่างนี้</div>
 	<br>
-	<?php  if(in_array("pk_en_act_2560",$map)){ ?>
-    <div class="span9 btn-block">
+	<?php  if(in_array("pk_en_act_2560",$map)){ 
+		$key = array_search("pk_en_act_2560",$map);	
+	?>
+    <div class="span btn-block">
 		<div class="acts alert <?php echo($enval)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">ประกาศสิ่งแวดล้อม พ.ศ. ๒๕๖๐</div></div>
-        <ul id="subforms1" class="subforums" style="padding: 10px 10px; list-style: none;">
-			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($enval)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
+        <ul id="subforms1" class="subforums" style="padding: 7px 7px; list-style: none;">
+        	<li><span><b>โซน:</b> <?php echo $zone_[$key] ?> </span> </li>
+			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($enval)? "<span style='color: green;'><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
 			<?php if($enval == 1 || strlen($enExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น:</b> <?php echo $enExcepRes ?> </span> </li>
 			<li><span><b>ข้อจำกัด</b></span>
@@ -369,11 +414,14 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 		</ul>
     </div>
 	<?php } ?>
-	<?php  if(in_array("pk_cp_act_2558",$map)){ ?>
-     <div class="span9 btn-block">
+	<?php  if(in_array("pk_cp_act_2558",$map)){ 
+		$key = array_search("pk_cp_act_2558",$map);	
+	?>
+     <div class="span btn-block">
         <div class="acts alert <?php echo($cpval)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">กฏหมายผังเมืองรวม พ.ศ. ๒๕๕๘</div></div>
-		<ul id="subforms2" class="subforums" style="padding: 10px 10px; list-style: none;">
-			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($cpval)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
+		<ul id="subforms2" class="subforums" style="padding: 7px 7px; list-style: none;">
+			<li><span><b>โซน:</b> <?php echo $zone_[$key] ?> </span> </li>
+			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($cpval)? "<span style='color: green;'><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
 			<?php if($cpval == 1 || strlen($cpExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น:</b> <?php echo $cpExcepRes ?> </span> </li>
 			<li><span><b>ข้อจำกัด</b></span>
@@ -386,11 +434,14 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 		</ul>
 	</div>
 	<?php } ?>
-	<?php  if(in_array("pk_bc20_act_2532",$map)){ ?>
-     <div class="span9 btn-block">
+	<?php  if(in_array("pk_bc20_act_2532",$map)){ 
+		$key = array_search("pk_bc20_act_2532",$map);	
+	?>
+     <div class="span btn-block">
         <div class="acts alert <?php echo($bc20val)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">กฏหมายควบคุมอาคาร ฉบับที่ ๒๐ (พ.ศ. ๒๕๓๒)</div></div>
-		<ul id="subforms3" class="subforums" style="padding: 10px 10px; list-style: none;">
-			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($bc20val)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
+		<ul id="subforms3" class="subforums" style="padding: 7px 7px; list-style: none;">
+			<li><span><b>โซน:</b> <?php echo $zone_[$key] ?> </span> </li>
+			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($bc20val)? "<span style='color: green;'><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
 			<?php if($bc20val == 1 || strlen($bc20ExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น</b> <?php echo $bc20ExcepRes ?> </span> </li>
 			<li><span><b>ข้อจำกัด</b></span>
@@ -404,11 +455,14 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 		</ul>
     </div>
 	<?php } ?>
-	<?php  if(in_array("pk_bc15_act_2529",$map)){ ?>
-     <div class="span9 btn-block">
+	<?php  if(in_array("pk_bc15_act_2529",$map)){ 
+		$key = array_search("pk_bc15_act_2529",$map);
+	?>
+     <div class="span btn-block">
         <div class="acts alert <?php echo($bc15val)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">กฏหมายควบคุมอาคาร  ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙) </div></div>
 		<ul id="subforms4" class="subforums" style="padding: 10px 10px; list-style: none;">
-		<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($bc15val)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
+			<li><span><b>โซน:</b> <?php echo $zone_[$key] ?> </span> </li>
+			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($bc15val)? "<span style='color: green;'><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
 			<?php if($bc15val == 1 || strlen($bc15ExcepRes) != 1) { ?>
 			<li><span><b>ข้อยกเว้น</b> <?php echo $bc15ExcepRes ?> </span> </li>
 			<li><span><b>ข้อจำกัด</b></span>
@@ -422,11 +476,14 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 		</ul>
     </div>
 	<?php } ?>
-	<?php  if(in_array("pk_patong_lu_act_2548",$map)){ ?>
+	<?php  if(in_array("pk_patong_lu_act_2548",$map)){ 
+		$key = array_search("pk_patong_lu_act_2548",$map);
+	?>
      <div class="span9 btn-block">
         <div class="acts alert <?php echo($muval)? "alert-success" : "alert-danger" ?>" role="alert"><div class="act-label">เทศบัญญัติเทศบาลเมืองป่าตอง พ.ศ. ๒๕๔๘</div></div>
-		<ul id="subforms5" class="subforums" style="padding: 10px 10px; list-style: none;">
-			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($muval)? "<span style='color: green; font-size: 16px; '><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
+		<ul id="subforms5" class="subforums" style="padding: 7px 7px; list-style: none;">
+			<li><span><b>โซน:</b> <?php echo $zone_[$key] ?> </span> </li>
+			<li><span class="val" >ผลการตรวจสอบ: </span> <?php echo($muval)? "<span style='color: green;'><b>สร้างได้</b></span>" : "<span style='color: red; font-size: 16px; '><b>สร้างไม่ได้</b></span>" ?></li>
 			<?php if($ptval == 1 ) { ?>
 			<li><span><b>ข้อจำกัด:</b> <?php echo $ptGenRes ?></span></span></li>
 			<?php } else { ?>
@@ -449,6 +506,36 @@ if(in_array("pk_patong_lu_act_2548",$map)){
 				$(this).parent().find("ul").toggle();
 			}
         });
+        
+        // convert lat lon
+    	xy_4326 = coorConvert("<?php echo $xy_3857 ?>");
+        $('#latlon').append('<a href="'+xy_4326[1]+'" target="_blank">'+xy_4326[0]+'</a>')
+        
+        function coorConvert(coorxy){
+
+			proj4.defs([
+			  [
+				'EPSG:3857',
+				'+proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +a=6378137 +b=6378137 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs '
+			  ],[
+				'EPSG:32647',
+				'+proj=utm +zone=47 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'
+			  ],[
+				'EPSG:4326',
+				'+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
+			  ]
+			]);
+		
+			// re-coordinate
+			xy = coorxy.split(",");
+			latLon = proj4('EPSG:3857', 'EPSG:4326',[xy[0],xy[1]])
+
+			url = "https://maps.google.com/maps?z=12&t=k&q="+latLon[1]+","+latLon[0]
+			
+			return [latLon,url]
+		
+		}
+        
     });    
 </script>
 </body>
@@ -467,6 +554,7 @@ mysqli_close($link);
 <title>ตรวจสอบสิ่งปลูกสร้าง</title>
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!--<script src="../js/jquery-1.11.1.min.js"></script>-->
 <script src="../js/bootstrap.min.js"></script>
 <style type="text/css">
  h3 {
@@ -478,8 +566,9 @@ mysqli_close($link);
 <div class="container">
 	<div align="center">
 		<h3>พื้นที่ที่ตรวจสอบไม่อยู่ในพี้นที่ตามที่กำหนดในกฏหมายที่ระบบให้บริการตรวจสอบ</h3>
-		<br />
-		<h4>๑. ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม ในบริเวณพื้นที่จังหวัดภูเก็ต พ.ศ. ๒๕๕๓</h4>
+	</div>
+	<div class="text-left">
+		<h4>๑. ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม ในบริเวณพื้นที่จังหวัดภูเก็ต พ.ศ. ๒๕๖๐</h4>
 		<h4>๒. กฎกระทรวง ฉบับที่ ๑๕ (พ.ศ. ๒๕๒๙) ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</h4>
 		<h4>๓. กฎกระทรวง ฉบับที่ ๒๐ (พ.ศ. ๒๕๓๒) ออกตามความในพระราชบัญญัติควบคุมอาคาร พ.ศ. ๒๕๒๒</h4>
 		<h4>๔. กฏกระทรวง ให้ใช้บังคับผังเมืองรวมจังหวัดภูเก็ต พ.ศ. ๒๕๕๔ และ พ.ศ. ๒๕๕๘</h4>

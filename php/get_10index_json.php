@@ -2,7 +2,7 @@
 include('connect.php');
 
 $json_str = "";
-	$sql = "SELECT `build_up_index`, count(*) as C FROM `validate_logs` GROUP BY `build_up_index`ORDER BY C DESC LIMIT 10 ";
+	$sql = "SELECT `build_up_index`, count(*) as C FROM `validate_logs` WHERE `build_up_index` != 'All' GROUP BY `build_up_index`ORDER BY C DESC LIMIT 10";
 	if ($result=mysqli_query($link,$sql)){
 	  // Fetch one and one row
 	  while ($row=mysqli_fetch_row($result)){

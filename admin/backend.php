@@ -493,6 +493,9 @@ if(isset($_REQUEST['login'])){
 				case 'P':
 					color = "#FFCE56";
 					break;
+				case 'a':
+					color = "#ff8000";
+					break;
 				}
 
 				var circle ={
@@ -594,6 +597,9 @@ if(isset($_REQUEST['login'])){
 				case 'P':
 					color = "#FFCE56";
 					break;
+				case 'a':
+					color = "#ff8000";
+					break;
 				}
 
 				var circle ={
@@ -685,11 +691,6 @@ if(isset($_REQUEST['login'])){
 </script>
 <!-- local key -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCur6MaPaTB5QKXNdN7N4JFJZoCBko9FC4&callback=initMap"></script>
-								
-<!-- online key 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTlQvrlZaquFwJ_wtffUZw9dlJ2gGdyG4&callback=initMap"></script>
--->
-</body>
 </html>
 <?php
 	}

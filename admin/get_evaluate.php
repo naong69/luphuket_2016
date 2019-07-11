@@ -9,7 +9,7 @@ $colorArray = array("#FF6384", "#983ef2", "#f44242", "#36A2EB", "#3ef27a","#FFCE
 if(isset($_REQUEST['time'])){
 	
 	$time = $_REQUEST['time'];
-	
+
 	// get user group
 	$user_count = "";
 	$user_color = "";

@@ -255,8 +255,9 @@ var map = new ol.Map({
     	center: center,
     	zoom: 11,
 		minZoom: 11,
-		maxZoom: 19
-  	})
+		maxZoom: 19 
+	}),
+  	moveTolerance: 500
 });
 
 var map_obj_array = [tileWMSLayer_Pk_Envi_2560,
@@ -465,7 +466,8 @@ var xy;
 								if (count_feature == 1){
 									$layer = $(xml).find( 'feature-id' );
 									$zone = $(xml).find( 'zone' );
-									mz = $layer.text()+":"+$zone.text();
+									$index = $(xml).find( 'index' );
+									mz = $layer.text()+":"+$zone.text()+":"+$index.text();
 									mapZone.push(mz);
 									var width = $(window).width();
 									if(width < 980){

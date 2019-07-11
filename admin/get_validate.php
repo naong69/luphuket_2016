@@ -9,7 +9,7 @@ $colorArray = array("#FF6384", "#983ef2", "#f44242", "#36A2EB", "#3ef27a","#FFCE
 if(isset($_REQUEST['time'])){
 	
 	$time = $_REQUEST['time'];
-	
+
 	// get building cat count
 	$B = $F = $G = $I = $L = $P = 0;
 	$cat_count = "";
@@ -48,6 +48,10 @@ if(isset($_REQUEST['time'])){
 			if($row[0] == 'P') {
 				$cat_label = $cat_label.'"อาคารสาธารณะ",';
 				$cat_color = $cat_color.'"#FFCE56",';
+			}
+			if($row[0] == 'a') {
+				$cat_label = $cat_label.'"All",';
+				$cat_color = $cat_color.'"#ff8000",';
 			}
 		}
 	} 

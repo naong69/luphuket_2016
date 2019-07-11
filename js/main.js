@@ -257,7 +257,7 @@ $(document).ready(function(){
     $('#building-index').val("");
 	
 	$('#validate-btn').click(function(){
-	
+
 		var tab_id = $('ul#building-select-tab li.active').index()
 	
     	if(tab_id == 0) {
@@ -310,7 +310,7 @@ $(document).ready(function(){
 				 //alert(mapZone);
 				 //alert($('#oper-prod-index').val());
 				var operProdIndex = $("input[name='oper-prod-radio']:checked").val()
-	
+
 				$.fancybox({
 					href : 'php/lu_act_validate.php?data='+mapZone+'&index='+operProdIndex+'&xy='+xy,
 					width         : '75%',
@@ -370,6 +370,45 @@ $(document).ready(function(){
 		}//if(tab_id
 	 
 	});//validate-btn
+
+	$('#validate-all-btn').click(function(){
+
+       	if(twoZone) {
+				if(vectorLayer.getVisible())
+					vectorLayer.setVisible(false)
+				$('#zoom-alert').fadeIn().delay(2500).fadeOut();
+				return false;
+			 } else {
+				 //alert(mapZone);
+				 //alert($('#oper-prod-index').val());
+				var operProdIndex = $("input[name='oper-prod-radio']:checked").val()
+
+				$.fancybox({
+					href : 'php/lu_act_validate_all.php?data='+mapZone+'&index='+operProdIndex+'&xy='+xy,
+					width         : '75%',
+					height        : '700',
+					autoScale     : false,
+					transitionIn  : 'elastic',
+					transitionOut : 'elastic',
+					type          : 'iframe',
+					afterClose	  : function() { //evaluation form
+						ipLookUp();
+					},
+				
+					helpers : {
+						overlay : {
+							css : {
+								'background' : 'rgba(0,0,0,0.8)'
+							}
+						}
+					}
+				}); 
+			 
+		 	}//if(twoZone)	
+		
+	 
+	});//validate-all-btn
+
 
 	$("#evaluation-btn").on('click',function(){
 		evaluationForm();
@@ -547,8 +586,9 @@ function loadLawDoc(law){
 	}
 	
 	if(law == 'กฏหมายผังเมืองรวม'){
-		window.open('acts/pdf/ผังเมืองรวมภูเก็ต_(2554).pdf', '_blank');
+		//window.open('acts/pdf/ผังเมืองรวมภูเก็ต_(2554).pdf', '_blank');
 		window.open('acts/pdf/ผังเมืองรวมภูเก็ต_(2558).pdf', '_blank');
+		
 	}
 	
 	if(law == 'เทศบัญญัติเทศบาลเมืองป่าตอง'){
